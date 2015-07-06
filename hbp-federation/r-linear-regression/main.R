@@ -5,9 +5,6 @@
 # 
 # Environment variables:
 # 
-# - Input Parameters:
-#      PARAM_y  : SQL query producing the y parameter of L_Regress_Federation
-#      PARAM_A : SQL query producing the A parameter of L_Regress_Federation
 # - Execution context:
 #      REQUEST_ID : ID of the incoming request
 #      JDBC_DRIVER : class name of the JDBC driver
@@ -27,17 +24,22 @@ drv <- JDBC(Sys.getenv("JDBC_DRIVER"),
            identifier.quote="`")
 conn <- dbConnect(drv, Sys.getenv("JDBC_URL"), Sys.getenv("JDBC_USER"), Sys.getenv("JDBC_PASSWORD"))
 request_id <- Sys.getenv("REQUEST_ID")
-yQuery <- Sys.getenv("PARAM_y")
-A_Query <- Sys.getenv("PARAM_A")
 
 # Perform the computation
-y <- unlist(dbGetQuery(conn, yQuery))
-A <- unlist(dbGetQuery(conn, A_Query))
-res <- LRegress_Federation(y, A)
+results <- unlist(dbGetQuery(conn, "select result_betai, result_sigmai from results_linear_regression where request_id = ?", request_id))
+names(results) <- c('beta1','beta2','Sigma1','Sigma2')
+
+res <- do.call(LRegress_Federation, as.list(results))
+
+betas <- results[seq(1, length(results) / 2)]
+sigmas <- results[seq(length(results) / 2 + 1, length(results))]
+
+betas_arr <- paste('{', paste(betas, collapse=','), '}', sep='')
+sigmas_arr <- paste('{', paste(sigmas, collapse=','), '}', sep='')
 
 # Store results in the database
-dbSendUpdate(conn, "INSERT INTO federation_results_linear_regression(request_id, param_y, param_a, result_betai, result_sigmai) VALUES (?, ?, ?, ?, ?)",
-	request_id, yQuery, A_Query, res[[1]], res[[2]])
+dbSendUpdate(conn, "INSERT INTO federation_results_linear_regression(request_id, param_beta, param_sigma, result_betaf, result_sigmaf) VALUES (?, ?, ?, ?, ?)",
+	request_id, betas_arr, sigmas_arr, res[[1]], res[[2]])
 
 # Disconnect from the database server
 dbDisconnect(conn)
