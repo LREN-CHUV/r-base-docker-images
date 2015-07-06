@@ -8,4 +8,5 @@ docker run -i -t --rm \
   -e JDBC_URL=jdbc:postgresql://155.105.158.141:5432/CHUV_MIPS \
   -e JDBC_USER=postgres \
   -e JDBC_PASSWORD=Mordor1975 \
+  -v /home/ludovic/tmp:/log \
   hbp-node/r-linear-regression

@@ -11,4 +11,7 @@ LABEL eu.humanbrainproject.function=linear-regression \
 COPY downloads/LRegress_Node.R /usr/local/share/R/scripts/
 COPY main.R /usr/local/share/R/scripts/
 
-CMD ["/usr/bin/R", "BATCH", "-f", "/usr/local/share/R/scripts/main.R"]
+RUN echo "#!/bin/sh\nifconfig > /log/ip.log\n/usr/bin/R BATCH -f /usr/local/share/R/scripts/main.R 2>&1 > /log/script.log" > /run.sh && \
+    chmod +x run.sh
+
+CMD /run.sh
