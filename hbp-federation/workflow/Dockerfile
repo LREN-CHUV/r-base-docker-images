@@ -12,7 +12,8 @@ LABEL eu.humanbrainproject.function=linear-regression \
 RUN echo "Acquire::http::Proxy \"http://PROXY:8080/\";" > /etc/apt/apt.conf && \
     echo "deb http://http.debian.net/debian jessie main" >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y httpie
+    apt-get install -y httpie python-pip && \
+    pip install j2cli
 
 COPY downloads/call-nodes/ /opt/call-nodes/
 COPY downloads/workflow.jar /opt/workflow/
