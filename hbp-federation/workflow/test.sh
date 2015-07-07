@@ -1,7 +1,7 @@
 #!/bin/sh
 docker run -i -t --rm \
   -e REQUEST_ID=001 \
-  -e COUNT_RESULTS_QUERY="select count(*) from results_linear_regression where request_id='001'" \
+  -e COUNT_RESULTS_QUERY="select count(*) from results_linear_regression where request_id='002'" \
   -e EXPECTED_COUNT_RESULTS=2 \
   -e JDBC_DRIVER=org.postgresql.Driver \
   -e JDBC_JAR_PATH=/usr/lib/R/libraries/postgresql-9.3-1103.jdbc41.jar \
