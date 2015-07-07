@@ -18,6 +18,7 @@ COPY downloads/call-nodes/ /opt/call-nodes/
 COPY downloads/workflow.jar /opt/workflow/
 COPY downloads/workflow.sh /opt/workflow/
 
-RUN chmod +x /opt/call-nodes/run.sh /opt/workflow/workflow.sh
+RUN chmod +x /opt/call-nodes/run.sh /opt/workflow/workflow.sh && \
+    ln -s /opt/workflow/workflow.sh /run.sh
 
 CMD /opt/workflow/workflow.sh

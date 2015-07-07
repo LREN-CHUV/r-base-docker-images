@@ -7,4 +7,4 @@ docker run -i -t --rm \
   -e JDBC_USER=postgres \
   -e JDBC_PASSWORD=Mordor1975 \
   -v /home/ludovic/tmp:/log \
-  hbp-federation/r-linear-regression /bin/bash
+  hbp-federation/r-linear-regression

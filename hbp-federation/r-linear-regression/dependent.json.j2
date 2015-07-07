@@ -1,0 +1,48 @@
+{
+  "parents": [
+    "federation-workflow-{{request.request_id}}"
+  ],
+  "epsilon" : "PT5M",
+  "name": "r-federation-linear-regression-{{request.request_id}}",
+  "command": "/run.sh",
+  "container": {
+    "type": "DOCKER",
+    "image": "hbp-federation/r-linear-regression",
+    "volumes": [{"containerPath": "/log/", "hostPath":"/home/ludovic/tmp/", "mode":"RW"}]
+  },
+  "cpus": "0.2",
+  "mem": "128",
+  "uris": [
+  ],
+  "async": false,
+  "owner": "root@LAB02186.chuv.ch",
+  "shell": true,
+  "runAsUser" : "root",
+  "retries" : 2,
+  "environmentVariables": [
+    {
+      "name": "REQUEST_ID",
+      "value": "{{request.request_id}}"
+    },
+    {
+      "name": "JDBC_DRIVER",
+      "value": "{{database.jdbc_driver}}"
+    },
+    {
+      "name": "JDBC_JAR_PATH",
+      "value": "{{database.jdbc_jar_path}}"
+    },
+    {
+      "name": "JDBC_URL",
+      "value": "{{database.jdbc_url}}"
+    },
+    {
+      "name": "JDBC_USER",
+      "value": "{{database.jdbc_user}}"
+    },
+    {
+      "name": "JDBC_PASSWORD",
+      "value": "{{database.jdbc_password}}"
+    }
+  ]
+}
