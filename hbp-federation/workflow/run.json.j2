@@ -1,0 +1,25 @@
+{
+  "schedule" : "R1//PT24H",
+  "epsilon" : "PT5M",
+  "name": "federation-workflow-{{request.request_id}}",
+  "command": "/run.sh",
+  "container": {
+    "type": "DOCKER",
+    "image": "hbp-federation/workflow",
+    "volumes": [{"containerPath": "/log/", "hostPath":"/home/ludovic/tmp/", "mode":"RW"}]
+  },
+  "cpus": "0.2",
+  "mem": "128",
+  "uris": [
+  ],
+  "async": false,
+  "owner": "root@LAB02186.chuv.ch",
+  "shell": true,
+  "runAsUser" : "root",
+  "environmentVariables": [
+    {
+      "name": "REQUEST_ID",
+      "value": "{{request.request_id}}"
+    }
+  ]
+}

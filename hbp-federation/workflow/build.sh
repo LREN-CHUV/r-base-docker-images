@@ -15,7 +15,7 @@ ROOT_DIR="$(get_script_dir)"/../..
 
 mkdir -p downloads/call-nodes/
 
-cp $ROOT_DIR/hbp-federation/r-linear-regression/run* downloads/call-nodes/
+cp $ROOT_DIR/hbp-node/r-linear-regression/run* downloads/call-nodes/
 cp $ROOT_DIR/../workflow/target/workflow-1.0-SNAPSHOT.jar downloads/workflow.jar
 
 sudo docker build -t hbp-federation/workflow .

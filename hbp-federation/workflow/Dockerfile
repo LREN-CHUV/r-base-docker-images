@@ -9,14 +9,15 @@ LABEL eu.humanbrainproject.function=linear-regression \
       eu.humanbrainproject.function.organisation="LREN, CHUV" \
       eu.humanbrainproject.function.date="2015-07-06"
 
-COPY downloads/call-nodes/ /opt/call-nodes/
-COPY downloads/workflow.jar /opt/workflow/
-
 RUN echo "Acquire::http::Proxy \"http://PROXY:8080/\";" > /etc/apt/apt.conf && \
     echo "deb http://http.debian.net/debian jessie main" >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y httpie && \
-    echo "#!/bin/sh\n/opt/call-nodes/run.sh\njava -jar /opt/workflow/workflow.jar" > /run.sh && \
-    chmod +x /run.sh /opt/call-nodes/run.sh
+    apt-get install -y httpie
 
-CMD /run.sh
+COPY downloads/call-nodes/ /opt/call-nodes/
+COPY downloads/workflow.jar /opt/workflow/
+COPY downloads/workflow.sh /opt/workflow/
+
+RUN chmod +x /opt/call-nodes/run.sh /opt/workflow/workflow.sh
+
+CMD /opt/workflow/workflow.sh
