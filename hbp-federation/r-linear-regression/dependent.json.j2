@@ -1,24 +1,24 @@
 {
-  "parents": [
-    "federation-workflow-{{request.request_id}}"
-  ],
   "epsilon" : "PT5M",
   "name": "r-federation-linear-regression-{{request.request_id}}",
   "command": "/run.sh",
   "container": {
     "type": "DOCKER",
-    "image": "hbp-federation/r-linear-regression",
+    "image": "hbp_federation/r-linear-regression",
     "volumes": [{"containerPath": "/log/", "hostPath":"/home/ludovic/tmp/", "mode":"RW"}]
   },
   "cpus": "0.2",
   "mem": "128",
   "uris": [
   ],
-  "async": false,
+  "async": true,
   "owner": "root@LAB02186.chuv.ch",
   "shell": true,
   "runAsUser" : "root",
   "retries" : 2,
+  "parents": [
+    "federation-workflow-{{request.request_id}}"
+  ],
   "environmentVariables": [
     {
       "name": "REQUEST_ID",

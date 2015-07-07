@@ -17,4 +17,4 @@ mkdir -p downloads
 
 cp $ROOT_DIR/../linear-regression/src/LRegress_Federation.R downloads/
 
-sudo docker build -t hbp-federation/r-linear-regression .
+sudo docker build -t hbp_federation/r-linear-regression .
