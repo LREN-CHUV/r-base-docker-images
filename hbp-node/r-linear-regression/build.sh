@@ -17,4 +17,6 @@ mkdir -p downloads
 
 cp $ROOT_DIR/../linear-regression/src/LRegress_Node.R downloads/
 
-sudo docker build -t hbp-node/r-linear-regression .
+sudo docker build -t hbp_node/r_linear_regression .
+sudo docker tag hbp_node/r_linear_regression 155.105.158.141:5000/hbp_node/r_linear_regression
+sudo docker push 155.105.158.141:5000/hbp_node/r_linear_regression

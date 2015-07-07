@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 get_script_dir () {
      SOURCE="${BASH_SOURCE[0]}"
@@ -12,9 +12,9 @@ get_script_dir () {
 }
 
 DIR="$(get_script_dir)"
-LR_DIR=$DIR/../r-federation-linear-regression
+LR_DIR=$DIR/../r-linear-regression
 
-request_id=$(grep -E "request_id=.*" -o run.ini | cut -d'=' -f2)
+request_id=$(grep -E "^request_id=.*" -o run.ini | cut -d'=' -f2)
 http_proxy="" http -v DELETE 127.0.0.1:4400/scheduler/job/federation-workflow-$request_id
 http_proxy="" http -v DELETE 127.0.0.1:4400/scheduler/job/r-federation-linear-regression-$request_id
 
