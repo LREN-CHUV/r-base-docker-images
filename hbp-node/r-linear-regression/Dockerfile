@@ -12,7 +12,7 @@ LABEL eu.humanbrainproject.function=linear-regression \
 COPY downloads/LRegress_Node.R /usr/local/share/R/scripts/
 COPY main.R /usr/local/share/R/scripts/
 
-RUN echo "#!/bin/sh\n/usr/bin/R BATCH -f /usr/local/share/R/scripts/main.R 2>&1 > /log/script.log" > /run.sh && \
+RUN echo "#!/bin/sh\n/usr/bin/Rscript /usr/local/share/R/scripts/main.R 2>&1 > /log/script.log" > /run.sh && \
     chmod +x run.sh
 
 CMD /run.sh
