@@ -1,0 +1,21 @@
+r-jdbc:
+  build: Dockerfile
+  image: hbp/r-jdbc
+  pre:
+    - echo "Download JDBC jars"
+    - ./download-jdbc-jars.sh
+    - echo "Preparing r-jdbc"
+  post:
+    - echo "Finished r-jdbc"
+
+r-jdbc-test:
+  build: Dockerfile.test
+  image: hbp/r-jdbc-test
+  pre:
+    - echo "Preparing r-jdbc-test"
+  post:
+    - echo "Finished r-jdbc-test"
+  test:
+    - tests/setup.sh
+    - docker run --rm --link test-postgres:postgres hbp/r-jdbc-test
+    - tests/teardown.sh

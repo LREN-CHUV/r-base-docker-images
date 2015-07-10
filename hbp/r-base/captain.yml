@@ -14,4 +14,4 @@ r-base-test:
   post:
     - echo "Finished r-base-test"
   test:
-    - docker run hbp/r-base-test
+    - docker run --rm hbp/r-base-test

@@ -1,4 +1,4 @@
-FROM hbp/r-java:latest
+FROM hbp/r-jdbc:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 

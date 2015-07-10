@@ -35,6 +35,7 @@ A_Query <- Sys.getenv("PARAM_A")
 # Perform the computation
 y <- unlist(dbGetQuery(conn, yQuery))
 A <- unlist(dbGetQuery(conn, A_Query))
+A <- as.matrix(data = A, nrow = length(y), ncolumn = length(A) / length(y))
 res <- LRegress_Node(y, A)
 
 # Store results in the database

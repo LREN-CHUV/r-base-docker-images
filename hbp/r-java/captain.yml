@@ -5,6 +5,7 @@ r-java:
     - echo "Preparing r-java"
   post:
     - echo "Finished r-java"
+
 r-java-test:
   build: Dockerfile.test
   image: hbp/r-java-test
@@ -13,5 +14,4 @@ r-java-test:
   post:
     - echo "Finished r-java-test"
   test:
-    - docker run -e NODE_ENV=TEST hbp/r-java-test
-
+    - docker run --rm hbp/r-java-test
