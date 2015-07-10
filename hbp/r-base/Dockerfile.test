@@ -1,0 +1,8 @@
+FROM hbp/r-base:latest
+
+MAINTAINER ludovic.claude54@gmail.com
+
+COPY tests/ /tests/
+
+# CMD ["R", "CMD", "check"]
+CMD ["Rscript", "tests/testthat.R"]

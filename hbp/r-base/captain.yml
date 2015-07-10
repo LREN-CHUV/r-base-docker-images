@@ -1,0 +1,17 @@
+r-base:
+  build: Dockerfile
+  image: hbp/r-base
+  pre:
+    - echo "Preparing r-base"
+  post:
+    - echo "Finished r-base"
+
+r-base-test:
+  build: Dockerfile.test
+  image: hbp/r-base-test
+  pre:
+    - echo "Preparing r-base-test"
+  post:
+    - echo "Finished r-base-test"
+  test:
+    - docker run hbp/r-base-test
