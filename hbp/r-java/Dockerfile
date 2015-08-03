@@ -9,9 +9,7 @@ LABEL eu.humanbrainproject.version=0.1 \
       eu.humanbrainproject.category=R
 
 ## Install Java 
-RUN echo "Acquire::http::Proxy \"http://PROXY:8080/\";" > /etc/apt/apt.conf && \
-    echo "deb http://http.debian.net/debian jessie main" >> /etc/apt/sources.list && \
-    echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
+RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
       | tee /etc/apt/sources.list.d/webupd8team-java.list \
     &&  echo "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
       | tee -a /etc/apt/sources.list.d/webupd8team-java.list \
