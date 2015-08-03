@@ -2,7 +2,7 @@ FROM registry.federation.mip.hbp/hbp/r-base:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-COPY tests/ /tests/
+COPY tests/ /src/tests/
 
 # CMD ["R", "CMD", "check"]
-CMD ["Rscript", "tests/testthat.R"]
+CMD ["Rscript", "src/tests/testthat.R"]

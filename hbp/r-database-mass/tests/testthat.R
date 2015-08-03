@@ -22,4 +22,4 @@ data = housing)
 house.glm1 <- update(house.glm0, . ~ . + Sat*(Infl+Type+Cont))
 dropterm(house.glm1, test = "Chisq")
 
-expect_equal(house.glm1, "It works!")
+expect_equal(as.numeric(house.glm1$coefficients["TypeAtrium"]), -0.7928468, tolerance = 1e-6)
