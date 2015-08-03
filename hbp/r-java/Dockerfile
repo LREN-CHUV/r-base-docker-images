@@ -1,5 +1,5 @@
 ## Start with the official rocker image (lightweight Debian)
-FROM hbp/r-base:latest
+FROM registry.federation.mip.hbp/hbp/r-base:latest
 
 # Initial code from https://github.com/cardcorp/card-rocker/tree/master/r-java
 # MAINTAINER Gergely Daroczi <gergely.daroczi@card.com>

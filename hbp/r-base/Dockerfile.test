@@ -1,4 +1,4 @@
-FROM hbp/r-base:latest
+FROM registry.federation.mip.hbp/hbp/r-base:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 

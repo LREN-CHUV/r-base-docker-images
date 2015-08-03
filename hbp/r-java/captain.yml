@@ -1,6 +1,6 @@
 r-java:
   build: Dockerfile
-  image: hbp/r-java
+  image: registry.federation.mip.hbp/hbp/r-java
   pre:
     - echo "Preparing r-java"
   post:
@@ -8,10 +8,10 @@ r-java:
 
 r-java-test:
   build: Dockerfile.test
-  image: hbp/r-java-test
+  image: registry.federation.mip.hbp/hbp/r-java-test
   pre:
     - echo "Preparing r-java-test"
   post:
     - echo "Finished r-java-test"
   test:
-    - docker run --rm hbp/r-java-test
+    - docker run --rm registry.federation.mip.hbp/hbp/r-java-test

@@ -24,6 +24,6 @@ for image in hbp/r-base \
    	# TODO: hbp_desktop/*
 
 	cd $ROOT_DIR/$image
-	./build.sh
+	captain push
 done
 
