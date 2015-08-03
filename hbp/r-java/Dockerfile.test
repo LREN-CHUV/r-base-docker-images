@@ -2,6 +2,6 @@ FROM registry.federation.mip.hbp/hbp/r-java:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-COPY tests/ /tests/
+COPY tests/ /src/tests/
 
-CMD ["Rscript", "tests/testthat.R"]
+CMD ["Rscript", "/src/tests/testthat.R"]
