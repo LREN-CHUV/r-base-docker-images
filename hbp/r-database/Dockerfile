@@ -10,5 +10,5 @@ COPY downloads/* /usr/lib/R/libraries/
 # TODO: add Denodo JDBC driver
 
 # install packages
-RUN echo 'install.packages(c("RJDBC"), dependencies=TRUE)' > /tmp/packages.R \
+RUN echo 'install.packages(c("RJDBC", "RODBC", "RODBCext"), dependencies=TRUE)' > /tmp/packages.R \
     && Rscript /tmp/packages.R
