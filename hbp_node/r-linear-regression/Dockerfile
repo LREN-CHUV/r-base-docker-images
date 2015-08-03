@@ -1,4 +1,4 @@
-FROM hbp/r-jdbc-mass:latest
+FROM registry.federation.mip.hbp/hbp/r-database-mass:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
@@ -9,10 +9,5 @@ LABEL eu.humanbrainproject.function=linear-regression \
       eu.humanbrainproject.function.organisation="LREN, CHUV" \
       eu.humanbrainproject.function.date="2015-06-27"
 
-COPY downloads/LRegress_Node.R /usr/local/share/R/scripts/
-COPY main.R /usr/local/share/R/scripts/
-
-RUN echo "#!/bin/sh\n/usr/bin/Rscript /usr/local/share/R/scripts/main.R 2>&1 > /log/script.log" > /run.sh && \
-    chmod +x run.sh
-
-CMD /run.sh
+COPY downloads/LRegress_Node.R /src/
+COPY main.R /src/

@@ -1,4 +1,4 @@
-LRegress_Node <- function(y,A) {
+LRegress_Node <- function(y,A){
   # This function computes the linear regression.  We have to compute beta from the linear equation: y = A*beta + error
   # This is the function that will be running at local node level. The data (input parameters: y, A) are obtained from the
   # local databases using a specific queries. These queries will be the same for all nodes.

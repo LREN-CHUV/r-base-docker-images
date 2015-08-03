@@ -5,7 +5,7 @@ if [ "$1" = 'compute' ]; then
 	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
 	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
 
-	gosu compute "/usr/bin/Rscript /usr/local/share/R/scripts/main.R $@"
+	gosu compute "/usr/bin/Rscript /src/main.R $@"
 
 elif [ "$1" = 'export' ]; then
 	# Assume that $COMPUTE_OUT is mounted on the host directory
