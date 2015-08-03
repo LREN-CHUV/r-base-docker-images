@@ -14,7 +14,7 @@ elif [ "$1" = 'export-docs' ]; then
 	# Assume that $COMPUTE_OUT is mounted on the host directory
 	cp -R /var/www/html/* "$COMPUTE_OUT/"
 elif [ "$1" = 'serve' ]; then
-	/usr/sbin/nginx -g daemon off
+	/usr/sbin/nginx
 elif [ "$1" = 'shell' ]; then
 	/bin/bash -i
 fi

@@ -1,0 +1,17 @@
+r-database-mass:
+  build: Dockerfile
+  image: hbp/r-database-mass
+  pre:
+    - echo "Preparing r-database-mass"
+  post:
+    - echo "Finished r-database-mass"
+
+r-database-mass-test:
+  build: Dockerfile.test
+  image: hbp/r-database-mass-test
+  pre:
+    - echo "Preparing r-database-mass-test"
+  post:
+    - echo "Finished r-database-mass-test"
+  test:
+    - docker run --rm hbp/r-database-mass-test

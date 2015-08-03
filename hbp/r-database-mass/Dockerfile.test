@@ -1,0 +1,7 @@
+FROM hbp/r-database-mass:latest
+
+MAINTAINER ludovic.claude54@gmail.com
+
+COPY tests/ /tests/
+
+CMD ["Rscript", "tests/testthat.R"]

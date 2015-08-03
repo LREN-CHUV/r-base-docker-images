@@ -29,7 +29,8 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
 COPY etc/nginx/ /etc/nginx/
 
 RUN mkdir -p /var/run/compute/{in,out} /var/www/html/ /src \
-    && chown -R compute /var/run/compute /var/www/html/ /src
+    && chown -R compute /var/run/compute /var/www/html/ /src \
+    && ln -s -t /var/www/html/ /src
 
 COPY .Rprofile /root/
 
