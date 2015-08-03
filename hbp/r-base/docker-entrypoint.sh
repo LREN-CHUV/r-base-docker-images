@@ -5,7 +5,7 @@ if [ "$1" = 'compute' ]; then
 	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
 	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
 
-	gosu compute "/run.sh $@"
+	gosu compute "/usr/bin/Rscript /usr/local/share/R/scripts/main.R $@"
 
 elif [ "$1" = 'export' ]; then
 	# Assume that $COMPUTE_OUT is mounted on the host directory
@@ -14,5 +14,7 @@ elif [ "$1" = 'export-docs' ]; then
 	# Assume that $COMPUTE_OUT is mounted on the host directory
 	cp -R /var/www/html/* "$COMPUTE_OUT/"
 elif [ "$1" = 'serve' ]; then
-	gosu compute "nginx -g daemon off"
+	/usr/sbin/nginx -g daemon off
+elif [ "$1" = 'shell' ]; then
+	/bin/bash -i
 fi
