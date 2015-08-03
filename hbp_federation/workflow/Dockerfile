@@ -9,8 +9,7 @@ LABEL eu.humanbrainproject.function=linear-regression \
       eu.humanbrainproject.function.organisation="LREN, CHUV" \
       eu.humanbrainproject.function.date="2015-07-06"
 
-RUN echo "Acquire::http::Proxy \"http://PROXY:8080/\";" > /etc/apt/apt.conf && \
-    echo "deb http://http.debian.net/debian jessie main" >> /etc/apt/sources.list && \
+RUN echo "deb http://http.debian.net/debian jessie main" >> /etc/apt/sources.list && \
     apt-get update && \
     apt-get install -y httpie python-pip && \
     pip install j2cli

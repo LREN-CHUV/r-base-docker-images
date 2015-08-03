@@ -3,7 +3,9 @@ FROM hbp/r-java:latest
 MAINTAINER ludovic.claude54@gmail.com
 
 LABEL eu.humanbrainproject.version=0.1 \
-      eu.humanbrainproject.category=R
+      eu.humanbrainproject.category=R \
+      eu.humanbrainproject.capability.odbc=true \
+      eu.humanbrainproject.capability.jdbc.postgres=true
 
 COPY downloads/* /usr/lib/R/libraries/
 
