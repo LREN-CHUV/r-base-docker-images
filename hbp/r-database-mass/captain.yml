@@ -1,6 +1,6 @@
 r-database-mass:
   build: Dockerfile
-  image: hbp/r-database-mass
+  image: registry.federation.mip.hbp/hbp/r-database-mass
   pre:
     - echo "Preparing r-database-mass"
   post:
