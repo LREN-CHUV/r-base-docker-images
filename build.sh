@@ -15,8 +15,8 @@ ROOT_DIR="$(get_script_dir)"
 
 for image in hbp/r-base \
              hbp/r-java \
-             hbp/r-jdbc \
-             hbp/r-jdbc-mass \
+             hbp/r-database \
+             hbp/r-database-mass \
              hbp_node/r-linear-regression \
              hbp_federation/r-linear-regression ; do
 
