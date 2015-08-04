@@ -7,15 +7,15 @@ LABEL eu.humanbrainproject.version=0.1 \
       eu.humanbrainproject.capability.odbc=true \
       eu.humanbrainproject.capability.jdbc.postgres=true
 
-COPY downloads/* /usr/lib/R/libraries/
-
-# TODO: add Denodo JDBC driver
-
 # Install ODBC driver for Postgres
 RUN apt-get update && apt-get install -y odbc-postgresql \
     && apt-get clean \
     && echo -n > /var/lib/apt/extended_states \
 	&& rm -rf /var/lib/apt/lists/*
+
+COPY downloads/* /usr/lib/R/libraries/
+
+# TODO: add Denodo JDBC driver
 
 # install packages
 RUN echo 'install.packages(c("RJDBC", "RODBC", "RODBCext"), dependencies=TRUE)' > /tmp/packages.R \
