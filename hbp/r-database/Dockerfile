@@ -11,6 +11,12 @@ COPY downloads/* /usr/lib/R/libraries/
 
 # TODO: add Denodo JDBC driver
 
+# Install ODBC driver for Postgres
+RUN apt-get update && apt-get install -y odbc-postgresql \
+    && apt-get clean \
+    && echo -n > /var/lib/apt/extended_states \
+	&& rm -rf /var/lib/apt/lists/*
+
 # install packages
 RUN echo 'install.packages(c("RJDBC", "RODBC", "RODBCext"), dependencies=TRUE)' > /tmp/packages.R \
     && Rscript /tmp/packages.R
