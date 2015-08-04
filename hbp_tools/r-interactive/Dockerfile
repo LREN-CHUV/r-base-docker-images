@@ -17,13 +17,10 @@ RUN install2.r --error devtools roxygen2 testthat knitr rstudioapi ggplot2 plyr 
   && Rscript /tmp/packages.R \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
-# create an R user
-ENV HOME /home/user
-RUN useradd --create-home --home-dir $HOME user \
-    && chown -R user:user $HOME
+ENV HOME /home/docker
 
 WORKDIR $HOME
-USER user
+USER docker
 
 # set the command
 CMD ["R"]
