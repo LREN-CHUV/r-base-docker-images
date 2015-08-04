@@ -5,7 +5,11 @@
 # our R base image
 FROM registry.federation.mip.hbp/hbp/r-database-mass
 
-RUN apt-get update && apt-get install -y curl=7.38.0-4+deb8u2 git \
+RUN apt-get update && apt-get install -y --force-yes \
+        curl=7.38.0-4+deb8u2 \
+        libcurl3=7.38.0-4+deb8u2 \
+        libcurl4-openssl-dev=7.38.0-4+deb8u2 \
+        git \
     && apt-get clean \
     && echo -n > /var/lib/apt/extended_states \
 	&& rm -rf /var/lib/apt/lists/*
