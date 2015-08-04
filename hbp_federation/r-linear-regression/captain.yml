@@ -1,0 +1,12 @@
+r-linear-regression:
+  build: Dockerfile
+  image: registry.federation.mip.hbp/hbp_fedeartion/r-linear-regression
+  pre:
+    - echo "Preparing r-linear-regression"
+    - ./download-src.sh
+  post:
+    - echo "Finished r-linear-regression"
+  test:
+    - tests/setup.sh
+    - tests/test.sh
+    - tests/teardown.sh
