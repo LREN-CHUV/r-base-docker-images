@@ -22,7 +22,7 @@ library(MASS)
 library(RJDBC)
 
 # Initialisation
-source("/usr/local/share/R/scripts/LRegress_Node.R")
+source("/src/LRegress_Node.R")
 drv <- JDBC(Sys.getenv("JDBC_DRIVER"),
            Sys.getenv("JDBC_JAR_PATH"),
            identifier.quote="`")
