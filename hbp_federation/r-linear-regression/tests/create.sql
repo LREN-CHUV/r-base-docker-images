@@ -32,5 +32,5 @@ WITH (
   OIDS=FALSE
 );
 
-INSERT INTO test.results_linear_regression VALUES ('001', 'Node_One', 0.007, 0.2, 0.3, 0.4);
-INSERT INTO test.results_linear_regression VALUES ('001', 'Node_One', 0.007, 0.2, 0.5, 0.6);
+INSERT INTO test.results_linear_regression VALUES ('001', 'Node_One', '', '', 0.9960748, 550.1556);
+INSERT INTO test.results_linear_regression VALUES ('001', 'Node_Two', '', '', 1.005173, 410.0745);
