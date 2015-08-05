@@ -14,4 +14,4 @@ r-database-mass-test:
   post:
     - echo "Finished r-database-mass-test"
   test:
-    - docker run --rm registry.federation.mip.hbp/hbp/r-database-mass-test
+    - docker run --rm registry.federation.mip.hbp/hbp/r-database-mass-test test
