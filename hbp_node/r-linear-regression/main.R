@@ -1,4 +1,4 @@
-
+#
 # This script computes the linear regression.
 # The data (input parameters: y, A) are obtained from the local databases using a specific query.
 # These queries will be the same for all nodes.
@@ -16,7 +16,9 @@
 #      JDBC_URL : JDBC connection URL
 #      JDBC_USER : User for the database connection
 #      JDBC_PASSWORD : Password for the database connection
-# --------------------------------------------------------------------------#
+#      RESULT_TABLE: name of the result table, defaults to 'results_linear_regression'
+#      RESULT_COLUMNS: list of columns for the result table, default to "request_id, node, param_y, param_a, result_betai, result_sigmai"
+#
 
 library(MASS)
 library(RJDBC)

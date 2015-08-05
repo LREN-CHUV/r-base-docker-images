@@ -5,9 +5,11 @@ source("/src/main.R")
 
 conn <- dbConnect(drv, Sys.getenv("JDBC_URL"), Sys.getenv("JDBC_USER"), Sys.getenv("JDBC_PASSWORD"))
 request_id <- Sys.getenv("REQUEST_ID")
+result_table <- Sys.getenv("RESULT_TABLE", "results_linear_regression")
+result_columns <- Sys.getenv("RESULT_COLUMNS", "request_id, node, param_y, param_a, result_betai, result_sigmai")
 
 # Get the results
-results <- dbGetQuery(conn, "select request_id, node, param_y, param_a, result_betai, result_sigmai from test.results_linear_regression where request_id = ?", request_id)
+results <- dbGetQuery(conn, paste("select ", result_columns ," from ", result_table, " where request_id = ?"), request_id)
 
 node <- results$node
 param_y <- results$param_y
