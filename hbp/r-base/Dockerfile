@@ -32,9 +32,7 @@ RUN mkdir -p /data/{in,out} /var/www/html/ /src \
     && chown -R compute /data /var/www/html/ /src \
     && ln -s -t /var/www/html/ /src
 
-COPY .Rprofile /root/
-
-ENV R_REPO http://stat.ethz.ch/CRAN/
+ENV R_REPO https://cran.rstudio.com/
 ENV COMPUTE_IN /data/in
 ENV COMPUTE_OUT /data/out
 ENV SRC /src
