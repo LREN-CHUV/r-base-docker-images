@@ -6,6 +6,14 @@ r-linear-regression:
     - ./download-src.sh
   post:
     - echo "Finished r-linear-regression"
+
+r-linear-regression-test:
+  build: Dockerfile.test
+  image: registry.federation.mip.hbp/hbp_node/r-linear-regression-test
+  pre:
+    - echo "Preparing r-linear-regression-test"
+  post:
+    - echo "Finished r-linear-regression-test"
   test:
     - tests/setup.sh
     - tests/test.sh

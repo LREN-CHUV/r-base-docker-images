@@ -35,11 +35,17 @@ A_Query <- Sys.getenv("PARAM_A")
 # Perform the computation
 y <- unlist(dbGetQuery(conn, yQuery))
 A <- unlist(dbGetQuery(conn, A_Query))
-A <- as.matrix(data = A, nrow = length(y), ncolumn = length(A) / length(y))
+
+if (length(A) %% length(y) != 0) stop(paste('Length of A is not a multiple of y, found length(A)=', length(A), " and length(y)=", length(y)))
+
+A <- matrix(data = A, nrow = length(y), ncol = length(A) / length(y))
 res <- LRegress_Node(y, A)
 
+result_table <- Sys.getenv("RESULT_TABLE", "results_linear_regression")
+result_columns <- Sys.getenv("RESULT_COLUMNS", "request_id, node, param_y, param_a, result_betai, result_sigmai")
+
 # Store results in the database
-dbSendUpdate(conn, "INSERT INTO results_linear_regression(request_id, node, param_y, param_a, result_betai, result_sigmai) VALUES (?, ?, ?, ?, ?, ?)",
+dbSendUpdate(conn, paste( "INSERT INTO ", result_table, "(", result_columns, ") VALUES (?, ?, ?, ?, ?, ?)"),
 	request_id, node, yQuery, A_Query, res[[1]], res[[2]])
 
 # Disconnect from the database server

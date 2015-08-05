@@ -127,4 +127,3 @@ INSERT INTO test.brain_feature VALUES ('10340', 'Hippocampus_L', 0.0095656);
 INSERT INTO test.brain_feature VALUES ('10340', 'Hippocampus_R', 0.0095769);
 INSERT INTO test.brain_feature VALUES ('10130', 'Hippocampus_L', 0.0080631);
 INSERT INTO test.brain_feature VALUES ('10130', 'Hippocampus_R', 0.0081479);
-INSERT INTO test.brain_feature VALUES ('10341', 'Hippocampus_L', 0.0075354);
