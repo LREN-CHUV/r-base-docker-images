@@ -14,4 +14,4 @@ r-base-test:
   post:
     - echo "Finished r-base-test"
   test:
-    - docker run --rm registry.federation.mip.hbp/hbp/r-base-test
+    - docker run --rm registry.federation.mip.hbp/hbp/r-base-test test

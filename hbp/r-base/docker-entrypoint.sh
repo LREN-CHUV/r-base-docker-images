@@ -6,6 +6,12 @@ if [ "$1" = 'compute' ]; then
 
 	gosu compute /usr/bin/Rscript /src/main.R
 
+elif [ "$1" = 'test' ]; then
+	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
+	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
+
+	gosu compute /usr/bin/Rscript /src/tests/testthat.R
+
 elif [ "$1" = 'export' ]; then
 	# Assume that $COMPUTE_OUT is mounted on the host directory
 	cp -R /src/* "$COMPUTE_OUT/"
