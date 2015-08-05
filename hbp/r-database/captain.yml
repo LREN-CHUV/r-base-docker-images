@@ -17,5 +17,5 @@ r-database-test:
     - echo "Finished r-database-test"
   test:
     - tests/setup.sh
-    - docker run --rm --link test-postgres:postgres registry.federation.mip.hbp/hbp/r-database-test
+    - docker run --rm --link test-postgres:postgres registry.federation.mip.hbp/hbp/r-database-test test
     - tests/teardown.sh

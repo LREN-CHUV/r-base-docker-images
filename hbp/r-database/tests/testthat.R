@@ -11,3 +11,5 @@ conn <- dbConnect(drv, "jdbc:postgresql://postgres:5432/postgres", "postgres", "
 results <- unlist(dbGetQuery(conn, "SELECT * from test.test"))
 
 expect_equal(results[[1]], "It works!")
+
+print ("Success!")
