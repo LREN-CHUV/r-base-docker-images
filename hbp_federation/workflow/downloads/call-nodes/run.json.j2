@@ -2,10 +2,9 @@
   "schedule" : "R1//PT24H",
   "epsilon" : "PT5M",
   "name": "r-linear-regression-{{request.request_id}}-{{request.node}}",
-  "command": "/run.sh",
   "container": {
     "type": "DOCKER",
-    "image": "155.105.158.141:5000/hbp_node/r-linear-regression",
+    "image": "registry.federation.mip.hbp/hbp_node/r-linear-regression:5748b52",
     "volumes": [{"containerPath": "/log/", "hostPath":"/home/ludovic/tmp/", "mode":"RW"}]
   },
   "cpus": "0.2",
@@ -13,7 +12,7 @@
   "uris": [
   ],
   "async": false,
-  "owner": "root@LAB02186.chuv.ch",
+  "owner": "root@LAB01560.chuv.ch",
   "shell": true,
   "runAsUser" : "root",
   "environmentVariables": [

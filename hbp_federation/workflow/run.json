@@ -1,7 +1,7 @@
 {
   "schedule" : "R1//PT24H",
   "epsilon" : "PT5M",
-  "name": "federation-workflow-{{request.request_id}}",
+  "name": "federation-workflow-002",
   "command": "/run.sh",
   "container": {
     "type": "DOCKER",
@@ -18,35 +18,35 @@
   "environmentVariables": [
     {
       "name": "REQUEST_ID",
-      "value": "{{request.request_id}}"
+      "value": "002"
     },
     {
       "name": "COUNT_RESULTS_QUERY",
-      "value": "{{request.count_results_query}}"
+      "value": "select count(*) from results_linear_regression where request_id='002'"
     },
     {
       "name": "EXPECTED_COUNT_RESULTS",
-      "value": "{{request.expected_count_results}}"
+      "value": "2"
     },
     {
       "name": "JDBC_DRIVER",
-      "value": "{{database.jdbc_driver}}"
+      "value": "org.postgresql.Driver"
     },
     {
       "name": "JDBC_JAR_PATH",
-      "value": "{{database.jdbc_jar_path}}"
+      "value": "/usr/lib/R/libraries/postgresql-9.3-1103.jdbc41.jar"
     },
     {
       "name": "JDBC_URL",
-      "value": "{{database.jdbc_url}}"
+      "value": "jdbc:postgresql://lab01560.intranet.chuv:5432/DEMO"
     },
     {
       "name": "JDBC_USER",
-      "value": "{{database.jdbc_user}}"
+      "value": "federation"
     },
     {
       "name": "JDBC_PASSWORD",
-      "value": "{{database.jdbc_password}}"
+      "value": "HBP4thewin"
     }
   ]
 }
