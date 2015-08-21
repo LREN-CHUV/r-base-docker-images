@@ -15,5 +15,5 @@ WITH (
   OIDS=FALSE
 );
 ALTER TABLE federation_results_linear_regression
-  OWNER TO postgres;
-GRANT ALL ON TABLE federation_results_linear_regression TO postgres;
+  OWNER TO analytics;
+GRANT ALL ON TABLE federation_results_linear_regression TO analytics;
