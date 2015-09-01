@@ -11,24 +11,28 @@
 # - Execution context:
 #      REQUEST_ID : ID of the incoming request
 #      NODE : Node used for the execution of the script
-#      JDBC_DRIVER : class name of the JDBC driver
-#      JDBC_JAR_PATH : path to the JDBC driver jar
-#      JDBC_URL : JDBC connection URL
-#      JDBC_USER : User for the database connection
-#      JDBC_PASSWORD : Password for the database connection
+#      IN_JDBC_DRIVER : class name of the JDBC driver for input data
+#      IN_JDBC_JAR_PATH : path to the JDBC driver jar for input data
+#      IN_JDBC_URL : JDBC connection URL for input data
+#      IN_JDBC_USER : User for the database connection for input data
+#      IN_JDBC_PASSWORD : Password for the database connection for input data
+#      OUT_JDBC_DRIVER : class name of the JDBC driver for output results
+#      OUT_JDBC_JAR_PATH : path to the JDBC driver jar for output results
+#      OUT_JDBC_URL : JDBC connection URL for output results
+#      OUT_JDBC_USER : User for the database connection for output results
+#      OUT_JDBC_PASSWORD : Password for the database connection for output results
 #      RESULT_TABLE: name of the result table, defaults to 'results_linear_regression'
 #      RESULT_COLUMNS: list of columns for the result table, default to "request_id, node, param_y, param_a, result_betai, result_sigmai"
 #
 
-library(MASS)
+library(hbplregress)
 library(RJDBC)
 
 # Initialisation
-source("/src/LRegress_Node.R")
-drv <- JDBC(Sys.getenv("JDBC_DRIVER"),
-           Sys.getenv("JDBC_JAR_PATH"),
+drv <- JDBC(Sys.getenv("IN_JDBC_DRIVER"),
+           Sys.getenv("IN_JDBC_JAR_PATH"),
            identifier.quote="`")
-conn <- dbConnect(drv, Sys.getenv("JDBC_URL"), Sys.getenv("JDBC_USER"), Sys.getenv("JDBC_PASSWORD"))
+conn <- dbConnect(drv, Sys.getenv("IN_JDBC_URL"), Sys.getenv("IN_JDBC_USER"), Sys.getenv("IN_JDBC_PASSWORD"))
 request_id <- Sys.getenv("REQUEST_ID")
 node <- Sys.getenv("NODE")
 yQuery <- Sys.getenv("PARAM_y")
@@ -46,9 +50,29 @@ res <- LRegress_Node(y, A)
 result_table <- Sys.getenv("RESULT_TABLE", "results_linear_regression")
 result_columns <- Sys.getenv("RESULT_COLUMNS", "request_id, node, param_y, param_a, result_betai, result_sigmai")
 
+if (Sys.getenv("IN_JDBC_DRIVER") != Sys.getenv("OUT_JDBC_DRIVER") ||
+	Sys.getenv("IN_JDBC_JAR_PATH") != Sys.getenv("OUT_JDBC_JAR_PATH")) {
+
+	outDrv <- JDBC(Sys.getenv("OUTJDBC_DRIVER"),
+           Sys.getenv("OUT_JDBC_JAR_PATH"),
+           identifier.quote="`")
+} else {
+	outDrv <- drv
+}
+
+if (Sys.getenv("IN_JDBC_URL") != Sys.getenv("OUT_JDBC_URL") ||
+	Sys.getenv("IN_JDBC_USER") != Sys.getenv("OUT_JDBC_USER") ||
+	Sys.getenv("IN_JDBC_PASSWORD") != Sys.getenv("OUT_JDBC_PASSWORD")) {
+
+    outConn <- dbConnect(drv, Sys.getenv("OUT_JDBC_URL"), Sys.getenv("OUT_JDBC_USER"), Sys.getenv("OUT_JDBC_PASSWORD"))
+} else {
+	outConn <- conn
+}
+
 # Store results in the database
-dbSendUpdate(conn, paste( "INSERT INTO ", result_table, "(", result_columns, ") VALUES (?, ?, ?, ?, ?, ?)"),
+dbSendUpdate(outConn, paste( "INSERT INTO ", result_table, "(", result_columns, ") VALUES (?, ?, ?, ?, ?, ?)"),
 	request_id, node, yQuery, A_Query, res[[1]], res[[2]])
 
 # Disconnect from the database server
+if (Sys.getenv("IN_JDBC_URL") != Sys.getenv("OUT_JDBC_URL")) dbDisconnect(outConn)
 dbDisconnect(conn)

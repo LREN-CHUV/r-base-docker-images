@@ -3,7 +3,6 @@ r-linear-regression:
   image: registry.federation.mip.hbp/hbp_node/r-linear-regression
   pre:
     - echo "Preparing r-linear-regression"
-    - ./download-src.sh
   post:
     - echo "Finished r-linear-regression"
 

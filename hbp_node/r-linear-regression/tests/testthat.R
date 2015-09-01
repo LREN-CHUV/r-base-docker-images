@@ -3,7 +3,7 @@ library(testthat)
 # Perform the computation
 source("/src/main.R")
 
-conn <- dbConnect(drv, Sys.getenv("JDBC_URL"), Sys.getenv("JDBC_USER"), Sys.getenv("JDBC_PASSWORD"))
+conn <- dbConnect(drv, Sys.getenv("OUT_JDBC_URL"), Sys.getenv("OUT_JDBC_USER"), Sys.getenv("OUT_JDBC_PASSWORD"))
 request_id <- Sys.getenv("REQUEST_ID")
 result_table <- Sys.getenv("RESULT_TABLE", "results_linear_regression")
 result_columns <- Sys.getenv("RESULT_COLUMNS", "request_id, node, param_y, param_a, result_betai, result_sigmai")
