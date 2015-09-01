@@ -21,4 +21,6 @@ for pkg in postgresql-9.3-1103.jdbc41.jar postgresql-9.4-1201.jdbc41.jar ; do
 	[ -f $pkg ] || curl -O https://jdbc.postgresql.org/download/$pkg
 done
 
+curl -O http://hbps1.chuv.ch/community/share/_IT-tools/federation/vdp-jdbcdriver-core/denodo-vdp-jdbcdriver.jar
+
 cd ..

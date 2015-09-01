@@ -13,9 +13,7 @@ RUN apt-get update && apt-get install -y libodbc1 libiodbc2 libiodbc2-dev odbc-p
     && echo -n > /var/lib/apt/extended_states \
 	&& rm -rf /var/lib/apt/lists/*
 
-COPY downloads/* /usr/lib/R/libraries/
-
-# TODO: add Denodo JDBC driver
+COPY downloads/*.jar /usr/lib/R/libraries/
 
 # install packages
 RUN install2.r --error RJDBC \
