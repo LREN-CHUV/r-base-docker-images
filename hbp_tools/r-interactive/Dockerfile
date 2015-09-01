@@ -14,6 +14,18 @@ RUN apt-get update && apt-get install -y --force-yes \
         libssl-dev \
         libxml2-dev \
         pandoc \
+        texinfo \
+        texlive-base \
+        texlive-extra-utils \
+        texlive-fonts-extra \
+        texlive-fonts-recommended \
+        texlive-generic-recommended \
+        texlive-latex-base \
+        texlive-latex-extra \
+        texlive-latex-recommended \
+        default-jdk \
+        subversion \
+        git \
     && apt-get clean \
     && echo -n > /var/lib/apt/extended_states \
 	&& rm -rf /var/lib/apt/lists/*
@@ -28,8 +40,9 @@ RUN install2.r --error devtools roxygen2 testthat knitr rmarkdown rstudioapi ggp
 
 ENV HOME /home/docker
 
-WORKDIR $HOME
+WORKDIR $HOME/data
 USER docker
 
-# set the command
-ENTRYPOINT ["R"]
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
