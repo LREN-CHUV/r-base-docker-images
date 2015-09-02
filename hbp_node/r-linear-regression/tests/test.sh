@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 docker run --rm --link test-postgres:postgres \
   -e REQUEST_ID=001 \
