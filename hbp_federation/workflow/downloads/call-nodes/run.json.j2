@@ -1,14 +1,13 @@
 {
   "schedule" : "R1//PT24H",
   "epsilon" : "PT5M",
-  "name": "r-linear-regression-{{request.request_id}}-{{request.node}}",
+  "name": "r-linear-regression-{{request.node}}-{{request.request_id}}",
   "command": "compute",
   "container": {
     "type": "DOCKER",
-    "image": "registry.federation.mip.hbp/hbp_node/r-linear-regression:eb54a21",
-    "volumes": [{"containerPath": "/log/", "hostPath":"/home/ludovic/tmp/", "mode":"RW"}]
+    "image": "registry.federation.mip.hbp/hbp_node/r-linear-regression:eb54a21"
   },
-  "cpus": "0.2",
+  "cpus": "0.5",
   "mem": "128",
   "uris": [
   ],
