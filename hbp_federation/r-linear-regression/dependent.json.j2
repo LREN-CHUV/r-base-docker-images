@@ -5,7 +5,7 @@
   "container": {
     "type": "DOCKER",
     "image": "registry.federation.mip.hbp/hbp_federation/r-linear-regression:latest",
-    "volumes": [{"containerPath": "/log/", "hostPath":"/home/ludovic/tmp/", "mode":"RW"}]
+    "volumes": [{"containerPath": "/log/", "hostPath":"/tmp/", "mode":"RW"}]
   },
   "cpus": "0.2",
   "mem": "128",
@@ -25,24 +25,48 @@
       "value": "{{request.request_id}}"
     },
     {
-      "name": "JDBC_DRIVER",
-      "value": "{{database.jdbc_driver}}"
+      "name": "INPUT_TABLE",
+      "value": "{{request.input_table}}"
     },
     {
-      "name": "JDBC_JAR_PATH",
-      "value": "{{database.jdbc_jar_path}}"
+      "name": "IN_JDBC_DRIVER",
+      "value": "{{in_database.jdbc_driver}}"
     },
     {
-      "name": "JDBC_URL",
-      "value": "{{database.jdbc_url}}"
+      "name": "IN_JDBC_JAR_PATH",
+      "value": "{{in_database.jdbc_jar_path}}"
     },
     {
-      "name": "JDBC_USER",
-      "value": "{{database.jdbc_user}}"
+      "name": "IN_JDBC_URL",
+      "value": "{{in_database.jdbc_url}}"
     },
     {
-      "name": "JDBC_PASSWORD",
-      "value": "{{database.jdbc_password}}"
+      "name": "IN_JDBC_USER",
+      "value": "{{in_database.jdbc_user}}"
+    },
+    {
+      "name": "IN_JDBC_PASSWORD",
+      "value": "{{in_database.jdbc_password}}"
+    },
+    {
+      "name": "OUT_JDBC_DRIVER",
+      "value": "{{out_database.jdbc_driver}}"
+    },
+    {
+      "name": "OUT_JDBC_JAR_PATH",
+      "value": "{{out_database.jdbc_jar_path}}"
+    },
+    {
+      "name": "OUT_JDBC_URL",
+      "value": "{{out_database.jdbc_url}}"
+    },
+    {
+      "name": "OUT_JDBC_USER",
+      "value": "{{out_database.jdbc_user}}"
+    },
+    {
+      "name": "OUT_JDBC_PASSWORD",
+      "value": "{{out_database.jdbc_password}}"
     }
   ]
 }
