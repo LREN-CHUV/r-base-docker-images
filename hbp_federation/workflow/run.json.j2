@@ -5,7 +5,8 @@
   "command": "/run.sh",
   "container": {
     "type": "DOCKER",
-    "image": "registry.federation.mip.hbp/hbp_federation/workflow:latest"
+    "image": "registry.federation.mip.hbp/hbp_federation/workflow:latest",
+    "network": "BRIDGE"
   },
   "cpus": "0.2",
   "mem": "128",
