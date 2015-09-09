@@ -2,9 +2,10 @@
   "schedule" : "R1//PT24H",
   "epsilon" : "PT5M",
   "name": "r-linear-regression-{{request.request_id}}-{{request.node}}",
+  "command": "compute",
   "container": {
     "type": "DOCKER",
-    "image": "registry.federation.mip.hbp/hbp_node/r-linear-regression:5748b52",
+    "image": "registry.federation.mip.hbp/hbp_node/r-linear-regression:eb54a21",
     "volumes": [{"containerPath": "/log/", "hostPath":"/home/ludovic/tmp/", "mode":"RW"}]
   },
   "cpus": "0.2",
