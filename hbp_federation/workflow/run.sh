@@ -25,7 +25,7 @@ lsof -i :24400 > /dev/null || ssh -f ludovic@hbps3.intranet.chuv -L 24400:hbps3.
 j2 run.json.j2 run.ini > run.json
 http_proxy="" http -v --json POST $CHRONOS_FEDERATION/scheduler/iso8601 < run.json
 
-j2 $LR_DIR/dependent.json.j2 $LR_DIR/run.ini > dependent.json
+j2 $LR_DIR/dependent.json.j2 dependent.ini > dependent.json
 http_proxy="" http -v --json POST $CHRONOS_FEDERATION/scheduler/dependency < dependent.json
 
 #rm run.json dependent.json
