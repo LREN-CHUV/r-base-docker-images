@@ -8,4 +8,5 @@ docker run -i -t --rm \
   -e JDBC_URL=jdbc:vdb://lab01560.intranet.chuv:9999/analytics \
   -e JDBC_USER=analytics \
   -e JDBC_PASSWORD="HBP\=neuroinfo" \
-  registry.federation.mip.hbp/hbp_federation/workflow
+  --net=bridge \
+  registry.federation.mip.hbp/hbp_federation/workflow /bin/bash

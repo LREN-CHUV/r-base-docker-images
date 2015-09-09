@@ -18,9 +18,9 @@ for image in hbp/r-base \
              hbp/r-database \
              hbp/r-database-mass \
              hbp_node/r-linear-regression \
-             hbp_federation/r-linear-regression ; do
+             hbp_federation/r-linear-regression \
+             hbp_federation/workflow; do
 
-   	# TODO: hbp_federation/workflow
    	# TODO: hbp_desktop/*
 
 	cd $ROOT_DIR/$image

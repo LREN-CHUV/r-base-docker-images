@@ -1,7 +1,6 @@
-#!/bin/sh
+#!/bin/sh -e
 
 cd /opt/call-nodes/
-./run.sh 192.168.33.10:4400 run.ini &
-./run.sh 192.168.33.11:4400 run2.ini &
+./run.sh
 
-java -jar /opt/workflow/workflow.jar
+java -cp $JDBC_JAR_PATH -jar /opt/workflow/workflow.jar
