@@ -20,6 +20,9 @@ elif [ "$1" = 'export-docs' ]; then
 	cp -R /var/www/html/* "$COMPUTE_OUT/"
 elif [ "$1" = 'serve' ]; then
 	/usr/sbin/nginx
-elif [ "$1" = 'shell' ] | [ "$1" = '/bin/bash' ] ; then
+elif [ "$1" = '/bin/sh' ] | [ "$1" = '/bin/bash' ] ; then
+	echo "** Please use 'shell' command instead **"
+	/bin/bash -i
+elif [ "$1" = 'shell' ] ; then
 	/bin/bash -i
 fi
