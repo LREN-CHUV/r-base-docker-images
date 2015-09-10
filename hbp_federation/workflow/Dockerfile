@@ -11,7 +11,7 @@ LABEL eu.humanbrainproject.function=linear-regression \
 
 RUN echo "deb http://http.debian.net/debian jessie main" >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y httpie python-pip && \
+    apt-get install -y curl python-pip && \
     pip install j2cli
 
 COPY downloads/call-nodes/ /opt/call-nodes/

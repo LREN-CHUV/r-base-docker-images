@@ -27,9 +27,21 @@ docker pull registry.federation.mip.hbp/hbp_federation/workflow:latest
 docker pull registry.federation.mip.hbp/hbp_federation/r-linear-regression:latest
 
 j2 run.json.j2 run.ini > run.json
-http_proxy="" http -v --json POST $CHRONOS_FEDERATION/scheduler/iso8601 < run.json
+http_proxy="" \
+  curl -v \
+    -XPOST \
+    -H "Accept: application/json" \
+    -H "Content-type: application/json" \
+    --data-binary @run.json \
+    $CHRONOS_FEDERATION/scheduler/iso8601
 
 j2 $LR_DIR/dependent.json.j2 dependent.ini > dependent.json
-http_proxy="" http -v --json POST $CHRONOS_FEDERATION/scheduler/dependency < dependent.json
+http_proxy="" \
+  curl -v \
+    -XPOST \
+    -H "Accept: application/json" \
+    -H "Content-type: application/json" \
+    --data-binary @dependent.json \
+    $CHRONOS_FEDERATION/scheduler/dependency
 
 #rm run.json dependent.json
