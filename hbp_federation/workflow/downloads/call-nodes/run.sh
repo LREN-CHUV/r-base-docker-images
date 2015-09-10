@@ -14,8 +14,8 @@ cd /opt/call-nodes/
 	http -v DELETE $URL/scheduler/job/r-linear-regression-$REQUEST_ID-$NODE
     j2 -f env run.ini.j2 > run1.ini
     j2 run.json.j2 run1.ini > run1.json
-    http -v --json POST $URL/scheduler/iso8601 @run1.json
-) &
+    http -v --json POST $URL/scheduler/iso8601 @run1.json &
+)
 
 (
 	export URL=155.105.202.126:24400
@@ -26,5 +26,5 @@ cd /opt/call-nodes/
     http -v DELETE $URL/scheduler/job/r-linear-regression-$REQUEST_ID-$NODE
     j2 -f env run.ini.j2 > run2.ini
     j2 run.json.j2 run2.ini > run2.json
-    http -v --json POST $URL/scheduler/iso8601 @run2.json
-) &
+    http -v --json POST $URL/scheduler/iso8601 @run2.json &
+)

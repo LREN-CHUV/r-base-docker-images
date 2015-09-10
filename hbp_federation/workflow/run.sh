@@ -24,6 +24,7 @@ lsof -i :24400 > /dev/null || ssh -f ludovic@hbps3.intranet.chuv -L 0.0.0.0:2440
 
 # ensure that the latest workflow image is used
 docker pull registry.federation.mip.hbp/hbp_federation/workflow:latest
+docker pull registry.federation.mip.hbp/hbp_federation/r-linear-regression:latest
 
 j2 run.json.j2 run.ini > run.json
 http_proxy="" http -v --json POST $CHRONOS_FEDERATION/scheduler/iso8601 @run.json
