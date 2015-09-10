@@ -4,5 +4,6 @@ workflow:
   pre:
     - echo "Preparing workflow"
     - ./download-src.sh
+    - docker pull registry.federation.mip.hbp/hbp/r-database:latest
   post:
     - echo "Finished workflow"
