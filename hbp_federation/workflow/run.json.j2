@@ -3,6 +3,8 @@
   "epsilon" : "PT5M",
   "name": "federation-workflow-{{request.request_id}}",
   "command": "/run.sh",
+  "shell": true,
+  "runAsUser" : "root",
   "container": {
     "type": "DOCKER",
     "image": "registry.federation.mip.hbp/hbp_federation/workflow:latest",
@@ -14,8 +16,6 @@
   ],
   "async": false,
   "owner": "root@LAB02186.chuv.ch",
-  "shell": true,
-  "runAsUser" : "root",
   "environmentVariables": [
     {
       "name": "REQUEST_ID",
