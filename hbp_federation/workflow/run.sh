@@ -22,6 +22,9 @@ http_proxy="" http -v DELETE $CHRONOS_FEDERATION/scheduler/job/r-federation-line
 lsof -i :14400 > /dev/null || ssh -f ludovic@hbps2.intranet.chuv -L 0.0.0.0:14400:hbps2.intranet.chuv:4400 -N
 lsof -i :24400 > /dev/null || ssh -f ludovic@hbps3.intranet.chuv -L 0.0.0.0:24400:hbps3.intranet.chuv:4400 -N
 
+# ensure that the latest workflow image is used
+docker pull registry.federation.mip.hbp/hbp_federation/workflow:latest
+
 j2 run.json.j2 run.ini > run.json
 http_proxy="" http -v --json POST $CHRONOS_FEDERATION/scheduler/iso8601 @run.json
 
