@@ -54,7 +54,7 @@ result_columns <- Sys.getenv("RESULT_COLUMNS", "request_id, param_beta, param_si
 if (Sys.getenv("IN_JDBC_DRIVER") != Sys.getenv("OUT_JDBC_DRIVER") ||
 	Sys.getenv("IN_JDBC_JAR_PATH") != Sys.getenv("OUT_JDBC_JAR_PATH")) {
 
-	outDrv <- JDBC(Sys.getenv("OUTJDBC_DRIVER"),
+	outDrv <- JDBC(Sys.getenv("OUT_JDBC_DRIVER"),
            Sys.getenv("OUT_JDBC_JAR_PATH"),
            identifier.quote="`")
 } else {
