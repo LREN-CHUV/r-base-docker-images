@@ -1,9 +1,7 @@
 
--- DROP TABLE results_box_stats;
+-- DROP TABLE results_box_stat;
 
-ALTER USER test SET search_path to 'public'
-
-CREATE TABLE results_box_stats
+CREATE TABLE results_box_stat
 (
   request_id character varying(32) NOT NULL,
   node character varying(32) NOT NULL,
@@ -14,11 +12,11 @@ CREATE TABLE results_box_stats
   q3 numeric,
   max numeric,
 
-  CONSTRAINT results_linear_regression_pkey PRIMARY KEY (request_id, node, id)
+  CONSTRAINT pk_results_box_stat PRIMARY KEY (request_id, node, id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE results_linear_regression
+ALTER TABLE results_box_stat
   OWNER TO analytics;
-GRANT ALL ON TABLE results_linear_regression TO analytics;
+GRANT ALL ON TABLE results_box_stat TO analytics;
