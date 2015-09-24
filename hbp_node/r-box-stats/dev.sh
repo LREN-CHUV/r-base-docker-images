@@ -1,6 +1,11 @@
-#!/bin/sh -e
+#!/bin/bash -e
 
-docker run --rm --link test-postgres:postgres \
+pg_running="$(docker ps | grep test-postgres | wc -l)"
+
+[ $pg_running == 1 ] || docker rm -f test-postgres
+[ $pg_running == 1 ] || tests/setup.sh
+
+docker run -i -t --rm --link test-postgres:postgres \
   -e REQUEST_ID=001 \
   -e NODE=Test \
   -e PARAM_query="select tissue1_volume from brain_feature order by tissue1_volume" \
@@ -18,4 +23,4 @@ docker run --rm --link test-postgres:postgres \
   -e OUT_JDBC_PASSWORD=test \
   -e OUT_SCHEMA=public \
   -e RESULT_TABLE=results_box_stats \
-  registry.federation.mip.hbp/hbp_node/r-box-stats-test test
+  registry.federation.mip.hbp/hbp_node/r-box-stats-test shell

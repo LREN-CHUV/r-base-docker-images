@@ -25,4 +25,7 @@ elif [ "$1" = '/bin/sh' ] | [ "$1" = '/bin/bash' ] ; then
 	/bin/bash -i
 elif [ "$1" = 'shell' ] ; then
 	/bin/bash -i
+elif [ "$1" = 'R' ] ; then
+	cd /src
+	gosu compute /usr/bin/R
 fi

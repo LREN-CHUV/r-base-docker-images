@@ -3,13 +3,14 @@ library(testthat)
 # Perform the computation
 source("/src/main.R")
 
-conn <- dbConnect(drv, Sys.getenv("OUT_JDBC_URL"), Sys.getenv("OUT_JDBC_USER"), Sys.getenv("OUT_JDBC_PASSWORD"))
+connect2outdb()
+
 request_id <- Sys.getenv("REQUEST_ID")
 result_table <- Sys.getenv("RESULT_TABLE", "results_box_stats")
 result_columns <- "request_id, node, id, min, q1, median, q3, max"
 
 # Get the results
-results <- dbGetQuery(conn, paste("select ", result_columns ," from ", result_table, " where request_id = ?"), request_id)
+results <- RJDBC::dbGetQuery(out_conn, paste("select ", result_columns ," from ", result_table, " where request_id = ?"), request_id)
 
 node <- results$node[[1]]
 result_min <- results$min
@@ -18,8 +19,8 @@ result_median <- results$median
 result_q3 <- results$q3
 result_max <- results$max
 
-# Disconnect from the database server
-dbDisconnect(conn)
+# Disconnect from the database
+disconnectdb()
 
 expect_equal(node, "Test")
 

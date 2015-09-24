@@ -28,7 +28,7 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
 
 COPY etc/nginx/ /etc/nginx/
 
-RUN mkdir -p /data/{in,out} /var/www/html/ /src \
+RUN mkdir -p /data/in /data/out /var/www/html/ /src \
     && chown -R compute /data /var/www/html/ /src \
     && ln -s -t /var/www/html/ /src
 

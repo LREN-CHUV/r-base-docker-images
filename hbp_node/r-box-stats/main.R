@@ -7,6 +7,7 @@
 # 
 # - Input Parameters:
 #      PARAM_query  : SQL query producing the dataframe to analyse
+#      PARAM_colnames : Column separated list of columns to include in the stats
 # - Execution context:
 #      REQUEST_ID : ID of the incoming request
 #      NODE : Node used for the execution of the script
@@ -24,61 +25,31 @@
 #
 
 library(hbpboxstats)
-library(RJDBC)
+library(hbpjdbcconnect)
 
 # Initialisation
-drv <- JDBC(Sys.getenv("IN_JDBC_DRIVER"),
-           Sys.getenv("IN_JDBC_JAR_PATH"),
-           identifier.quote="`")
-conn <- dbConnect(drv, Sys.getenv("IN_JDBC_URL"), Sys.getenv("IN_JDBC_USER"), Sys.getenv("IN_JDBC_PASSWORD"))
+connect2indb()
 request_id <- Sys.getenv("REQUEST_ID")
 node <- Sys.getenv("NODE")
 query <- Sys.getenv("PARAM_query")
-in_schema <- Sys.getenv("IN_SCHEMA", "")
+columns <- Sys.getenv("PARAM_colnames")
 
-if (in_schema != "") {
-  dbSendUpdate(conn, paste("SET search_path TO '", in_schema, "'", sep=""))
-}
+# Fetch the data
+y <- RJDBC::dbGetQuery(in_conn, query)
 
 # Perform the computation
-y <- unlist(dbGetQuery(conn, query))
-
-res <- BoxStats_Node(y)
+res <- tableboxstats(y, strsplit(columns, ","))
 
 result_table <- Sys.getenv("RESULT_TABLE", "results_box_stats")
 
-if (Sys.getenv("IN_JDBC_DRIVER") != Sys.getenv("OUT_JDBC_DRIVER") ||
-	Sys.getenv("IN_JDBC_JAR_PATH") != Sys.getenv("OUT_JDBC_JAR_PATH")) {
-
-	outDrv <- JDBC(Sys.getenv("OUTJDBC_DRIVER"),
-           Sys.getenv("OUT_JDBC_JAR_PATH"),
-           identifier.quote="`")
-} else {
-	outDrv <- drv
-}
-
-if (Sys.getenv("IN_JDBC_URL") != Sys.getenv("OUT_JDBC_URL") ||
-	Sys.getenv("IN_JDBC_USER") != Sys.getenv("OUT_JDBC_USER") ||
-	Sys.getenv("IN_JDBC_PASSWORD") != Sys.getenv("OUT_JDBC_PASSWORD")) {
-
-    outConn <- dbConnect(drv, Sys.getenv("OUT_JDBC_URL"), Sys.getenv("OUT_JDBC_USER"), Sys.getenv("OUT_JDBC_PASSWORD"))
-} else {
-	outConn <- conn
-}
-
-out_schema <- Sys.getenv("OUT_SCHEMA", "")
-
-if (out_schema != "") {
-  dbSendUpdate(conn, paste("SET search_path TO '", out_schema, "'", sep=""))
-}
+connect2outdb()
 
 # Store results in the database
-n <- 1
+n <- ncol(res)
 results <- data.frame(request_id = rep(request_id, n), node = rep(node, n), id = 1:n,
-	               min = res['min'], q1 = res['q1'], median = res['median'], q3 = res['q3'], max = res['max'])
+	               min = res['min',], q1 = res['q1',], median = res['median',], q3 = res['q3',], max = res['max',])
 
-dbWriteTable(conn, result_table, results, overwrite=FALSE, append=TRUE, row.names = FALSE)
+RJDBC::dbWriteTable(out_conn, result_table, results, overwrite=FALSE, append=TRUE, row.names = FALSE)
 
-# Disconnect from the database server
-if (Sys.getenv("IN_JDBC_URL") != Sys.getenv("OUT_JDBC_URL")) dbDisconnect(outConn)
-dbDisconnect(conn)
+# Disconnect from the databases
+disconnectdb()
