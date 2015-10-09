@@ -21,7 +21,7 @@
 #      OUT_JDBC_URL : JDBC connection URL for output results
 #      OUT_JDBC_USER : User for the database connection for output results
 #      OUT_JDBC_PASSWORD : Password for the database connection for output results
-#      RESULT_TABLE: name of the result table, defaults to 'results_linear_regression'
+#      RESULT_TABLE: name of the result table, defaults to 'result_box_stats'
 #
 
 library(hbpboxstats)
@@ -40,7 +40,7 @@ y <- RJDBC::dbGetQuery(in_conn, query)
 # Perform the computation
 res <- tableboxstats(y, strsplit(columns, ","))
 
-result_table <- Sys.getenv("RESULT_TABLE", "results_box_stats")
+result_table <- Sys.getenv("RESULT_TABLE", "result_box_stats")
 
 connect2outdb()
 

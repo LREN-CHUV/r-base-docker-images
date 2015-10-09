@@ -1,7 +1,7 @@
 
--- DROP TABLE results_box_stat;
+-- DROP TABLE result_box_stats;
 
-CREATE TABLE results_box_stat
+CREATE TABLE result_box_stats
 (
   request_id character varying(32) NOT NULL,
   node character varying(32) NOT NULL,
@@ -12,11 +12,11 @@ CREATE TABLE results_box_stat
   q3 numeric,
   max numeric,
 
-  CONSTRAINT pk_results_box_stat PRIMARY KEY (request_id, node, id)
+  CONSTRAINT pk_result_box_stats PRIMARY KEY (request_id, node, id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE results_box_stat
+ALTER TABLE result_box_stats
   OWNER TO analytics;
-GRANT ALL ON TABLE results_box_stat TO analytics;
+GRANT ALL ON TABLE result_box_stats TO analytics;
