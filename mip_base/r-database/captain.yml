@@ -1,0 +1,21 @@
+r-database:
+  build: Dockerfile
+  image: registry.federation.mip.hbp/mip_base/r-database
+  pre:
+    - echo "Download JDBC jars"
+    - ./download-jdbc-jars.sh
+    - echo "Preparing r-database"
+  post:
+    - echo "Finished r-database"
+
+r-database-test:
+  build: Dockerfile.test
+  image: registry.federation.mip.hbp/mip_base/r-database-test
+  pre:
+    - echo "Preparing r-database-test"
+  post:
+    - echo "Finished r-database-test"
+  test:
+    - tests/setup.sh
+    - docker run --rm --link test-postgres:postgres registry.federation.mip.hbp/mip_base/r-database-test test
+    - tests/teardown.sh

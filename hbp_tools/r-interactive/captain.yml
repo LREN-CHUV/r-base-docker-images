@@ -1,7 +1,0 @@
-r-interactive:
-  build: Dockerfile
-  image: registry.federation.mip.hbp/hbp_tools/r-interactive
-  pre:
-    - echo "Preparing r-interactive"
-  post:
-    - echo "Finished r-interactive"
