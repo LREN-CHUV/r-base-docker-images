@@ -14,15 +14,12 @@ get_script_dir () {
 
 ROOT_DIR="$(get_script_dir)"
 
-for image in hbp/r-base \
-             hbp/r-java \
-             hbp/r-database \
-             hbp/r-database-mass \
-             mip_node/r-linear-regression \
-             mip_federation/r-linear-regression \
+for image in mip_base/r-base \
+             mip_base/r-java \
+             mip_base/r-database \
+             mip_base/r-database-mass \
+             mip_tools/r-interactive \
              mip_federation/workflow; do
-
-   	# TODO: mip_desktop/*
 
 	cd $ROOT_DIR/$image
 	captain push
