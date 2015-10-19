@@ -9,6 +9,10 @@ RUN apt-get update && apt-get install -y --force-yes \
         curl=7.38.0-4+deb8u2 \
         libcurl3=7.38.0-4+deb8u2 \
         libcurl4-openssl-dev=7.38.0-4+deb8u2 \
+        r-base-dev \
+        gcc=4:5.2.1-4 \
+        cpp=4:5.2.1-4 \
+        gfortran=4:5.2.1-4 \
         git \
         openssl \
         libssl-dev \
