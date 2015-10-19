@@ -5,6 +5,7 @@
 # our R base image
 FROM registry.federation.mip.hbp/mip_base/r-database-mass
 
+# Fix the versions to ensure reproducible builds.
 RUN apt-get update && apt-get install -y --force-yes \
         curl=7.38.0-4+deb8u2 \
         libcurl3=7.38.0-4+deb8u2 \
@@ -27,7 +28,6 @@ RUN apt-get update && apt-get install -y --force-yes \
         texlive-latex-base \
         texlive-latex-extra \
         texlive-latex-recommended \
-        default-jdk \
         subversion \
         git \
     && apt-get clean \
