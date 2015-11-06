@@ -36,8 +36,8 @@ RUN apt-get update && apt-get install -y --force-yes \
 
 # install packages
 # these are ones I like
-RUN install2.r --error devtools roxygen2 testthat knitr rmarkdown rstudioapi ggplot2 plyr reshape2 RColorBrewer scales gridBase wesanderson \
-                       formatR lintr sjPlot jsonlite \
+RUN install2.r --error devtools roxygen2 testthat knitr rmarkdown rstudioapi ggplot2 reshape2 RColorBrewer scales gridBase wesanderson \
+                       formatR lintr sjPlot \
   && echo 'devtools::install_github("hadley/devtools")' >> /tmp/packages.R \
   && Rscript /tmp/packages.R \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
