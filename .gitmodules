@@ -1,0 +1,3 @@
+[submodule "mip_base/r-job/tests/db"]
+	path = mip_base/r-job/tests/db
+	url = git@gitlab.intranet.chuv:/mip-infra/analytics-db

@@ -1,17 +1,18 @@
-r-jobs:
+r-job:
   build: Dockerfile
-  image: registry.federation.mip.hbp/mip_base/r-jobs
+  image: registry.federation.mip.hbp/mip_base/r-job
   pre:
-    - echo "Preparing r-jobs"
+    - echo "Preparing r-job"
   post:
-    - echo "Finished r-jobs"
+    - echo "Finished r-job"
 
-r-jobs-test:
+r-job-test:
   build: Dockerfile.test
-  image: registry.federation.mip.hbp/mip_base/r-jobs-test
+  image: registry.federation.mip.hbp/mip_base/r-job-test
   pre:
-    - echo "Preparing r-jobs-test"
+    - echo "Preparing r-job-test"
   post:
-    - echo "Finished r-jobs-test"
+    - echo "Finished r-job-test"
   test:
-    - docker run --rm registry.federation.mip.hbp/mip_base/r-jobs-test test
+    - tests/db/start-db.sh
+    - tests/test.sh
