@@ -21,7 +21,7 @@ for image in mip_base/r-base \
              mip_tools/r-interactive \
              mip_federation/workflow; do
 
-	cd $ROOT_DIR/$image
-	captain push
+  cd $ROOT_DIR/$image
+  captain test
+  captain push
 done
-
