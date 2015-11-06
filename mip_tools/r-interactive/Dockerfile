@@ -3,7 +3,7 @@
 # http://r-pkgs.had.co.nz/intro.html
 
 # our R base image
-FROM registry.federation.mip.hbp/mip_base/r-database-mass
+FROM registry.federation.mip.hbp/mip_base/r-database
 
 # Fix the versions to ensure reproducible builds.
 RUN apt-get update && apt-get install -y --force-yes \
