@@ -20,4 +20,5 @@ RUN install2.r --error rJava \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 RUN echo "LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/:/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64/" >> /etc/environment \
-    && echo "LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/:/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64/" >> /home/docker/.profile
+    && echo "LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/:/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64/" >> /home/docker/.profile \
+    && ln -s /usr/lib/jvm/java-8-openjdk-amd64 /usr/lib/jvm/default-java

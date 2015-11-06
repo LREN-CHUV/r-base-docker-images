@@ -14,13 +14,15 @@ get_script_dir () {
 
 ROOT_DIR="$(get_script_dir)"
 
-for image in mip_base/r-base \
-             mip_base/r-libs \
-             mip_base/r-java \
-             mip_base/r-database \
-             mip_tools/r-interactive \
-             mip_federation/workflow; do
+IMAGES="mip_base/r-libs mip_base/r-java mip_base/r-database mip_base/r-job mip_tools/r-interactive mip_federation/workflow"
 
+if [ "$1" = "--all" ]; then
+  IMAGES="mip_base/r-base $IMAGES"
+else
+  echo "Skip building base images. Add --all parameter to build also those base images"
+fi
+
+for image in $IMAGES ; do
   cd $ROOT_DIR/$image
   captain test
   captain push

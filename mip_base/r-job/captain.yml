@@ -1,0 +1,17 @@
+r-jobs:
+  build: Dockerfile
+  image: registry.federation.mip.hbp/mip_base/r-jobs
+  pre:
+    - echo "Preparing r-jobs"
+  post:
+    - echo "Finished r-jobs"
+
+r-jobs-test:
+  build: Dockerfile.test
+  image: registry.federation.mip.hbp/mip_base/r-jobs-test
+  pre:
+    - echo "Preparing r-jobs-test"
+  post:
+    - echo "Finished r-jobs-test"
+  test:
+    - docker run --rm registry.federation.mip.hbp/mip_base/r-jobs-test test

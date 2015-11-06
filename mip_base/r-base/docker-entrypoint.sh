@@ -21,7 +21,7 @@ elif [ "$1" = 'export-docs' ]; then
 elif [ "$1" = 'serve' ]; then
 	/usr/sbin/nginx
 elif [ "$1" = '/bin/sh' ] | [ "$1" = '/bin/bash' ] ; then
-	echo "** Please use 'shell' command instead **"
+	echo "** Please use 'shell' command instead of $1 **"
 	/bin/bash -i
 elif [ "$1" = 'shell' ] ; then
 	/bin/bash -i
