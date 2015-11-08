@@ -11,5 +11,5 @@ WITH (
   OIDS=FALSE
 );
 
-insert into some_data values ("001", 1, 2);
-insert into some_data values ("002", 2, 3);
+insert into some_data (id, a, b) values ('001', 1, 2);
+insert into some_data (id, a, b) values ('002', 2, 3);

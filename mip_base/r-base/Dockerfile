@@ -1,5 +1,5 @@
 ## Start with the official rocker image (lightweight Debian)
-FROM r-base:3.2.1
+FROM r-base:3.2.2
 
 MAINTAINER ludovic.claude54@gmail.com
 

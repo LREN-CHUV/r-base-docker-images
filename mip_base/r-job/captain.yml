@@ -14,6 +14,8 @@ r-job-test:
   post:
     - echo "Finished r-job-test"
   test:
-    - tests/db/start-db.sh
+    - tests/in-db/start-db.sh
+    - tests/out-db/start-db.sh
     - tests/test.sh
-    - tests/db/stop-db.sh
+    - tests/in-db/stop-db.sh
+    - tests/out-db/stop-db.sh

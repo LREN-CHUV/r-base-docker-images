@@ -2,9 +2,8 @@ library(testthat)
 
 library(hbpjdbcconnect)
 
-fetchData("")
+df <- fetchData("select id, a, b from some_data")
 
-df <- data.frame(a=1, b=2)
 saveResults(df)
 
 print ("TODO")
