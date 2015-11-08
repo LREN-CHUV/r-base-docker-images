@@ -16,3 +16,4 @@ r-job-test:
   test:
     - tests/db/start-db.sh
     - tests/test.sh
+    - tests/db/stop-db.sh

@@ -2,6 +2,9 @@ library(testthat)
 
 library(hbpjdbcconnect)
 
-# Perform the computation
+fetchData("")
+
+df <- data.frame(a=1, b=2)
+saveResults(df)
 
 print ("TODO")
