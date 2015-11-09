@@ -12,10 +12,16 @@ get_script_dir () {
      pwd
 }
 
-sudo docker rm --force indb 2> /dev/null | true
-sudo docker run --name indb \
-    -v $(get_script_dir):/tests \
-    -e POSTGRES_PASSWORD=test -p 15432:5432 -d postgres:9.4.4
+if groups $USER | grep &>/dev/null '\bdocker\b'; then
+    DOCKER=docker
+else
+    DOCKER=sudo docker
+fi
 
-sudo docker exec indb \
+$DOCKER rm --force indb 2> /dev/null | true
+$DOCKER run --name indb \
+    -v $(get_script_dir):/tests \
+    -e POSTGRES_PASSWORD=test -d postgres:9.4.4
+
+$DOCKER exec indb \
     /bin/bash -c 'while ! pg_isready -U postgres ; do sleep 1; done && exec psql -U postgres -f /tests/create.sql'
