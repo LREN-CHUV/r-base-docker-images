@@ -1,0 +1,3 @@
+
+* Use RPosgres to connect to a Postgres database without requiring Java / JDBC
+  https://github.com/rstats-db/RPostgres
