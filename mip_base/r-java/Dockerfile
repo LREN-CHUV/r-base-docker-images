@@ -9,7 +9,7 @@ LABEL eu.humanbrainproject.version=0.1 \
 
 ## Install Java 
 RUN apt-get update \
-    && apt-get install -y openjdk-8-jre-headless \
+    && apt-get install -y openjdk-8-jdk \
     && update-alternatives --display java \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean \
