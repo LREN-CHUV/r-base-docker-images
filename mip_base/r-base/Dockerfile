@@ -28,20 +28,24 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
 
 COPY etc/nginx/ /etc/nginx/
 
+ENV R_REPO https://cran.rstudio.com/ \
+    COMPUTE_IN /data/in \
+    COMPUTE_OUT /data/out \
+    SRC /src
+
+# Create our standard directories:
+#   /data/in : input data should go there
+#   /data/out : output data should go there
+#   /var/www/html : root for the HTML documentation which can be served when the container is executed in serve mode
+# Install testthat package
 RUN mkdir -p /data/in /data/out /var/www/html/ /src \
     && chown -R compute /data /var/www/html/ /src \
-    && ln -s -t /var/www/html/ /src
+    && ln -s -t /var/www/html/ /src \
+    && install2.r --error testthat \
+    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
-ENV R_REPO https://cran.rstudio.com/
-ENV COMPUTE_IN /data/in
-ENV COMPUTE_OUT /data/out
-ENV SRC /src
 VOLUME /data/in
 VOLUME /data/out
-
-## Install testthat package
-RUN install2.r --error testthat \
-    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 COPY docker-entrypoint.sh /
 
