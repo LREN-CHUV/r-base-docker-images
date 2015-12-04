@@ -22,9 +22,10 @@ RUN gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4
     && apt-get install -y nginx-light \
     && rm -rf /etc/nginx/*.d \
     && mkdir -p /etc/nginx/addon.d /etc/nginx/conf.d /etc/nginx/host.d /etc/nginx/nginx.d \
+    && apt-get autoremove -y \
     && apt-get clean \
     && echo -n > /var/lib/apt/extended_states \
-	&& rm -rf /var/lib/apt/lists/*
+	&& rm -rf /var/lib/apt/lists/* /tmp/*
 
 COPY etc/nginx/ /etc/nginx/
 
@@ -42,7 +43,7 @@ RUN mkdir -p /data/in /data/out /var/www/html/ /src \
     && chown -R compute /data /var/www/html/ /src \
     && ln -s -t /var/www/html/ /src \
     && install2.r --error testthat \
-    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+    && rm -rf /tmp/*
 
 VOLUME /data/in
 VOLUME /data/out

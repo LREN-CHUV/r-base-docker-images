@@ -9,6 +9,7 @@ LABEL eu.humanbrainproject.version=0.1 \
 
 # Install ODBC driver for Postgres
 RUN apt-get update && apt-get install -y libodbc1 libiodbc2 libiodbc2-dev odbc-postgresql libmyodbc r-cran-rodbc \
+    && apt-get autoremove -y \
     && apt-get clean \
     && echo -n > /var/lib/apt/extended_states \
 	&& rm -rf /var/lib/apt/lists/*
