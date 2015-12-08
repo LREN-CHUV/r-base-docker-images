@@ -5,5 +5,3 @@ r-base:
     - echo "Preparing r-base"
   post:
     - echo "Finished r-base"
-  test:
-    - docker run --rm registry.federation.mip.hbp/mip_base/r-base test
