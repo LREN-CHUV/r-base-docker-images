@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 # Wrapper for install2.r that installs r-base-dev before executing the installation of R packages then removes
 # r-base-dev to keep the image lean.
 

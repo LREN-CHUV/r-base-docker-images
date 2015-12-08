@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eo pipefail
+
 apt-get update
 apt-get install -t unstable -y --no-install-recommends \
 		r-base-dev=${R_BASE_VERSION}*
