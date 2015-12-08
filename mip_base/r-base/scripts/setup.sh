@@ -95,9 +95,12 @@ export CC
 apt-get update
 apt-get install -t unstable -y --no-install-recommends \
         littler/unstable \
-        r-base=${R_BASE_VERSION}* \
         r-base-core=${R_BASE_VERSION}* \
+        r-base=${R_BASE_VERSION}* \
         r-recommended=${R_BASE_VERSION}*
+
+# Ensure that autoremove is not too greedy
+apt-mark manual r-base-core
 
 echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site
 echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r
