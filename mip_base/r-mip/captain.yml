@@ -1,17 +1,17 @@
 r-base:
   build: Dockerfile
-  image: registry.federation.mip.hbp/mip_base/r-base
+  image: registry.federation.mip.hbp/mip_base/r-mip
   pre:
-    - echo "Preparing r-base"
+    - echo "Preparing r-mip"
   post:
-    - echo "Finished r-base"
+    - echo "Finished r-mip"
 
 r-base-test:
   build: Dockerfile.test
-  image: registry.federation.mip.hbp/mip_base/r-base-test
+  image: registry.federation.mip.hbp/mip_base/r-mip-test
   pre:
-    - echo "Preparing r-base-test"
+    - echo "Preparing r-mip-test"
   post:
-    - echo "Finished r-base-test"
+    - echo "Finished r-mip-test"
   test:
-    - docker run --rm registry.federation.mip.hbp/mip_base/r-base-test test
+    - docker run --rm registry.federation.mip.hbp/mip_base/r-mip-test test

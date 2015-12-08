@@ -39,19 +39,17 @@ rm -r /var/lib/apt/lists/*
 
 apt-get update
 
-# Install all the dependencies that we need in order to be able to build
-# both Python and Apache from source code, and then build additional
-# modules for each. This is still a slim install. If additional packages
-# are needed based on users code, such as database clients, they should
-# be installed by the user from the build hooks.
+# Install all the dependencies that we need.
+# This is still a slim install. If additional packages are needed based on users code, such as dependencies for new R packages,
+# they should be installed by the user from the build hooks.
 
 apt-get install -y --no-install-recommends \
-		ed \
-		less \
-		locales \
-		vim-tiny \
-		wget \
-		ca-certificates
+        ed \
+        less \
+        locales \
+        vim-tiny \
+        wget \
+        ca-certificates
 
 # Ensure that default language locale is set to a sane default of UTF-8.
 
@@ -97,13 +95,16 @@ export CC
 apt-get update
 apt-get install -t unstable -y --no-install-recommends \
         littler/unstable \
-		r-base=${R_BASE_VERSION}*
+        r-base=${R_BASE_VERSION}* \
+        r-base-core=${R_BASE_VERSION}* \
+        r-recommended=${R_BASE_VERSION}*
 
 echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site
 echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r
 ln -s /usr/share/doc/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r
 
-install.r docopt MASS
+# docopt is used by littler
+install.r docopt
 
 rm -rf /var/lib/apt/lists/*
 

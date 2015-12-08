@@ -9,12 +9,9 @@ LABEL eu.humanbrainproject.version=0.1 \
 
 ## Install Java 
 RUN apt-get update \
-    && apt-get install -y openjdk-8-jdk \
+    && apt-get install -y --no-install-recommends openjdk-8-jdk \
     && update-alternatives --display java \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && echo -n > /var/lib/apt/extended_states \
-	&& rm -rf /var/lib/apt/lists/*
+    && /usr/local/bin/apt-cleanup.sh \
     && R CMD javareconf
 
 ## Install rJava package, force openjdk-8 to be the default Java installation for rJava

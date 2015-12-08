@@ -9,12 +9,9 @@ apt-get install -t unstable -y --no-install-recommends \
 
 /usr/share/doc/littler/examples/installGithub.r $@
 
-rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 apt-get purge -y build-essential cpp cpp-5 dpkg-dev \
 	g++ g++-5 gcc gcc-5 gfortran gfortran-5 perl-modules fonts-dejavu-core
 
-rm -rf /var/lib/apt/lists/*
+rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
-apt-get autoremove -y
-rm -rf /var/lib/{apt,dpkg,cache,log}/
-rm -rf /var/{cache,log}
+/usr/local/bin/apt-cleanup.sh

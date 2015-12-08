@@ -1,7 +1,7 @@
 
-# Base image for R scripts
+# Adapt the base R image to the MIP environment
 
-This base image provides a R environment with the following properties:
+This image provides a R environment compatible with MIP and providing the following features:
 
 * The *compute* user is used to run the R scripts
 * Directories /data/in and /data/out are intended to store the incoming files
@@ -15,6 +15,7 @@ This base image provides a R environment with the following properties:
 * If you run the container with the *export-docs* command and mount /data/out to a local directory,
   the documentation will be copied to that local directory.
 * If you run the container with the *shell* command, an interactive shell will start.
+* testthat package is installed to encourage writting unit tests.
 
 ## Summary of commands:
 

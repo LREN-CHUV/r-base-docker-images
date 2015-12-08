@@ -1,15 +1,21 @@
 # In this Docker container layer, we install some common libraries:
 #
-# * MASS
 # * plyr
 # * jsonlite
 # * rjson
 # * rjstat
+#
+# Other libraries are already present from r-recommends package such as:
+# * MASS
+# * Matrix
+# * cluster
+# * foreign
+# * rpart
 
 
-FROM registry.federation.mip.hbp/mip_base/r-base:latest
+FROM registry.federation.mip.hbp/mip_base/r-mip:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-RUN install2.r --error MASS plyr jsonlite rjson rjstat \
+RUN install2.r --error plyr jsonlite rjson rjstat \
     && rm -rf /tmp/*
