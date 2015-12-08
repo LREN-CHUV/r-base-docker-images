@@ -7,16 +7,6 @@ MAINTAINER ludovic.claude54@gmail.com
 LABEL eu.humanbrainproject.version=0.1 \
       eu.humanbrainproject.category=R
 
-## Install Java 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends openjdk-8-jdk \
-    && update-alternatives --display java \
-    && /usr/local/bin/apt-cleanup.sh \
-    && R CMD javareconf
+COPY scripts/setup.sh /usr/local/bin/r-java-docker-setup
 
-## Install rJava package, force openjdk-8 to be the default Java installation for rJava
-RUN install2.r --error rJava \
-    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
-    && echo "LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/:/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64/" >> /etc/environment \
-    && echo "LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/:/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64/" >> /home/docker/.profile \
-    && ln -s /usr/lib/jvm/java-8-openjdk-amd64 /usr/lib/jvm/default-java
+RUN /usr/local/bin/r-java-docker-setup
