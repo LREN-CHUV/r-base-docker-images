@@ -52,13 +52,6 @@ apt-get install -y nginx-light
 rm -rf /etc/nginx/*.d
 mkdir -p /etc/nginx/addon.d /etc/nginx/conf.d /etc/nginx/host.d /etc/nginx/nginx.d
 
-apt-get autoremove -y
-apt-get clean
-echo -n > /var/lib/apt/extended_states
-echo -n > /var/lib/dpkg/status
-
-rm -rf /var/lib/apt/lists/* /tmp/*
-
 # Create our standard directories:
 #   /data/in : input data should go there
 #   /data/out : output data should go there
@@ -72,3 +65,5 @@ ln -s -t /var/www/html/ /src
 install2.r --error testthat
 
 # Cleanup of apt already performed in our install.r scripts
+
+rm -rf /tmp/*

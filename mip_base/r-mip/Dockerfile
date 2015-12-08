@@ -8,10 +8,10 @@ LABEL eu.humanbrainproject.version=0.2 \
 
 COPY scripts/setup.sh /usr/local/bin/r-mip-docker-setup
 
-ENV R_REPO https://cran.rstudio.com/ \
-    COMPUTE_IN /data/in \
-    COMPUTE_OUT /data/out \
-    SRC /src
+ENV R_REPO=https://cran.rstudio.com/ \
+    COMPUTE_IN=/data/in \
+    COMPUTE_OUT=/data/out \
+    SRC=/src
 
 RUN /usr/local/bin/r-mip-docker-setup
 
