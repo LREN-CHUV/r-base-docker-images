@@ -30,6 +30,8 @@ apt-get update
 # Install ODBC driver for Postgres
 apt-get install -y libodbc1 libiodbc2 libiodbc2-dev odbc-postgresql libmyodbc r-cran-rodbc
 
+chmod a+r /usr/lib/R/libraries/*
+
 # install packages
 install2.r --error RJDBC \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds

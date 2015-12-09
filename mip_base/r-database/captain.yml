@@ -14,6 +14,4 @@ r-database-test:
   post:
     - echo "Finished r-database-test"
   test:
-    - ../../tests/in-db/start-db.sh
-    - docker run --rm --link test-postgres:postgres registry.federation.mip.hbp/mip_base/r-database-test test
-    - ../../tests/in-db/stop-db.sh
+    - tests/test.sh
