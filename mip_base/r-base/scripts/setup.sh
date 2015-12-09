@@ -56,7 +56,10 @@ apt-get install -y --no-install-recommends \
         wget \
         curl \
         libcurl4-openssl-dev \
-        ca-certificates
+        ca-certificates \
+        git
+
+# git will be removed later in this script
 
 # Ensure that default language locale is set to a sane default of UTF-8.
 
@@ -131,8 +134,6 @@ cat <<EOF > /usr/local/bin/_installGithub.r
 
 EOF
 
-apt-get install -y git
-
 mkdir -p /tmp/devtools
 
 cd /tmp/devtools
@@ -143,16 +144,18 @@ git checkout v1.9.1
 
 cd R
 
-for f in utils package-env reload rtools R cran parse-deps deps has-devel system decompress git package install install-remote github install-github
-cat <<EOF >> /usr/local/bin/_installGithub.r
+# parse-deps.r
+for f in utils.r package-env.r reload.r rtools.r R.r cran.r deps.R has-devel.r system.r decompress.r git.R package-deps.r package.r with.r install.r install-remote.R github.R install-github.r; do
+  cat <<EOF >> /usr/local/bin/_installGithub.r  
 
 ##
-## Code copied from https://raw.githubusercontent.com/hadley/devtools/master/R/$f.r
-##
+## Code copied from https://raw.githubusercontent.com/hadley/devtools/master/R/$f
+##  
 
 EOF
-
-cat $f.r >> /usr/local/bin/_installGithub.r
+  
+  cat $f >> /usr/local/bin/_installGithub.r
+done
 
 cd /
 rm -rf /tmp/devtools
@@ -160,6 +163,10 @@ rm -rf /tmp/devtools
 apt-get remove -y git
 
 cat <<EOF >> /usr/local/bin/_installGithub.r
+
+##
+## Back to installGithub.r
+##
 
 ## load docopt and devtools from CRAN
 suppressMessages(library(docopt))       # we need docopt (>= 0.3) as on CRAN
@@ -181,13 +188,13 @@ See http://dirk.eddelbuettel.com/code/littler.html for more information.
 
 ## docopt parsing
 opt <- docopt(doc)
-if (opt$deps == "TRUE" || opt$deps == "FALSE") {
-    opt$deps <- as.logical(opt$deps)
-} else if (opt$deps == "NA") {
-    opt$deps <- NA
+if (opt\$deps == "TRUE" || opt\$deps == "FALSE") {
+    opt\$deps <- as.logical(opt\$deps)
+} else if (opt\$deps == "NA") {
+    opt\$deps <- NA
 }
 
-invisible(sapply(opt$REPOS, function(r) install_github(r, dependencies = opt$deps)))
+invisible(sapply(opt\$REPOS, function(r) install_github(r, dependencies = opt\$deps)))
 EOF
 
 chmod +x /usr/local/bin/_installGithub.r
