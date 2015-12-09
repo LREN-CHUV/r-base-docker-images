@@ -7,12 +7,12 @@ set -eo pipefail
 
 apt-get update
 apt-get install -t unstable -y --no-install-recommends \
-        make \
+        build-essential \
 		r-base-dev=${R_BASE_VERSION}*
 
 /usr/share/doc/littler/examples/installGithub.r $@
 
-apt-get purge -y build-essential cpp cpp-5 dpkg-dev make \
+apt-get purge -y build-essential cpp cpp-5 dpkg-dev \
 	g++ g++-5 gcc gcc-5 gfortran gfortran-5 perl-modules fonts-dejavu-core
 
 rm -rf /tmp/downloaded_packages/ /tmp/*.rds
