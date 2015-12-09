@@ -8,3 +8,4 @@ See discussion in https://github.com/rocker-org/rocker/pull/150, I hope that exp
 TODO: follow more of https://github.com/GrahamDumpleton/mod_wsgi-docker/tree/master/3.5
 TODO: add build.sh
 TODO: add assemble.sh and S2I builder support
+TODO: use build time args and get the location of the APT proxy from the environment
