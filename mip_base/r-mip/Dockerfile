@@ -21,7 +21,7 @@ COPY etc/nginx/ /etc/nginx/
 VOLUME /data/in
 VOLUME /data/out
 
-COPY docker-entrypoint.sh /
+COPY scripts/docker-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
