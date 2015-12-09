@@ -9,6 +9,7 @@ COPY scripts/setup.sh /usr/local/bin/r-base-docker-setup
 COPY scripts/install.r /usr/local/bin/install.r
 COPY scripts/install2.r /usr/local/bin/install2.r
 COPY scripts/installGithub.r /usr/local/bin/installGithub.r
+COPY scripts/_installGithub.r /usr/local/bin/_installGithub.r
 COPY scripts/installPkg.sh /usr/local/bin/installPkg.sh
 
 RUN /usr/local/bin/r-base-docker-setup

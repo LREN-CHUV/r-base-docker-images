@@ -135,3 +135,5 @@ chmod 1777 /data
 
 mkdir -p /.whiskey
 chmod 1777 /.whiskey
+
+/usr/local/bin/apt-cleanup.sh

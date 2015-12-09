@@ -2,7 +2,10 @@
 * Use RPosgres to connect to a Postgres database without requiring Java / JDBC
   https://github.com/rstats-db/RPostgres
 
-* Consider defining our own R-base with a focus on reproductibility.
-  Attempt also to trim the size of the image by removing development-time tools which should be moved to r-interactive.
-  See https://hub.docker.com/r/dougmet/r-base/~/dockerfile/
-      https://github.com/rocker-org/rocker/pull/150
+* Move mip_federation/workflow to mip_base/workflow
+
+* r-base:
+  - follow more of https://github.com/GrahamDumpleton/mod_wsgi-docker/tree/master/3.5
+  - add build.sh
+  - add assemble.sh and S2I builder support
+  - use build time args and get the location of the APT proxy from the environment
