@@ -54,6 +54,8 @@ apt-get install -y --no-install-recommends \
         locales \
         vim-tiny \
         wget \
+        curl \
+        libcurl4-openssl-dev \
         ca-certificates
 
 # Ensure that default language locale is set to a sane default of UTF-8.
@@ -111,10 +113,84 @@ echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.metho
 echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r
 ln -s /usr/share/doc/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r
 
-# docopt is used by littler
-install.r docopt
+# docopt, httr , withr and memoise are used by littler
+install.r docopt httr withr memoise
 
-rm -rf /var/lib/apt/lists/*
+# Hack our version of installGithub.r
+# installGithub.r depends on devtools, and that brings up tons of dependencies which are not trivial to clear
+# Instead, we embbed a minimal set of code from devtools and a few dependencies defiend above.
+
+cat <<EOF > /usr/local/bin/_installGithub.r
+#!/usr/bin/env r
+#
+# A simple example to install one or more packages from GitHub
+#
+# Copyright (C) 2014 - 2015  Carl Boettiger and Dirk Eddelbuettel
+#
+# Released under GPL (>= 2)
+
+EOF
+
+apt-get install -y git
+
+mkdir -p /tmp/devtools
+
+cd /tmp/devtools
+
+git clone https://github.com/hadley/devtools.git
+cd devtools
+git checkout v1.9.1
+
+cd R
+
+for f in utils package-env reload rtools R cran parse-deps deps has-devel system decompress git package install install-remote github install-github
+cat <<EOF >> /usr/local/bin/_installGithub.r
+
+##
+## Code copied from https://raw.githubusercontent.com/hadley/devtools/master/R/$f.r
+##
+
+EOF
+
+cat $f.r >> /usr/local/bin/_installGithub.r
+
+cd /
+rm -rf /tmp/devtools
+
+apt-get remove -y git
+
+cat <<EOF >> /usr/local/bin/_installGithub.r
+
+## load docopt and devtools from CRAN
+suppressMessages(library(docopt))       # we need docopt (>= 0.3) as on CRAN
+
+## configuration for docopt
+doc <- "Usage: installGithub.r [-h] [-d DEPS] REPOS...
+
+-d --deps DEPS      Install suggested dependencies as well? [default: NA]
+-h --help           show this help text
+
+where REPOS... is one or more GitHub repositories.
+
+Examples:
+  installGithub.r RcppCore/RcppEigen
+
+installGithub.r is part of littler which brings 'r' to the command-line.
+See http://dirk.eddelbuettel.com/code/littler.html for more information.
+"
+
+## docopt parsing
+opt <- docopt(doc)
+if (opt$deps == "TRUE" || opt$deps == "FALSE") {
+    opt$deps <- as.logical(opt$deps)
+} else if (opt$deps == "NA") {
+    opt$deps <- NA
+}
+
+invisible(sapply(opt$REPOS, function(r) install_github(r, dependencies = opt$deps)))
+EOF
+
+chmod +x /usr/local/bin/_installGithub.r
 
 # Create empty directory to be used as application directory.
 
