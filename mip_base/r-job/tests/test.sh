@@ -1,5 +1,23 @@
 #!/bin/sh
 
+get_script_dir () {
+     SOURCE="${BASH_SOURCE[0]}"
+
+     while [ -h "$SOURCE" ]; do
+          DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+          SOURCE="$( readlink "$SOURCE" )"
+          [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+     done
+     cd -P "$( dirname "$SOURCE" )"
+     pwd
+}
+
+DIR=$(get_script_dir)
+ROOT=$DIR/../../..
+
+$ROOT/tests/in-db/start-db.sh
+$DIR/out-db/start-db.sh
+
 docker run --rm \
   --link indb:indb \
   --link analyticsdb:outdb \
@@ -16,3 +34,6 @@ docker run --rm \
   -e OUT_JDBC_USER=postgres \
   -e OUT_JDBC_PASSWORD=test \
   registry.federation.mip.hbp/mip_base/r-job-test test
+
+$ROOT/tests/in-db/stop-db.sh
+$DIR/out-db/stop-db.sh
