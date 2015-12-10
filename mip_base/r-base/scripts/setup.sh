@@ -116,9 +116,6 @@ echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.metho
 echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r
 ln -s /usr/share/doc/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r
 
-# docopt, httr , withr and memoise are used by littler
-install.r docopt httr withr memoise
-
 # Hack our version of installGithub.r
 # installGithub.r depends on devtools, and that brings up tons of dependencies which are not trivial to clear
 # Instead, we embbed a minimal set of code from devtools and a few dependencies defiend above.
@@ -160,8 +157,6 @@ done
 cd /
 rm -rf /tmp/devtools
 
-apt-get remove -y git
-
 cat <<EOF >> /usr/local/bin/_installGithub.r
 
 ##
@@ -198,6 +193,11 @@ invisible(sapply(opt\$REPOS, function(r) install_github(r, dependencies = opt\$d
 EOF
 
 chmod +x /usr/local/bin/_installGithub.r
+
+apt-get remove -y git
+
+# docopt, httr , withr and memoise are used by littler
+install.r docopt httr withr memoise
 
 # Create empty directory to be used as application directory.
 
