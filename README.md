@@ -55,3 +55,23 @@ This image is built from r-database.
 ## mip-tools
 
 ### r-interactive
+
+# Building
+
+## Pre-requesites
+
+Install [Docker engine](https://docs.docker.com/engine/installation/ubuntulinux/) and [captain](https://github.com/harbur/captain).
+
+If you are working on the MIP, please use the [dev setup](https://github.com/LREN-CHUV/dev-setup) scripts. Run ./setup.sh, then select 3) Algorithms developer to have the necessary software installed for you.
+
+Run ./after-git-clone.sh script after cloning this repository to fetch the code for all sub-projects.
+
+Run ./after-update.sh after updating the code for this repository to keep the sub-projects up-to-date.
+
+## Build scripts
+
+./build.sh located on the root of this project will attempt to build all images expect the base images.
+Use ./build.sh --all to build all images including the base images (required the first time you work on this project).
+
+Each folder contains a build.sh script use to create the image defined in the same folder.
+
