@@ -44,7 +44,6 @@ apt-get install -y --force-yes \
         gcc=4:5.2.1-8 \
         cpp=4:5.2.1-8 \
         gfortran=4:5.2.1-8 \
-        git \
         openssl \
         libssl-dev \
         libxml2-dev \
