@@ -36,17 +36,22 @@ ping -c 3 -w 3 lab01560.intranet.chuv \
 
 apt-get update
 
+GCC_VERSION="4:5.3.1-1"
+CURL_VERSION="7.46.0-1"
+
 # Fix the versions to ensure reproducible builds.
 apt-get install -y --force-yes \
-        curl=7.45.0-1+b1 \
-        libcurl3=7.45.0-1+b1 \
-        libcurl4-openssl-dev=7.45.0-1+b1 \
-        gcc=4:5.2.1-8 \
-        cpp=4:5.2.1-8 \
-        gfortran=4:5.2.1-8 \
+        curl=$CURL_VERSION \
+        libcurl3=$CURL_VERSION \
+        libcurl4-openssl-dev=$CURL_VERSION \
         openssl \
         libssl-dev \
         libxml2-dev \
+        subversion \
+        git
+
+# Documentation support
+apt-get install -y --force-yes \
         pandoc \
         texinfo \
         texlive-base \
@@ -57,8 +62,8 @@ apt-get install -y --force-yes \
         texlive-latex-base \
         texlive-latex-extra \
         texlive-latex-recommended \
-        subversion \
-        git
+        fonts-roboto \
+        fonts-roboto-hinted
 
 apt-get install -y --no-install-recommends openjdk-8-jdk
 
@@ -107,7 +112,7 @@ install2.r --error RJDBC \
 
 ## <r-job>
 
-installGithub.r LREN-CHUV/hbpjdbcconnect@6fcc5e8
+installGithub.r LREN-CHUV/hbpjdbcconnect@ea7d575c
 
 ## </r-job>
 

@@ -2,7 +2,7 @@
 # https://blog.jessfraz.com/post/R-containers-for-data-science/
 # http://r-pkgs.had.co.nz/intro.html
 
-FROM r-base:3.2.2
+FROM r-base:3.2.3
 
 COPY scripts/setup.sh /usr/local/bin/r-interactive-docker-setup
 
