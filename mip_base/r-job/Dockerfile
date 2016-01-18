@@ -5,5 +5,5 @@ FROM registry.federation.mip.hbp/mip_base/r-database:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-RUN installGithub.r LREN-CHUV/hbpjdbcconnect@6fcc5e8 \
+RUN installGithub.r LREN-CHUV/hbpjdbcconnect@ea7d575c \
     && rm -rf /tmp/*
