@@ -2,7 +2,7 @@ FROM debian:testing
 
 MAINTAINER "Ludovic Claude" ludovic.claude@chuv.ch
 
-ENV R_BASE_VERSION=3.2.2
+ENV R_BASE_VERSION=3.2.3
 
 COPY scripts/apt-cleanup.sh /usr/local/bin/apt-cleanup.sh
 COPY scripts/setup.sh /usr/local/bin/r-base-docker-setup
