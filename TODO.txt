@@ -2,8 +2,6 @@
 * Use RPosgres to connect to a Postgres database without requiring Java / JDBC
   https://github.com/rstats-db/RPostgres
 
-* Move mip_federation/workflow to mip_base/workflow
-
 * r-base:
   - follow more of https://github.com/GrahamDumpleton/mod_wsgi-docker/tree/master/3.5
   - add build.sh

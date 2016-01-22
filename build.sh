@@ -14,7 +14,7 @@ get_script_dir () {
 
 ROOT_DIR="$(get_script_dir)"
 
-IMAGES="mip_base/r-mip mip_base/r-libs mip_base/r-java mip_base/r-database mip_base/r-job mip_tools/r-interactive mip_federation/workflow"
+IMAGES="mip_base/r-mip mip_base/r-libs mip_base/r-java mip_base/r-database mip_base/r-job mip_tools/r-interactive"
 
 if [ "$1" = "--all" ]; then
   IMAGES="mip_base/r-base $IMAGES"
