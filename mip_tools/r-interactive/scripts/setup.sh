@@ -112,7 +112,7 @@ install2.r --error RJDBC \
 
 ## <r-job>
 
-installGithub.r LREN-CHUV/hbpjdbcconnect@2928235
+installGithub.r LREN-CHUV/hbpjdbcconnect@fb54072
 
 ## </r-job>
 
