@@ -20,6 +20,6 @@ sleep 2
 
 docker run --rm \
   --link indb:db \
-  registry.federation.mip.hbp/mip_base/r-database-test test
+  hbpmip/r-database-test test
 
 $ROOT/tests/in-db/stop-db.sh

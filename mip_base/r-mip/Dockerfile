@@ -1,5 +1,5 @@
 ## Start with the official rocker image (lightweight Debian)
-FROM registry.federation.mip.hbp/mip_base/r-base:latest
+FROM hbpmip/r-base:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 

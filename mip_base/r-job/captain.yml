@@ -1,6 +1,6 @@
 r-job:
   build: Dockerfile
-  image: registry.federation.mip.hbp/mip_base/r-job
+  image: hbpmip/r-job
   pre:
     - echo "Preparing r-job"
   post:
@@ -8,7 +8,7 @@ r-job:
 
 r-job-test:
   build: Dockerfile.test
-  image: registry.federation.mip.hbp/mip_base/r-job-test
+  image: hbpmip/r-job-test
   pre:
     - echo "Preparing r-job-test"
   post:

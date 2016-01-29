@@ -34,7 +34,7 @@ docker run --rm \
   -e OUT_JDBC_USER=postgres \
   -e OUT_JDBC_PASSWORD=test \
   -e OUT_FORMAT=INTERMEDIATE_RESULTS \
-  registry.federation.mip.hbp/mip_base/r-job-test test
+  hbpmip/r-job-test test
 
 $ROOT/tests/in-db/stop-db.sh
 $DIR/out-db/stop-db.sh

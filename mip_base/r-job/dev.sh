@@ -24,7 +24,7 @@ $DOCKER run -i -t --rm \
   -e OUT_JDBC_URL="jdbc:postgresql://outdb:5432/postgres" \
   -e OUT_JDBC_USER=postgres \
   -e OUT_JDBC_PASSWORD=test \
-  registry.federation.mip.hbp/mip_base/r-job shell
+  hbpmip/r-job shell
 
 ./tests/in-db/stop-db.sh
 ./tests/out-db/stop-db.sh

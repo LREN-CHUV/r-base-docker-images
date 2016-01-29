@@ -1,6 +1,6 @@
 r-base:
   build: Dockerfile
-  image: registry.federation.mip.hbp/mip_base/r-mip
+  image: hbpmip/r-mip
   pre:
     - echo "Preparing r-mip"
   post:
@@ -8,10 +8,10 @@ r-base:
 
 r-base-test:
   build: Dockerfile.test
-  image: registry.federation.mip.hbp/mip_base/r-mip-test
+  image: hbpmip/r-mip-test
   pre:
     - echo "Preparing r-mip-test"
   post:
     - echo "Finished r-mip-test"
   test:
-    - docker run --rm registry.federation.mip.hbp/mip_base/r-mip-test test
+    - docker run --rm hbpmip/r-mip-test test

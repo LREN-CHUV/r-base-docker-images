@@ -13,7 +13,7 @@
 # * rpart
 
 
-FROM registry.federation.mip.hbp/mip_base/r-mip:latest
+FROM hbpmip/r-mip:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 

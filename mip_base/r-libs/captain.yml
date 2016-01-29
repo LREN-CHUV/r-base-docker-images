@@ -1,6 +1,6 @@
 r-libs:
   build: Dockerfile
-  image: registry.federation.mip.hbp/mip_base/r-libs
+  image: hbpmip/r-libs
   pre:
     - echo "Preparing r-libs"
   post:
@@ -8,10 +8,10 @@ r-libs:
 
 r-libs-test:
   build: Dockerfile.test
-  image: registry.federation.mip.hbp/mip_base/r-libs-test
+  image: hbpmip/r-libs-test
   pre:
     - echo "Preparing r-libs-test"
   post:
     - echo "Finished r-libs-test"
   test:
-    - docker run --rm registry.federation.mip.hbp/mip_base/r-libs-test test
+    - docker run --rm hbpmip/r-libs-test test

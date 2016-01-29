@@ -1,4 +1,4 @@
-FROM registry.federation.mip.hbp/mip_base/r-java:latest
+FROM hbpmip/r-java:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 

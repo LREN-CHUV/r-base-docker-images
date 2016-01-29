@@ -1,6 +1,6 @@
 r-database:
   build: Dockerfile
-  image: registry.federation.mip.hbp/mip_base/r-database
+  image: hbpmip/r-database
   pre:
     - echo "Preparing r-database"
   post:
@@ -8,7 +8,7 @@ r-database:
 
 r-database-test:
   build: Dockerfile.test
-  image: registry.federation.mip.hbp/mip_base/r-database-test
+  image: hbpmip/r-database-test
   pre:
     - echo "Preparing r-database-test"
   post:
