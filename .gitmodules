@@ -1,6 +1,6 @@
-[submodule "mip_base/r-job/tests/db"]
-	path = mip_base/r-job/tests/out-db
-	url = https://github.com/LREN-CHUV/analytics-db.git
 [submodule "mip_base/r-database/tests/db"]
 	path = mip_base/r-database/tests/db
+	url = https://github.com/LREN-CHUV/analytics-db.git
+[submodule "mip_base/r-job/tests/out-db"]
+	path = mip_base/r-job/tests/out-db
 	url = https://github.com/LREN-CHUV/analytics-db.git
