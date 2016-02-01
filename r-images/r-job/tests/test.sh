@@ -16,7 +16,7 @@ DIR=$(get_script_dir)
 ROOT=$DIR/../../..
 
 $ROOT/tests/in-db/start-db.sh
-$DIR/out-db/start-db.sh
+$ROOT/tests/analytics-db/start-db.sh
 
 docker run --rm \
   --link indb:indb \
@@ -37,4 +37,4 @@ docker run --rm \
   hbpmip/r-job-test test
 
 $ROOT/tests/in-db/stop-db.sh
-$DIR/out-db/stop-db.sh
+$ROOT/tests/analytics-db/stop-db.sh
