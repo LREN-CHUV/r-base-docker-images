@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/bash -e
 if groups $USER | grep &>/dev/null '\bdocker\b'; then
   CAPTAIN="captain"
 else

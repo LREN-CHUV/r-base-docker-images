@@ -37,7 +37,7 @@ ping -c 3 -w 3 lab01560.intranet.chuv \
 apt-get update
 
 GCC_VERSION="4:5.3.1-1"
-CURL_VERSION="7.46.0-1"
+CURL_VERSION="7.47.0-1"
 
 # Fix the versions to ensure reproducible builds.
 apt-get install -y --force-yes \
@@ -98,6 +98,9 @@ install2.r --error rJava
 ## </r-java>
 
 ## <r-database>
+
+# Install JDBC driver for Denodo
+wget --http-user guest --http-password guest -O /usr/lib/R/libraries/denodo-vdp-jdbcdriver.jar http://hbps1.chuv.ch/community/share/_IT-tools/federation/drivers/vdp-jdbcdriver-core/denodo-vdp-jdbcdriver.jar
 
 # Install ODBC driver for Postgres
 apt-get install -y libodbc1 libiodbc2 libiodbc2-dev odbc-postgresql libmyodbc r-cran-rodbc
