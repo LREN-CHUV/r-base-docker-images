@@ -3,6 +3,8 @@
 
 This project contains the Docker images used to build the core functionality of the Medical Informatics Platform (MIP).
 
+The images are published on [Docker Hub](https://hub.docker.com/u/hbpmip/dashboard/).
+
 The list of images and their purpose is:
 
 ## Images for the R environment
