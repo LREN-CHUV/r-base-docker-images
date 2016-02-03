@@ -11,6 +11,7 @@ COPY scripts/setup.sh /usr/local/bin/r-mip-docker-setup
 ENV R_REPO=https://cran.rstudio.com/ \
     COMPUTE_IN=/data/in \
     COMPUTE_OUT=/data/out \
+    COMPUTE_TMP=/tmp \
     SRC=/src
 
 RUN /usr/local/bin/r-mip-docker-setup

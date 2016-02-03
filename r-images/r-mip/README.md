@@ -44,3 +44,10 @@ This image provides a R environment compatible with MIP and providing the follow
   ````
     mkdir doc && docker run --rm -v $(pwd)/doc:/data/out <image name> export-docs
   ````
+
+## Useful environment variables:
+
+* COMPUTE_IN: the directory containing the input files
+* COMPUTE_OUT: the output directory to use to store the output files
+* COMPUTE_TMP: the directory to use to store temporary files
+* SRC: the directory containing the sources
