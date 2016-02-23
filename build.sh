@@ -22,8 +22,14 @@ else
   echo "Skip building base images. Add --all parameter to build also those base images"
 fi
 
+if groups $USER | grep &>/dev/null '\bdocker\b'; then
+  CAPTAIN="captain"
+else
+  CAPTAIN="sudo captain"
+fi
+
 for image in $IMAGES ; do
   cd $ROOT_DIR/$image
-  captain test
-  captain push
+  $CAPTAIN test
+  $CAPTAIN push
 done

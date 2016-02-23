@@ -14,9 +14,15 @@ sudo chmod -R a+rw $WORK_DIR
 # Allow docker user to access your X session
 xhost +local:docker
 
+if groups $USER | grep &>/dev/null '\bdocker\b'; then
+  DOCKER="docker"
+else
+  DOCKER="sudo docker"
+fi
+
 # Bind mount your data
 # assuming that current folder contains the data
-docker run -v $WORK_DIR:/home/docker/data:rw \
+$DOCKER run -v $WORK_DIR:/home/docker/data:rw \
     -i -t --rm --name r-interactive \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=unix$DISPLAY \
