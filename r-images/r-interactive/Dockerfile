@@ -11,7 +11,7 @@ ADD https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar /usr/lib
 
 RUN /usr/local/bin/r-interactive-docker-setup
 
-ENV HOME /home/docker \
+ENV HOME=/home/docker \
     COMPUTE_IN=/data/in \
     COMPUTE_OUT=/data/out \
     COMPUTE_TMP=/tmp \
