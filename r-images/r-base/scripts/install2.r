@@ -5,6 +5,10 @@ set -eo pipefail
 # Wrapper for install2.r that installs r-base-dev before executing the installation of R packages then removes
 # r-base-dev to keep the image lean.
 
+[ -f /etc/apt/apt.conf.d/01proxy ] && (
+    ping -c 3 -w 0.5 $APT_PROXY_HOST || rm -f /etc/apt/apt.conf.d/01proxy
+)
+
 apt-get update
 apt-get install -t unstable -y --no-install-recommends \
         build-essential \

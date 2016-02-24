@@ -3,6 +3,8 @@ FROM debian:testing
 MAINTAINER "Ludovic Claude" ludovic.claude@chuv.ch
 
 ENV R_BASE_VERSION=3.2.3
+ENV APT_PROXY_HOST=lab01560.intranet.chuv \
+    APT_PROXY_URL=http://lab01560.intranet.chuv:3142
 
 COPY scripts/apt-cleanup.sh /usr/local/bin/apt-cleanup.sh
 COPY scripts/setup.sh /usr/local/bin/r-base-docker-setup

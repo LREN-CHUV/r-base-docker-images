@@ -2,6 +2,10 @@
 
 set -eo pipefail
 
+[ -f /etc/apt/apt.conf.d/01proxy ] && (
+    ping -c 3 -w 0.5 $APT_PROXY_HOST || rm -f /etc/apt/apt.conf.d/01proxy
+)
+
 apt-get update
 apt-get install -t unstable -y --no-install-recommends \
         build-essential \
