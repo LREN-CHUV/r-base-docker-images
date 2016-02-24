@@ -56,6 +56,7 @@ apt-get install -y --no-install-recommends \
         wget \
         curl \
         libcurl4-openssl-dev \
+        libssl-dev \
         openssl \
         ca-certificates \
         git
