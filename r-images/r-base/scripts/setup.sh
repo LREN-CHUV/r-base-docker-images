@@ -56,6 +56,7 @@ apt-get install -y --no-install-recommends \
         wget \
         curl \
         libcurl4-openssl-dev \
+        openssl \
         ca-certificates \
         git
 
@@ -196,7 +197,7 @@ chmod +x /usr/local/bin/_installGithub.r
 
 apt-get remove -y git
 
-# docopt, httr , withr and memoise are used by littler
+# docopt, httr, withr and memoise are used by littler
 install.r docopt httr withr memoise
 
 # Create empty directory to be used as application directory.
