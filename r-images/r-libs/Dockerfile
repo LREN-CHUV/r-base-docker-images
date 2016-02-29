@@ -2,8 +2,9 @@
 #
 # * plyr
 # * jsonlite
-# * rjson
 # * rjstat
+# * infuser
+# * magrittr
 #
 # Other libraries are already present from r-recommends package such as:
 # * MASS
@@ -17,5 +18,5 @@ FROM hbpmip/r-mip:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-RUN install2.r --error plyr jsonlite rjson rjstat \
+RUN install2.r --error plyr jsonlite rjstat infuser magrittr \
     && rm -rf /tmp/*
