@@ -5,5 +5,5 @@ FROM hbpmip/r-database:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-RUN installGithub.r LREN-CHUV/hbpjdbcconnect@7bb3e5de \
+RUN exec installGithub.r LREN-CHUV/hbpjdbcconnect@4ce2c14 \
     && rm -rf /tmp/*

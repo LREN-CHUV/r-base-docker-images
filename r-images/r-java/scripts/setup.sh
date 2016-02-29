@@ -46,7 +46,7 @@ R CMD javareconf
 
 ## Install rJava package
 
-install2.r --error rJava
+exec install2.r --error rJava
 
 /usr/local/bin/apt-cleanup.sh
 

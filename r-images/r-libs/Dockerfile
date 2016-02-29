@@ -18,5 +18,5 @@ FROM hbpmip/r-mip:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-RUN install2.r --error plyr jsonlite rjstat infuser magrittr \
+RUN exec install2.r --error plyr jsonlite rjstat infuser magrittr \
     && rm -rf /tmp/*

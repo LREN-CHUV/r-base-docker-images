@@ -33,7 +33,7 @@ apt-get install -y libodbc1 libiodbc2 libiodbc2-dev odbc-postgresql libmyodbc r-
 chmod a+r /usr/lib/R/libraries/*
 
 # install packages
-install2.r --error RJDBC \
+exec install2.r --error RJDBC \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 /usr/local/bin/apt-cleanup.sh
