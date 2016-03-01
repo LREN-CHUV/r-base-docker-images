@@ -3,7 +3,7 @@
 # * plyr
 # * jsonlite
 # * rjstat
-# * infuser
+# * whisker
 # * magrittr
 #
 # Other libraries are already present from r-recommends package such as:
@@ -18,5 +18,5 @@ FROM hbpmip/r-mip:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-RUN exec install2.r --error plyr jsonlite rjstat infuser magrittr \
+RUN exec install2.r --error plyr jsonlite rjstat whisker magrittr \
     && rm -rf /tmp/*
