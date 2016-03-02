@@ -3,6 +3,7 @@
 # * plyr
 # * jsonlite
 # * rjstat
+# * yaml
 # * whisker
 # * magrittr
 #
@@ -18,5 +19,5 @@ FROM hbpmip/r-mip:latest
 
 MAINTAINER ludovic.claude54@gmail.com
 
-RUN exec install2.r --error plyr jsonlite rjstat whisker magrittr \
+RUN exec install2.r --error plyr jsonlite rjstat yaml whisker magrittr \
     && rm -rf /tmp/*
