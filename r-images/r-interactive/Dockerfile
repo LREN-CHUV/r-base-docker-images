@@ -4,12 +4,14 @@
 
 FROM r-base:3.2.3
 
-COPY scripts/setup.sh /usr/local/bin/r-interactive-docker-setup
+COPY scripts/setup-apt.sh /usr/local/bin/r-interactive-docker-setup-1
+COPY scripts/setup-Rlibs.sh /usr/local/bin/r-interactive-docker-setup-2
 
 ADD https://jdbc.postgresql.org/download/postgresql-9.3-1103.jdbc41.jar /usr/lib/R/libraries/postgresql-9.3-1103.jdbc41.jar
 ADD https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar /usr/lib/R/libraries/postgresql-9.4-1201.jdbc41.jar
 
-RUN /usr/local/bin/r-interactive-docker-setup
+RUN /usr/local/bin/r-interactive-docker-setup-1
+RUN /usr/local/bin/r-interactive-docker-setup-2
 
 ENV HOME=/home/docker \
     COMPUTE_IN=/data/in \
