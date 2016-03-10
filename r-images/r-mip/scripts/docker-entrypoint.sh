@@ -5,12 +5,14 @@ if [ "$1" = "compute" ]; then
 	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
 
 	gosu compute /usr/bin/Rscript /src/main.R
+	exit $?
 
 elif [ "$1" = "test" ]; then
 	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
 	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
 
 	gosu compute /usr/bin/Rscript /src/tests/testthat.R
+	exit $?
 
 elif [ "$1" = "export" ]; then
 	# Assume that $COMPUTE_OUT is mounted on the host directory
@@ -28,6 +30,7 @@ elif [ "$1" = "shell" ] ; then
 elif [ "$1" = "R" ] ; then
 	cd /src
 	gosu compute /usr/bin/R
+	exit $?
 elif [ "$1" = "help" ] | [ "$1" = "-h" ] | [ "$1" = "--help" ] | [ "$1" = "" ] ; then
 	echo "Usage:"
 	echo
