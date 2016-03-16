@@ -2,7 +2,7 @@ FROM debian:testing
 
 MAINTAINER "Ludovic Claude" ludovic.claude@chuv.ch
 
-ENV R_BASE_VERSION=3.2.3
+ENV R_BASE_VERSION=3.2.4
 ENV APT_PROXY_HOST=lab01560.intranet.chuv \
     APT_PROXY_URL=http://lab01560.intranet.chuv:3142
 
