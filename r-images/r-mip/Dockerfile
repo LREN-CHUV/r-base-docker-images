@@ -12,6 +12,8 @@ ENV R_REPO=https://cran.rstudio.com/ \
     COMPUTE_IN=/data/in \
     COMPUTE_OUT=/data/out \
     COMPUTE_TMP=/tmp \
+    ERROR_FILE=/data/out/errors.txt \
+    OUTPUT_FILE=/data/out/output.txt \
     SRC=/src
 
 RUN /usr/local/bin/r-mip-docker-setup
@@ -23,6 +25,7 @@ VOLUME /data/in
 VOLUME /data/out
 
 COPY scripts/docker-entrypoint.sh /
+COPY scripts/wrapper.R /src/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

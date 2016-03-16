@@ -4,7 +4,7 @@ if [ "$1" = "compute" ]; then
 	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
 	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
 
-	exec gosu compute /usr/bin/Rscript /src/main.R
+	exec gosu compute /usr/bin/Rscript /src/wrapper.R
 
 elif [ "$1" = "test" ]; then
 	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
