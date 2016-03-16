@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/sh -e
 
 if [ "$1" = "compute" ]; then
 	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
