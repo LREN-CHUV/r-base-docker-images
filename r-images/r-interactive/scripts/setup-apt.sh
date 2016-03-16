@@ -30,7 +30,7 @@ set -eo pipefail
 rm -rf /var/lib/apt/lists/* 
 
 # In our environment, attempt to use the APT proxy (apt-cacher)
-ping -c 3 -w 3 lab01560.intranet.chuv \
+ping -c 3 -i 0 -w 2 lab01560.intranet.chuv \
     && echo 'Acquire::http { Proxy "http://lab01560.intranet.chuv:3142"; };' >> /etc/apt/apt.conf.d/01proxy \
     && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
 

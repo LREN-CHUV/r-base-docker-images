@@ -38,7 +38,7 @@ addgroup docker staff
 rm -r /var/lib/apt/lists/* 
 
 # In our environment, attempt to use the APT proxy (apt-cacher)
-ping -c 3 -w 0.5 $APT_PROXY_HOST \
+ping -c 3 -i 0 -w 2 $APT_PROXY_HOST \
     && echo 'Acquire::http { Proxy "$APT_PROXY_URL"; };' >> /etc/apt/apt.conf.d/01proxy \
     && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
 
