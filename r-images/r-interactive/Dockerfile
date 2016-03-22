@@ -11,6 +11,8 @@ ADD https://jdbc.postgresql.org/download/postgresql-9.3-1103.jdbc41.jar /usr/lib
 ADD https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar /usr/lib/R/libraries/postgresql-9.4-1201.jdbc41.jar
 
 RUN /usr/local/bin/r-interactive-docker-setup-1
+
+ENV HBPJDBCCONNECT_VERSION 96e8215
 RUN /usr/local/bin/r-interactive-docker-setup-2
 
 ENV HOME=/home/docker \

@@ -24,12 +24,17 @@ fi
 
 if groups $USER | grep &>/dev/null '\bdocker\b'; then
   CAPTAIN="captain"
+  DOCKER="docker"
 else
   CAPTAIN="sudo captain"
+  DOCKER="sudo docker"
 fi
+
+commit_id="$(git rev-parse --short HEAD)"
 
 for image in $IMAGES ; do
   cd $ROOT_DIR/$image
   $CAPTAIN test
-  $CAPTAIN push
+  $DOCKER push $image:$commit_id
+  $DOCKER push $image:latest
 done
