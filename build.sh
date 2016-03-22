@@ -35,6 +35,7 @@ commit_id="$(git rev-parse --short HEAD)"
 for image in $IMAGES ; do
   cd $ROOT_DIR/$image
   $CAPTAIN test
-  $DOCKER push $image:$commit_id
-  $DOCKER push $image:latest
+  name="$(echo $image | sed 's/r-images/hbpmip/')"
+  $DOCKER push $name:$commit_id
+  $DOCKER push $name:latest
 done
