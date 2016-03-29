@@ -1,0 +1,17 @@
+java-mip:
+  build: Dockerfile
+  image: hbpmip/java-mip
+  pre:
+    - echo "Preparing java-mip"
+  post:
+    - echo "Finished java-mip"
+
+java-mip-test:
+  build: Dockerfile.test
+  image: hbpmip/java-mip-test
+  pre:
+    - echo "Preparing java-mip-test"
+  post:
+    - echo "Finished java-mip-test"
+  test:
+    - docker run --rm hbpmip/java-mip-test test

@@ -1,0 +1,7 @@
+java-base:
+  build: Dockerfile
+  image: hbpmip/java-base
+  pre:
+    - echo "Preparing java-base"
+  post:
+    - echo "Finished java-base"

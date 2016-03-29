@@ -1,0 +1,9 @@
+FROM hbpmip/java-mip:latest
+
+MAINTAINER arnaud@ahead.solutions.ch
+
+COPY tests/pom.xml /dist/pom.xml
+COPY tests/test /dist/src/test
+
+RUN chown -R compute:compute /dist
+RUN exec gosu compute /usr/bin/mvn -f /dist clean install
