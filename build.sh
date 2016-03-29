@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Usage:
+# ./build.sh [--all] [--R] [--java]
+
 get_script_dir () {
      SOURCE="${BASH_SOURCE[0]}"
 
@@ -14,10 +17,47 @@ get_script_dir () {
 
 ROOT_DIR="$(get_script_dir)"
 
-IMAGES="r-images/r-mip r-images/r-libs r-images/r-java r-images/r-database r-images/r-job r-images/r-interactive"
+R_IMAGES="r-mip r-libs r-java r-database r-job r-interactive"
+JAVA_IMAGES="java-base java-mip"
+
+R_BUILD=false
+JAVA_BUILD=false
+
+NARGS=-1; while [ "$#" -ne "$NARGS" ]; do NARGS=$#
+    case $1 in
+        "-h"|"--help")
+            echo "Ugage:"
+            echo "./build.sh [--all] [--R] [--java]"
+            exit 1;
+            break
+            ;;
+        "--all")
+            R_IMAGES="r-base $R_IMAGES"
+            R_BUILD=true
+            JAVA_BUILD=true
+            break
+            ;;
+        "--R"|"--r")
+            R_BUILD=true
+            break
+            ;;
+        "--java")
+            JAVA_BUILD=true
+            break
+            ;;
+        "")
+            if [[ $NARGS == 0 ]]; then
+              R_BUILD=true
+              JAVA_BUILD=true
+            fi
+            break
+            ;;
+        *) echo invalid option;;
+    esac
+done
 
 if [ "$1" = "--all" ]; then
-  IMAGES="r-images/r-base $IMAGES"
+  R_IMAGES="r-base $R_IMAGES"
 else
   echo "Skip building base images. Add --all parameter to build also those base images"
 fi
@@ -32,10 +72,26 @@ fi
 
 commit_id="$(git rev-parse --short HEAD)"
 
-for image in $IMAGES ; do
-  cd $ROOT_DIR/$image
-  $CAPTAIN test
-  name="$(echo $image | sed 's/r-images/hbpmip/')"
-  $DOCKER push $name:$commit_id
-  $DOCKER push $name:latest
-done
+if [ $R_BUILD ]; then
+  pushd $ROOT_DIR/r-images
+  for image in $R_IMAGES ; do
+    pushd $image
+    $CAPTAIN test
+    $DOCKER push hbpmip/$image:$commit_id
+    $DOCKER push hbpmip/$image:latest
+    popd
+  done
+  popd
+fi
+
+if [ $JAVA_BUILD ]; then
+  pushd $ROOT_DIR/java-images
+  for image in $JAVA_IMAGES ; do
+    pushd $image
+    $CAPTAIN test
+    $DOCKER push hbpmip/$image:$commit_id
+    $DOCKER push hbpmip/$image:latest
+    popd
+  done
+  popd
+fi
