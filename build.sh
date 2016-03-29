@@ -72,7 +72,7 @@ fi
 
 commit_id="$(git rev-parse --short HEAD)"
 
-if [ $R_BUILD ]; then
+if [[ $R_BUILD == true ]]; then
   pushd $ROOT_DIR/r-images
   for image in $R_IMAGES ; do
     pushd $image
@@ -84,7 +84,7 @@ if [ $R_BUILD ]; then
   popd
 fi
 
-if [ $JAVA_BUILD ]; then
+if [[ $JAVA_BUILD == true ]]; then
   pushd $ROOT_DIR/java-images
   for image in $JAVA_IMAGES ; do
     pushd $image
