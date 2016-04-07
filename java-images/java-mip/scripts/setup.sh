@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # The master for this script exists in the Python '2.7' directory. Do
 # not edit the version of this script found in other directories. When
