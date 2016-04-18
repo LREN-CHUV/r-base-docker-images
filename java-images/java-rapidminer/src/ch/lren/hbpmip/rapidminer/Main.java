@@ -22,11 +22,8 @@ public class Main {
 			Class modelClass = Class.forName(args[0]);
 			RapidMinerModel model = (RapidMinerModel) modelClass.newInstance();
 
-			// Get experiment input
-			ClassificationInput input = ClassificationInput.fromEnv();
-
 			// Run experiment
-			RapidMinerExperiment experiment = new RapidMinerExperiment(input, model);
+			RapidMinerExperiment experiment = new RapidMinerExperiment(model);
 			experiment.run();
 
 			// Write results PFA in DB

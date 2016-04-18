@@ -43,6 +43,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.opendatagroup</groupId>
+            <artifactId>hadrian</artifactId>
+            <version>0.8.3</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.rapidminer.studio</groupId>
             <artifactId>rapidminer-studio-core</artifactId>
             <version>${version.rapidminer}</version>
@@ -113,12 +120,6 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.7.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.opendatagroup</groupId>
-            <artifactId>hadrian</artifactId>
-            <version>0.8.3</version>
         </dependency>
 
     </dependencies>

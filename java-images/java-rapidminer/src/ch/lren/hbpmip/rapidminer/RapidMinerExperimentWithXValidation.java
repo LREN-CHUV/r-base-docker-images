@@ -10,11 +10,14 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.rapidminer.Process;
 import com.rapidminer.RapidMiner;
 import com.rapidminer.example.ExampleSet;
-import com.rapidminer.operator.learner.PredictionModel;
-import com.rapidminer.tools.OperatorService;
 import com.rapidminer.operator.*;
+import com.rapidminer.operator.learner.PredictionModel;
+import com.rapidminer.operator.performance.MultiClassificationPerformance;
+import com.rapidminer.operator.performance.PerformanceVector;
+import com.rapidminer.operator.performance.SimplePerformanceEvaluator;
+import com.rapidminer.operator.validation.XValidation;
+import com.rapidminer.tools.OperatorService;
 
-import ch.lren.hbpmip.rapidminer.db.DBException;
 import ch.lren.hbpmip.rapidminer.exceptions.RapidMinerException;
 import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
 import ch.lren.hbpmip.rapidminer.serializers.pfa.RapidMinerExperimentSerializer;
@@ -25,36 +28,47 @@ import ch.lren.hbpmip.rapidminer.serializers.pfa.RapidMinerExperimentSerializer;
  * Default experiment consisting of training and validating a specific models
  * The models is:
  * 1) Trained using all the data
+ * 2) Validated using k1-fold random cross-validation
+ * 3) Validated using k2-fold random cross-validation
  *
  * @author Arnaud Jutzeler
  */
-public class RapidMinerExperiment {
+public class RapidMinerExperimentWithXValidation {
 
     public final String name = "rapidminer";
-    public final String doc = "RapidMiner Model\n";
+    public final String doc = "RapidMiner Classification Model\n";
     public final String docker_image = System.getProperty("DOCKER_IMAGE", System.getenv().getOrDefault("DOCKER_IMAGE", "hbpmip/java-rapidminer:latest"));
 
     private static boolean isRPMInit = false;
 
     private InputData input;
-    private RapidMinerModel model;
+    private RapidMinerModel classifier;
+    private int[] ks;
 
     private Process process;
 
+    private MultiClassificationPerformance[] validationResults;
     public Exception exception;
 
-    public RapidMinerExperiment(RapidMinerModel model) {
-        this(null, model);
+    /**
+     *
+     * @param input
+     * @param classifier
+     * @param ks
+     */
+    public RapidMinerExperimentWithXValidation(InputData input, RapidMinerModel classifier, int[] ks) {
+        this.input = input;
+        this.classifier = classifier;
+        this.ks = ks;
     }
 
     /**
      *
      * @param input
-     * @param model
+     * @param classifier
      */
-    public RapidMinerExperiment(InputData input, RapidMinerModel model) {
-        this.input = input;
-        this.model = model;
+    public RapidMinerExperimentWithXValidation(InputData input, RapidMinerModel classifier) {
+        this(input, classifier, new int[]{2, 10});
     }
 
     /**
@@ -100,50 +114,95 @@ public class RapidMinerExperiment {
             initializeRPM();
         }
 
-        if(model.isFitted() || exception != null) {
+        if(validationResults != null || exception != null) {
             System.out.println("This experiment was already run!");
             return;
         }
 
         try {
 
-            if(input == null) {
-                input = InputData.fromEnv();
-            }
-
             // Create the RapidMiner process
             process = new Process();
 
-            // Model training
-            Operator modelOp = OperatorService.createOperator(model.getLearnerClass());
-            Map<String, String> parameters = model.getParameters();
+            // Classifier
+            Operator classifierOp = OperatorService.createOperator(classifier.getLearnerClass());
+            Map<String, String> parameters = classifier.getParameters();
             for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                modelOp.setParameter(entry.getKey(), entry.getValue());
+                classifierOp.setParameter(entry.getKey(), entry.getValue());
             }
-            process.getRootOperator().getSubprocess(0).addOperator(modelOp);
+            process.getRootOperator().getSubprocess(0).addOperator(classifierOp);
             process.getRootOperator()
                     .getSubprocess(0)
                     .getInnerSources()
                     .getPortByIndex(0)
-                    .connectTo(modelOp.getInputPorts().getPortByName("training set"));
-            modelOp.getOutputPorts().getPortByName("model").connectTo(process.getRootOperator()
+                    .connectTo(classifierOp.getInputPorts().getPortByName("training set"));
+            classifierOp.getOutputPorts().getPortByName("model").connectTo(process.getRootOperator()
                     .getSubprocess(0)
                     .getInnerSinks()
                     .getPortByIndex(0));
+
+            // k-fold cross-validations
+            for(int i = 0; i < ks.length; i++) {
+                XValidation validationOp = OperatorService.createOperator(XValidation.class);
+                validationOp.setParameter("PARAMETER_AVERAGE_PERFORMANCES_ONLY", "true");
+                validationOp.setParameter("PARAMETER_LEAVE_ONE_OUT", "false");
+                validationOp.setParameter("PARAMETER_NUMBER_OF_VALIDATIONS", Integer.toString(ks[i]));
+                validationOp.setParameter("PARAMETER_SAMPLING_TYPE", "shuffled");
+
+                // Training subprocess
+                classifierOp = OperatorService.createOperator(classifier.getLearnerClass());
+                for (Map.Entry<String, String> entry : parameters.entrySet()) {
+                    classifierOp.setParameter(entry.getKey(), entry.getValue());
+                }
+                validationOp.getSubprocess(0).addOperator(classifierOp);
+
+                connect(validationOp.getSubprocess(0), "training", classifierOp,
+                        "training set");
+                connect(classifierOp, "model", validationOp.getSubprocess(0),
+                        "model");
+
+                // Testing subprocess
+                Operator modelApplier = OperatorService
+                        .createOperator(ModelApplier.class);
+                Operator performance = OperatorService
+                        .createOperator(SimplePerformanceEvaluator.class);
+
+                validationOp.getSubprocess(1).addOperator(modelApplier);
+                validationOp.getSubprocess(1).addOperator(performance);
+
+                connect(validationOp.getSubprocess(1), "model", modelApplier, "model");
+                connect(validationOp.getSubprocess(1), "test set", modelApplier,
+                        "unlabelled data");
+                connect(modelApplier, "labelled data", performance, "labelled data");
+                connect(performance, "performance", validationOp.getSubprocess(1),
+                        "averagable 1");
+
+                process.getRootOperator().getSubprocess(0).addOperator(validationOp);
+                process.getRootOperator()
+                        .getSubprocess(0)
+                        .getInnerSources()
+                        .getPortByIndex(i + 1)
+                        .connectTo(validationOp.getInputPorts().getPortByName("training"));
+                validationOp.getOutputPorts().getPortByName("averagable 1").connectTo(process.getRootOperator()
+                        .getSubprocess(0)
+                        .getInnerSinks()
+                        .getPortByIndex(i + 1));
+            }
 
             // Run process
             ExampleSet exampleSet = input.getData();
             IOContainer ioResult = process.run(new IOContainer(exampleSet, exampleSet, exampleSet));
 
             PredictionModel trainedModel = ioResult.get(PredictionModel.class, 0);
-            model.setTrainedModel(trainedModel);
+            classifier.setTrainedModel(trainedModel);
+
+            validationResults = new MultiClassificationPerformance[ks.length];
+            for(int i = 0; i < ks.length; i++) {
+                validationResults[i] = (MultiClassificationPerformance) ioResult.get(PerformanceVector.class, i).getMainCriterion();
+            }
 
         } catch (OperatorCreationException | OperatorException | ClassCastException ex) {
             this.exception = new RapidMinerException(ex);
-        } catch (DBException ex) {
-            this.exception = ex;
-        } catch (RapidMinerException ex) {
-            this.exception = ex;
         }
     }
 
@@ -157,7 +216,6 @@ public class RapidMinerExperiment {
 
         RapidMiner.setExecutionMode(RapidMiner.ExecutionMode.COMMAND_LINE);
         RapidMiner.init();
-        isRPMInit= true;
     }
 
     /**
@@ -197,7 +255,15 @@ public class RapidMinerExperiment {
      *
      * @return
      */
-    public RapidMinerModel getModel() {
-        return model;
+    public RapidMinerModel getClassifier() {
+        return classifier;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public MultiClassificationPerformance[] getValidationResults() {
+        return validationResults;
     }
 }

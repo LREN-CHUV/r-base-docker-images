@@ -5,7 +5,7 @@ import java.sql.* ;
 import java.util.ArrayList;
 
 import ch.lren.hbpmip.rapidminer.RapidMinerExperiment;
-import ch.lren.hbpmip.rapidminer.ClassificationInput;
+import ch.lren.hbpmip.rapidminer.InputData;
 
 /**
  *
@@ -23,53 +23,84 @@ public class DBConnector {
     private static final String OUT_PASS = System.getenv("OUT_JDBC_PASSWORD");
     private static final String OUT_TABLE = System.getenv().getOrDefault("RESULT_TABLE", "job_result");
 
+    private String query = null;
+    private Direction direction = null;
 
-    public static void getData(ClassificationInput input)
-            throws DBException {
+    private transient Connection conn = null;
+    private transient Statement stmt = null;
+    private transient ResultSet rs = null;
 
-        String labelName = input.getVariableName();
-        String[] featuresNames = input.getFeaturesNames();
+    public enum Direction {
+        DATA_IN  (IN_URL, IN_USER, IN_PASS),
+        DATA_OUT (OUT_URL, OUT_USER, OUT_PASS);
 
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+        private final String url;
+        private final String user;
+        private final String pass;
+        Direction(String url, String user, String pass) {
+            this.url = url;
+            this.user = user;
+            this.pass = pass;
+        }
+        private Connection getConnection() throws SQLException {
+            return DriverManager.getConnection(url,user, pass);
+        }
+    }
+
+    public DBConnector(String query, Direction direction) {
+        this.query = query;
+        this.direction = direction;
+    }
+
+    public ResultSet connect() throws DBException {
         try {
 
-            conn = DriverManager.getConnection(IN_URL, IN_USER, IN_PASS);
+            //conn = DriverManager.getConnection(IN_URL, IN_USER, IN_PASS);
+            conn = direction.getConnection();
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery(input.getQuery());
-            ArrayList<double[]> data = new ArrayList<>();
-            ArrayList<String> labels = new ArrayList<>();
-            while (rs.next()) {
-                labels.add(rs.getString(labelName));
-                double[] features = new double[featuresNames.length];
-                for(int i = 0; i < featuresNames.length; i++){
-                    features[i] = rs.getDouble(featuresNames[i]);
-                }
-                data.add(features);
-            }
-
-            input.setData(data.toArray(new double[data.size()][]), labels.toArray(new String[labels.size()]));
+            rs = stmt.executeQuery(query);
+            return rs;
 
         } catch (SQLException e) {
-            throw new DBException(e);
-        } finally {
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e2) {}
             }
             if (stmt != null) {
                 try {
                     stmt.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e2) {}
             }
             if (rs != null) {
                 try {
                     rs.close();
-                } catch (SQLException e) {}
+                } catch (SQLException e2) {}
             }
+            throw new DBException(e);
+        }
+    }
+
+    public void disconnect() {
+
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {}
+            conn = null;
+        }
+        if (stmt != null) {
+            try {
+                stmt.close();
+            } catch (SQLException e) {}
+            stmt = null;
+        }
+        if (rs != null) {
+            try {
+                rs.close();
+            } catch (SQLException e) {}
+            rs = null;
         }
     }
 
@@ -92,7 +123,7 @@ public class DBConnector {
             String pfa = experiment.toPFA();
 
             Statement st = conn.createStatement();
-            st.executeUpdate("INSERT INTO " +OUT_TABLE + " (job_id, node, data, shape, function)" +
+            st.executeUpdate("INSERT INTO " + OUT_TABLE + " (job_id, node, data, shape, function)" +
                     "VALUES ('" + jobId + "', '" + node + "', '" + pfa + "', '" + shape + "', '" + function + "')");
 
         } catch (SQLException | IOException e) {

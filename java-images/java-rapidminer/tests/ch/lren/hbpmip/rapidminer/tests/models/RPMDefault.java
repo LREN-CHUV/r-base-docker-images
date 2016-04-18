@@ -1,11 +1,17 @@
 package ch.lren.hbpmip.rapidminer.tests.models;
 
-import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
-import com.rapidminer.operator.learner.lazy.DefaultLearner;
-import com.rapidminer.operator.learner.lazy.DefaultModel;
+import java.io.IOException;
+import java.util.Map;
+
 import org.apache.commons.collections15.map.LinkedMap;
 
-import java.util.Map;
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import com.rapidminer.operator.learner.lazy.DefaultLearner;
+import com.rapidminer.operator.learner.lazy.DefaultModel;
+
+import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
+
 
 /**
  *
@@ -16,25 +22,49 @@ import java.util.Map;
  */
 public class RPMDefault extends RapidMinerModel<DefaultModel> {
 
+    private String method;
+
     public RPMDefault() {
+        this(System.getProperty("PARAM_MODEL_method", System.getenv("PARAM_MODEL_method")));
+    }
+
+    public RPMDefault(String method) {
         super(DefaultLearner.class);
+        this.method = method;
     }
 
     @Override
     public Map<String, String> getParameters() {
         LinkedMap map = new LinkedMap<String, String>();
-        map.put("method", "mode");
+        map.put("method", this.method);
         return map;
     }
 
     @Override
-    public String toRep() {
-       // return "" + label.getMapping().mapIndex((int) model.getValue());
-        return "" + trainedModel.getValue();
+    public void writeModelRepresentation(JsonGenerator jgen) throws IOException {
+
+        jgen.writeObjectFieldStart("model");
+
+        jgen.writeObjectFieldStart("type");
+        jgen.writeStringField("doc", "The model parameter");
+        jgen.writeStringField("name", "value");
+        jgen.writeStringField("type", "double");
+        jgen.writeEndObject();
+
+        jgen.writeObjectFieldStart("init");
+        jgen.writeNumberField("value", trainedModel.getValue());
+        jgen.writeEndObject();
+
+        jgen.writeEndObject();
     }
 
+
     @Override
-    public String toAction() {
-        return null;
+    public void writeAction(JsonGenerator jgen) throws IOException {
+        jgen.writeArrayFieldStart("action");
+        jgen.writeStartObject();
+        jgen.writeStringField("cell", "model");
+        jgen.writeEndObject();
+        jgen.writeEndArray();
     }
 }

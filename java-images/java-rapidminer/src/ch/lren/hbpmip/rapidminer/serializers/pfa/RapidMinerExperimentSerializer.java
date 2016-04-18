@@ -2,13 +2,14 @@ package ch.lren.hbpmip.rapidminer.serializers.pfa;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.SerializerProvider;
+
+import ch.lren.hbpmip.rapidminer.InputData;
 import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
 import ch.lren.hbpmip.rapidminer.RapidMinerExperiment;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.rapidminer.operator.performance.MultiClassificationPerformance;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.map.JsonSerializer;
-import org.codehaus.jackson.map.SerializerProvider;
 
 
 /**
@@ -21,77 +22,51 @@ public class RapidMinerExperimentSerializer extends JsonSerializer<RapidMinerExp
     public void serialize(RapidMinerExperiment value, JsonGenerator jgen, SerializerProvider provider)
             throws IOException, JsonProcessingException {
 
-      /*  ObjectNode input = factory.objectNode();
-        input.put("doc", "Input is the list of covariables and groups");
-        input.put("name", "DependentVariables");
-        input.put("type", "record");
-        ArrayNode fields = factory.arrayNode();
-        ObjectNode field = factory.objectNode();
-        field.put("name", "feature_name");
-        ObjectNode type = factory.objectNode();
-        type.put("type", "enum");
-        type.put("name", "Enumfeature_name");
-        ArrayNode symbols = factory.arrayNode();
-        symbols.add("Hippocampus_L"); //TODO
-        symbols.add("Hippocampus_R"); //TODO
-        type.set("symbols", symbols);
-        field.set("type", type);
-        fields.add(field);
-        root.set("input", input);*/
-
-        /*ObjectNode output = factory.objectNode();
-        output.put("doc", "Output is the estimate of the variable");
-        output.put("type", "double");
-        root.set("output", output);*/
-
         jgen.writeStartObject();
         jgen.writeStringField("name", value.name);
         jgen.writeStringField("doc", value.doc);
+
         // Metadata
         jgen.writeFieldName("metadata");
         jgen.writeStartObject();
         jgen.writeStringField("docker_image", value.docker_image);
         jgen.writeEndObject();
 
-        // Input TODO
-        //jgen.writeObjectField("input", input);
-        //jgen.writeEndObject();
+        InputData input = value.getInput();
 
-        // Output TODO
-        //jgen.writeObjectField("output", output);
-        //jgen.writeEndObject();
+        // Input, output
+        if(input != null) {
+            input.writeInput(jgen);
+            input.writeOutput(jgen);
+        }
 
         // Cells
         jgen.writeFieldName("cells");
         jgen.writeStartObject();
-        jgen.writeObjectField("query", value.getInput().getQuery());
 
-        // Validation
-        MultiClassificationPerformance[] validationResults = value.getValidationResults();
-        jgen.writeArrayFieldStart("validation");
-        for(int i = 0; i < validationResults.length; i++) {
-            jgen.writeObject(validationResults[i]);
+        // Query
+        if(input != null) {
+            input.writeQuery(jgen);
         }
-        jgen.writeEndArray();
+
+        RapidMinerModel model = value.getModel();
+
+        // Model representation
+        if(model != null) {
+            model.writeRepresentation(jgen);
+        }
 
         // Error
         if(value.exception != null) {
             jgen.writeObjectField("error", value.exception.getMessage());
         }
 
-        //TODO
-        RapidMinerModel model = value.getClassifier();
-        jgen.writeFieldName("models");
-        jgen.writeStartObject();
-        jgen.writeStringField("value", model.toRep());
         jgen.writeEndObject();
 
-        jgen.writeEndObject();
-
-        jgen.writeFieldName("action");
-        jgen.writeStartObject();
-        jgen.writeStringField("value", model.toAction());
-        jgen.writeEndObject();
+        // Action
+        if(model != null) {
+            model.writeAction(jgen);
+        }
 
         jgen.writeEndObject();
     }

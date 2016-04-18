@@ -1,13 +1,16 @@
 package ch.lren.hbpmip.rapidminer.models;
 
-import com.rapidminer.operator.learner.AbstractLearner;
-import com.rapidminer.operator.learner.PredictionModel;
-
+import java.io.IOException;
 import java.util.Map;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+
+import com.rapidminer.operator.learner.AbstractLearner;
+
 
 /**
  *
- * Wrapper around RapidMiner Learner and corresponding classifier Model
+ * Wrapper around RapidMiner Learner and corresponding Model
  * This is the only models dependent to be subclassed when integrating new RapidMiner algorithms
  *
  * @author Arnaud Jutzeler
@@ -28,11 +31,21 @@ public abstract class RapidMinerModel<M> {
 
     public abstract Map<String,String> getParameters();
 
-    public abstract String toRep();
+    public void writeRepresentation(JsonGenerator jgen) throws IOException {
+        if (trainedModel != null) {
+            writeModelRepresentation(jgen);
+        }
+    }
 
-    public abstract String toAction();
+    protected abstract void writeModelRepresentation(JsonGenerator jgen) throws IOException;
+
+    public abstract void writeAction(JsonGenerator jgen) throws IOException;
 
     public Class<? extends AbstractLearner> getLearnerClass() {
         return learnerClass;
+    }
+
+    public boolean isFitted() {
+        return trainedModel != null;
     }
 }
