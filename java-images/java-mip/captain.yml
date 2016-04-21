@@ -1,3 +1,17 @@
+java-mip-build:
+  build: Dockerfile.BUILD
+  image: hbpmip/java-mip-build
+  pre:
+    - echo "Preparing java-mip-build"
+  post:
+     - echo "Finished java-mip-build"
+     - echo "Building project..."
+     - docker run -ti --name build-cont -v ~/.m2:/root/.m2 hbpmip/java-mip-build mvn -f /dist package assembly:single -Dmaven.test.skip=true
+     - docker cp build-cont:/dist/target/java-mip-0.0.1-jar-with-dependencies.jar ./java-mip.jar
+     - docker rm build-cont
+  test:
+     - docker run -v ~/.m2:/root/.m2 hbpmip/java-mip-build  mvn -f /dist test
+
 java-mip:
   build: Dockerfile
   image: hbpmip/java-mip
@@ -7,11 +21,11 @@ java-mip:
     - echo "Finished java-mip"
 
 java-mip-test:
-  build: Dockerfile.test
+  build: Dockerfile.TEST
   image: hbpmip/java-mip-test
   pre:
     - echo "Preparing java-mip-test"
   post:
     - echo "Finished java-mip-test"
   test:
-    - docker run --rm hbpmip/java-mip-test test
+    - docker run hbpmip/java-mip-test compute

@@ -4,14 +4,7 @@ if [ "$1" = "compute" ]; then
 	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
 	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
 
-	exec gosu compute /usr/bin/mvn -f /dist exec:java
-
-elif [ "$1" = "test" ]; then
-	mkdir -p "$COMPUTE_IN" "$COMPUTE_OUT"
-	chown -R compute "$COMPUTE_IN" "$COMPUTE_OUT"
-	chown -R compute:compute /dist
-
-	exec gosu compute /usr/bin/mvn -f /dist test
+	exec gosu compute java -cp ${JAVA_CLASSPATH} ${JAVA_MAINCLASS} ${JAVA_ARGS}
 
 elif [ "$1" = "export" ]; then
 	# Assume that $COMPUTE_OUT is mounted on the host directory

@@ -16,9 +16,6 @@ ENV COMPUTE_IN=/data/in \
 
 RUN /usr/local/bin/java-mip-docker-setup
 
-# Copy our configuration of Nginx
-COPY etc/nginx/ /etc/nginx/
-
 VOLUME /data/in
 VOLUME /data/out
 

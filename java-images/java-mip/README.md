@@ -15,7 +15,6 @@ This image provides a java environment compatible with MIP and providing the fol
 * If you run the container with the *export-docs* command and mount /data/out to a local directory,
   the documentation will be copied to that local directory.
 * If you run the container with the *shell* command, an interactive shell will start.
-* testthat package is installed to encourage writing unit tests.
 
 ## Summary of commands:
 
@@ -51,3 +50,4 @@ This image provides a java environment compatible with MIP and providing the fol
 * COMPUTE_OUT: the output directory to use to store the output files
 * COMPUTE_TMP: the directory to use to store temporary files
 * SRC: the directory containing the sources
+* JAR_PATH: the path to the executable jar

@@ -1,4 +1,4 @@
-package ch.chuv.hbp.tests;
+package ch.lren.hbpmip.tests;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;

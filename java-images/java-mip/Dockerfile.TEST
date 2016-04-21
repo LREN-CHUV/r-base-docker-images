@@ -1,0 +1,8 @@
+FROM hbpmip/java-mip:latest
+
+MAINTAINER arnaud@ahead-solutions.ch
+
+ENV JAVA_CLASSPATH=/dist/java-mip.jar
+ENV JAVA_MAINCLASS=ch.lren.hbpmip.Main
+
+COPY java-mip.jar /dist/java-mip.jar
