@@ -15,7 +15,7 @@ import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
 
 /**
  *
- * Trivial RapidMiner model 'DefautModel'
+ * Trivial RapidMiner model 'DefautModel' for testing purpose only!
  *
  * @author Arnaud Jutzeler
  *
@@ -44,27 +44,27 @@ public class RPMDefault extends RapidMinerModel<DefaultModel> {
     public void writeModelRepresentation(JsonGenerator jgen) throws IOException {
 
         jgen.writeObjectFieldStart("model");
+            jgen.writeObjectFieldStart("type");
+                jgen.writeStringField("doc", "The model parameter");
+                jgen.writeStringField("name", "value");
+                jgen.writeStringField("type", "double");
+            jgen.writeEndObject();
 
-        jgen.writeObjectFieldStart("type");
-        jgen.writeStringField("doc", "The model parameter");
-        jgen.writeStringField("name", "value");
-        jgen.writeStringField("type", "double");
+            jgen.writeObjectFieldStart("init");
+                jgen.writeNumberField("value", trainedModel.getValue());
+            jgen.writeEndObject();
+
         jgen.writeEndObject();
 
-        jgen.writeObjectFieldStart("init");
-        jgen.writeNumberField("value", trainedModel.getValue());
+        // End Cells
         jgen.writeEndObject();
 
-        jgen.writeEndObject();
-    }
 
-
-    @Override
-    public void writeAction(JsonGenerator jgen) throws IOException {
+        // Action
         jgen.writeArrayFieldStart("action");
-        jgen.writeStartObject();
-        jgen.writeStringField("cell", "model");
-        jgen.writeEndObject();
+            jgen.writeStartObject();
+                jgen.writeStringField("cell", "model");
+            jgen.writeEndObject();
         jgen.writeEndArray();
     }
 }

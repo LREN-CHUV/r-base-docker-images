@@ -39,8 +39,6 @@ public class RapidMinerExperiment {
     private InputData input;
     private RapidMinerModel model;
 
-    private Process process;
-
     public Exception exception;
 
     public RapidMinerExperiment(RapidMinerModel model) {
@@ -100,7 +98,7 @@ public class RapidMinerExperiment {
             initializeRPM();
         }
 
-        if(model.isFitted() || exception != null) {
+        if(model.isAlreadyTrained() || exception != null) {
             System.out.println("This experiment was already run!");
             return;
         }
@@ -111,32 +109,8 @@ public class RapidMinerExperiment {
                 input = InputData.fromEnv();
             }
 
-            // Create the RapidMiner process
-            process = new Process();
-
-            // Model training
-            Operator modelOp = OperatorService.createOperator(model.getLearnerClass());
-            Map<String, String> parameters = model.getParameters();
-            for (Map.Entry<String, String> entry : parameters.entrySet()) {
-                modelOp.setParameter(entry.getKey(), entry.getValue());
-            }
-            process.getRootOperator().getSubprocess(0).addOperator(modelOp);
-            process.getRootOperator()
-                    .getSubprocess(0)
-                    .getInnerSources()
-                    .getPortByIndex(0)
-                    .connectTo(modelOp.getInputPorts().getPortByName("training set"));
-            modelOp.getOutputPorts().getPortByName("model").connectTo(process.getRootOperator()
-                    .getSubprocess(0)
-                    .getInnerSinks()
-                    .getPortByIndex(0));
-
-            // Run process
-            ExampleSet exampleSet = input.getData();
-            IOContainer ioResult = process.run(new IOContainer(exampleSet, exampleSet, exampleSet));
-
-            PredictionModel trainedModel = ioResult.get(PredictionModel.class, 0);
-            model.setTrainedModel(trainedModel);
+            // Train the model
+            model.train(input);
 
         } catch (OperatorCreationException | OperatorException | ClassCastException ex) {
             this.exception = new RapidMinerException(ex);
@@ -168,7 +142,7 @@ public class RapidMinerExperiment {
      * @return the native xml representation of the RapidMiner process
      */
     public String toRMP() {
-        return process.getRootOperator().getXML(false);
+        return model.toRMP();
     }
 
     /**

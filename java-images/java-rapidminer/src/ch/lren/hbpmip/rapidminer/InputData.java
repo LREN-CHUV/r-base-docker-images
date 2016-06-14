@@ -155,34 +155,34 @@ public class InputData {
 
 		// Input
 		jgen.writeObjectFieldStart("input");
-		jgen.writeStringField("doc", "Input is the list of covariables and groups");
-		jgen.writeStringField("name", "DependentVariables");
-		jgen.writeStringField("type", "record");
-		jgen.writeArrayFieldStart("fields");
-		for (String featureName : featuresNames) {
-			jgen.writeStartObject();
-			jgen.writeStringField("name", featureName);
-			switch (getType(featureName)) {
-				case Ontology.REAL: {
+			jgen.writeStringField("doc", "Input is the list of covariables and groups");
+			jgen.writeStringField("name", "DependentVariables");
+			jgen.writeStringField("type", "record");
+			jgen.writeArrayFieldStart("fields");
+			for (String featureName : featuresNames) {
+				jgen.writeStartObject();
+					jgen.writeStringField("name", featureName);
+				switch (getType(featureName)) {
+					case Ontology.REAL: {
 					jgen.writeStringField("type", "double");
 					break;
 				}
 				case Ontology.NOMINAL: {
 					jgen.writeObjectFieldStart("type");
-					jgen.writeStringField("type", "enum");
-					jgen.writeStringField("name", "Enum_" + featureName);
-					jgen.writeArrayFieldStart("symbols");
-					for (String symbol : getSymbols(featureName)) {
-						jgen.writeString(symbol);
-					}
-					jgen.writeEndArray();
+						jgen.writeStringField("type", "enum");
+						jgen.writeStringField("name", "Enum_" + featureName);
+						jgen.writeArrayFieldStart("symbols");
+						for (String symbol : getSymbols(featureName)) {
+							jgen.writeString(symbol);
+						}
+						jgen.writeEndArray();
 					jgen.writeEndObject();
 					break;
 				}
 			}
-			jgen.writeEndObject();
+				jgen.writeEndObject();
 		}
-		jgen.writeEndArray();
+			jgen.writeEndArray();
 		jgen.writeEndObject();
 	}
 
@@ -195,23 +195,24 @@ public class InputData {
 
 		// Output
 		jgen.writeObjectFieldStart("output");
-		jgen.writeStringField("doc", "Output is the estimate of the variable");
+			jgen.writeStringField("doc", "Output is the estimate of the variable");
 		switch (getType(variableName)) {
 			case Ontology.REAL: {
-				jgen.writeStringField("type", "double");
-				break;
+			jgen.writeStringField("type", "double");
+			break;
 			}
 			case Ontology.NOMINAL: {
-				jgen.writeObjectFieldStart("type");
+			jgen.writeStringField("type", "string");
+			/*jgen.writeObjectFieldStart("type");
 				jgen.writeStringField("type", "enum");
-				jgen.writeStringField("name", "Enum_" + variableName);
+				jgen.writeStringField("name", "VariableType");
 				jgen.writeArrayFieldStart("symbols");
 				for (String symbol : getSymbols(variableName)) {
 					jgen.writeString(symbol);
 				}
 				jgen.writeEndArray();
-				jgen.writeEndObject();
-				break;
+			jgen.writeEndObject();*/
+			break;
 			}
 		}
 		jgen.writeEndObject();
@@ -226,60 +227,58 @@ public class InputData {
 
 		// Query
 		jgen.writeObjectFieldStart("query");
-		jgen.writeObjectFieldStart("type");
+			jgen.writeObjectFieldStart("type");
 
-		jgen.writeStringField("doc", "Definition of the query that has produced this model");
-		jgen.writeStringField("name", "Query");
-		jgen.writeStringField("type", "record");
+				jgen.writeStringField("doc", "Definition of the query that has produced this model");
+				jgen.writeStringField("name", "Query");
+				jgen.writeStringField("type", "record");
 
-		jgen.writeArrayFieldStart("fields");
+				jgen.writeArrayFieldStart("fields");
 
-		// Variable
-		jgen.writeStartObject();
-		jgen.writeStringField("doc", "Dependent variable");
-		jgen.writeStringField("name", "variable");
-		jgen.writeStringField("type", "string");
-		jgen.writeEndObject();
+					// Variable
+					jgen.writeStartObject();
+						jgen.writeStringField("doc", "Dependent variable");
+						jgen.writeStringField("name", "variable");
+						jgen.writeStringField("type", "string");
+					jgen.writeEndObject();
 
-		// Covariables
-		jgen.writeStartObject();
-		jgen.writeStringField("doc", "List of explanatory variables");
-		jgen.writeStringField("name", "covariables");
+					// Covariables
+					jgen.writeStartObject();
+						jgen.writeStringField("doc", "List of explanatory variables");
+						jgen.writeStringField("name", "covariables");
+						jgen.writeObjectFieldStart("type");
+							jgen.writeStringField("type", "array");
+							jgen.writeObjectFieldStart("items");
+								jgen.writeStringField("type", "string");
+							jgen.writeEndObject();
+						jgen.writeEndObject();
+					jgen.writeEndObject();
 
-		jgen.writeObjectFieldStart("type");
-		jgen.writeStringField("type", "array");
+					// SQL
+					jgen.writeStartObject();
+						jgen.writeStringField("doc", "SQL query");
+						jgen.writeStringField("name", "sql");
+						jgen.writeStringField("type", "string");
+					jgen.writeEndObject();
 
-		jgen.writeObjectFieldStart("items");
-		jgen.writeStringField("type", "string");
-		jgen.writeEndObject();
+					// Count
+					jgen.writeStartObject();
+						jgen.writeStringField("doc", "Number of records selected by the query");
+						jgen.writeStringField("name", "count");
+						jgen.writeStringField("type", "int");
+					jgen.writeEndObject();
 
-		jgen.writeEndObject();
+				jgen.writeEndArray();
 
-		jgen.writeEndObject();
+			jgen.writeEndObject();
 
-		// SQL
-		jgen.writeStartObject();
-		jgen.writeStringField("doc", "SQL query");
-		jgen.writeStringField("name", "sql");
-		jgen.writeStringField("type", "string");
-		jgen.writeEndObject();
-
-		// Count
-		jgen.writeStartObject();
-		jgen.writeStringField("doc", "Number of records selected by the query");
-		jgen.writeStringField("name", "count");
-		jgen.writeStringField("type", "int");
-		jgen.writeEndObject();
-
-		jgen.writeEndArray();
-
-		// Init
-		jgen.writeObjectFieldStart("type");
-		jgen.writeStringField("variable", this.variableName);
-		jgen.writeObjectField("covariables", this.featuresNames);
-		jgen.writeStringField("sql", this.query);
-		jgen.writeNumberField("count", this.data.size());
-		jgen.writeEndObject();
+			// Init
+			jgen.writeObjectFieldStart("init");
+				jgen.writeStringField("variable", this.variableName);
+				jgen.writeObjectField("covariables", this.featuresNames);
+				jgen.writeStringField("sql", this.query);
+				jgen.writeNumberField("count", this.data.size());
+			jgen.writeEndObject();
 
 		jgen.writeEndObject();
 	}

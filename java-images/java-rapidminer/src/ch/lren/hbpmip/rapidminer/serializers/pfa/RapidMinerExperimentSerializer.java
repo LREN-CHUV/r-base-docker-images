@@ -23,14 +23,14 @@ public class RapidMinerExperimentSerializer extends JsonSerializer<RapidMinerExp
             throws IOException, JsonProcessingException {
 
         jgen.writeStartObject();
-        jgen.writeStringField("name", value.name);
-        jgen.writeStringField("doc", value.doc);
+            jgen.writeStringField("name", value.name);
+            jgen.writeStringField("doc", value.doc);
 
-        // Metadata
-        jgen.writeFieldName("metadata");
-        jgen.writeStartObject();
-        jgen.writeStringField("docker_image", value.docker_image);
-        jgen.writeEndObject();
+            // Metadata
+            jgen.writeFieldName("metadata");
+            jgen.writeStartObject();
+            jgen.writeStringField("docker_image", value.docker_image);
+            jgen.writeEndObject();
 
         InputData input = value.getInput();
 
@@ -49,23 +49,16 @@ public class RapidMinerExperimentSerializer extends JsonSerializer<RapidMinerExp
             input.writeQuery(jgen);
         }
 
+        // Error
+        if(value.exception != null) {
+            jgen.writeStringField("error", value.exception.getMessage());
+        }
+
         RapidMinerModel model = value.getModel();
 
         // Model representation
         if(model != null) {
             model.writeRepresentation(jgen);
-        }
-
-        // Error
-        if(value.exception != null) {
-            jgen.writeObjectField("error", value.exception.getMessage());
-        }
-
-        jgen.writeEndObject();
-
-        // Action
-        if(model != null) {
-            model.writeAction(jgen);
         }
 
         jgen.writeEndObject();
