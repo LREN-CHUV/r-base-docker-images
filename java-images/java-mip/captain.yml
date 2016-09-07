@@ -1,5 +1,5 @@
 java-mip-build:
-  build: Dockerfile.BUILD
+  build: Dockerfile.builder
   image: hbpmip/java-mip-build
   pre:
     - echo "Preparing java-mip-build"

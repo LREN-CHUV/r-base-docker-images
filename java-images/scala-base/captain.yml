@@ -1,5 +1,5 @@
 scala-base-build:
-  build: Dockerfile.BUILD
+  build: Dockerfile.builder
   image: hbpmip/scala-base-build
   pre:
     - echo "Preparing scala-base-build"
