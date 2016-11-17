@@ -18,7 +18,7 @@ get_script_dir () {
 ROOT_DIR="$(get_script_dir)"
 
 R_IMAGES="r-mip r-libs r-java r-database r-job r-interactive"
-JAVA_IMAGES="java-base java-mip java-rapidminer"
+JAVA_IMAGES="java-base java-mip java-rapidminer scala-base"
 
 R_BUILD=false
 JAVA_BUILD=false

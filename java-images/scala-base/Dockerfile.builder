@@ -10,7 +10,7 @@ FROM hbpmip/java-base-build:latest
 MAINTAINER Arnaud Jutzeler <arnaud.jutzeler@chuv.ch>
 
 ENV SCALA_VERSION 2.11.7
-ENV SBT_VERSION 0.13.9
+ENV SBT_VERSION 0.13.13
 
 # Install sbt
 RUN \
