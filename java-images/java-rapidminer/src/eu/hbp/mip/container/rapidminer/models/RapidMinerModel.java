@@ -1,9 +1,9 @@
-package ch.lren.hbpmip.rapidminer.models;
+package eu.hbp.mip.container.rapidminer.models;
 
 import java.io.IOException;
 import java.util.Map;
 
-import ch.lren.hbpmip.rapidminer.InputData;
+import eu.hbp.mip.container.rapidminer.InputData;
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import com.rapidminer.example.ExampleSet;

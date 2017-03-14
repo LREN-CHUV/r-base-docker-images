@@ -1,10 +1,10 @@
-package ch.lren.hbpmip.rapidminer;
+package eu.hbp.mip.container.rapidminer;
 
 import java.io.IOException;
 
-import ch.lren.hbpmip.rapidminer.db.DBConnector;
-import ch.lren.hbpmip.rapidminer.db.DBException;
-import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
+import eu.hbp.mip.container.rapidminer.db.DBConnector;
+import eu.hbp.mip.container.rapidminer.db.DBException;
+import eu.hbp.mip.container.rapidminer.models.RapidMinerModel;
 
 
 /**

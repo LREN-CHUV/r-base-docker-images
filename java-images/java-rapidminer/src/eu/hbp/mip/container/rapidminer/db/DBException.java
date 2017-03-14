@@ -1,4 +1,4 @@
-package ch.lren.hbpmip.rapidminer.db;
+package eu.hbp.mip.container.rapidminer.db;
 
 /**
  *

@@ -1,12 +1,12 @@
-package ch.lren.hbpmip.rapidminer.tests;
+package eu.hbp.mip.container.rapidminer.tests;
 
+import eu.hbp.mip.container.rapidminer.Main;
+import eu.hbp.mip.container.rapidminer.db.DBException;
 import org.junit.Test;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import ch.lren.hbpmip.rapidminer.Main;
-import ch.lren.hbpmip.rapidminer.db.DBConnector;
-import ch.lren.hbpmip.rapidminer.db.DBException;
+import eu.hbp.mip.container.rapidminer.db.DBConnector;
 
 
 /**
@@ -32,7 +32,7 @@ public class MainTest {
 
 		System.setProperty("PARAM_MODEL_method", "mode");
 
-		String[] args = {"ch.lren.hbpmip.rapidminer.tests.models.RPMDefault"};
+		String[] args = {"eu.hbp.mip.container.rapidminer.tests.models.RPMDefault"};
 		Main.main(args);
 
 		DBConnector.DBResults results = DBConnector.getDBResult(jobId);
@@ -61,7 +61,7 @@ public class MainTest {
 
 		System.setProperty("PARAM_MODEL_method", "mode");
 
-		String[] args = {"ch.lren.hbpmip.rapidminer.tests.models.RPMDefault"};
+		String[] args = {"eu.hbp.mip.container.rapidminer.tests.models.RPMDefault"};
 		Main.main(args);
 
 		DBConnector.DBResults results = DBConnector.getDBResult(jobId);
@@ -88,7 +88,7 @@ public class MainTest {
 
 		System.setProperty("PARAM_MODEL_method", "median");
 
-		String[] args = {"ch.lren.hbpmip.rapidminer.tests.models.RPMDefault"};
+		String[] args = {"eu.hbp.mip.container.rapidminer.tests.models.RPMDefault"};
 		Main.main(args);
 
 		DBConnector.DBResults results = DBConnector.getDBResult(jobId);
@@ -115,7 +115,7 @@ public class MainTest {
 
 		System.setProperty("PARAM_MODEL_method", "mode");
 
-		String[] args = {"ch.chuv.hbp.rapidminer.tests.models.sjkhdfj"};
+		String[] args = {"eu.hbp.mip.container.rapidminer.tests.models.sjkhdfj"};
 		Main.main(args);
 
 		DBConnector.DBResults results = DBConnector.getDBResult(jobId);

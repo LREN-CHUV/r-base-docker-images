@@ -1,4 +1,4 @@
-package ch.lren.hbpmip.rapidminer.serializers.pfa;
+package eu.hbp.mip.container.rapidminer.serializers.pfa;
 
 import java.io.IOException;
 
@@ -7,9 +7,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
-import ch.lren.hbpmip.rapidminer.InputData;
-import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
-import ch.lren.hbpmip.rapidminer.RapidMinerExperiment;
+import eu.hbp.mip.container.rapidminer.InputData;
+import eu.hbp.mip.container.rapidminer.models.RapidMinerModel;
+import eu.hbp.mip.container.rapidminer.RapidMinerExperiment;
 
 
 /**

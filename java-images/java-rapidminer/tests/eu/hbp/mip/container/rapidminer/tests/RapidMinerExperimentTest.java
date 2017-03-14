@@ -1,21 +1,21 @@
-package ch.lren.hbpmip.rapidminer.tests;
+package eu.hbp.mip.container.rapidminer.tests;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import ch.lren.hbpmip.rapidminer.RapidMinerExperiment;
-import ch.lren.hbpmip.rapidminer.exceptions.InvalidDataException;
-import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
+import eu.hbp.mip.container.rapidminer.RapidMinerExperiment;
+import eu.hbp.mip.container.rapidminer.exceptions.InvalidDataException;
+import eu.hbp.mip.container.rapidminer.models.RapidMinerModel;
 import com.rapidminer.example.Attribute;
 import com.rapidminer.example.table.*;
 import com.rapidminer.tools.Ontology;
 
-import ch.lren.hbpmip.rapidminer.exceptions.InvalidModelException;
-import ch.lren.hbpmip.rapidminer.tests.models.RPMDefault;
+import eu.hbp.mip.container.rapidminer.exceptions.InvalidModelException;
+import eu.hbp.mip.container.rapidminer.tests.models.RPMDefault;
 
-import ch.lren.hbpmip.rapidminer.exceptions.RapidMinerException;
-import ch.lren.hbpmip.rapidminer.InputData;
+import eu.hbp.mip.container.rapidminer.exceptions.RapidMinerException;
+import eu.hbp.mip.container.rapidminer.InputData;
 
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;

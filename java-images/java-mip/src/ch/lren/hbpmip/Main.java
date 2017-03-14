@@ -1,4 +1,4 @@
-package ch.lren.hbpmip;
+package eu.hbp.mip.container;
 
 /**
  *

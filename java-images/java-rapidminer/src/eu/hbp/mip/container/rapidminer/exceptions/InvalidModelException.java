@@ -1,4 +1,4 @@
-package ch.lren.hbpmip.rapidminer.exceptions;
+package eu.hbp.mip.container.rapidminer.exceptions;
 
 /**
  * 

@@ -1,23 +1,18 @@
-package ch.lren.hbpmip.rapidminer;
+package eu.hbp.mip.container.rapidminer;
 
 import java.io.IOException;
-import java.util.Map;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import com.rapidminer.Process;
 import com.rapidminer.RapidMiner;
-import com.rapidminer.example.ExampleSet;
-import com.rapidminer.operator.learner.PredictionModel;
-import com.rapidminer.tools.OperatorService;
 import com.rapidminer.operator.*;
 
-import ch.lren.hbpmip.rapidminer.db.DBException;
-import ch.lren.hbpmip.rapidminer.exceptions.RapidMinerException;
-import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
-import ch.lren.hbpmip.rapidminer.serializers.pfa.RapidMinerExperimentSerializer;
+import eu.hbp.mip.container.rapidminer.db.DBException;
+import eu.hbp.mip.container.rapidminer.exceptions.RapidMinerException;
+import eu.hbp.mip.container.rapidminer.models.RapidMinerModel;
+import eu.hbp.mip.container.rapidminer.serializers.pfa.RapidMinerExperimentSerializer;
 
 
 /**

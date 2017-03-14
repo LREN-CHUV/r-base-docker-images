@@ -1,11 +1,9 @@
-package ch.lren.hbpmip.rapidminer.db;
+package eu.hbp.mip.container.rapidminer.db;
 
 import java.io.IOException;
 import java.sql.* ;
-import java.util.ArrayList;
 
-import ch.lren.hbpmip.rapidminer.RapidMinerExperiment;
-import ch.lren.hbpmip.rapidminer.InputData;
+import eu.hbp.mip.container.rapidminer.RapidMinerExperiment;
 
 /**
  *
@@ -120,11 +118,15 @@ public class DBConnector {
             String function = System.getenv().getOrDefault("FUNCTION", "JAVA");
 
             String shape = "pfa_json";
-            String pfa = experiment.toPFA();
+            // Escape single quote with another single quote (SQL)
+            String pfa = experiment.toPFA().replaceAll("'", "''");
+
+            String statement = "INSERT INTO " + OUT_TABLE + " (job_id, node, data, shape, function)" +
+                    "VALUES ('" + jobId + "', '" + node + "', '" + pfa + "', '" + shape + "', '" + function + "')";
 
             Statement st = conn.createStatement();
-            st.executeUpdate("INSERT INTO " + OUT_TABLE + " (job_id, node, data, shape, function)" +
-                    "VALUES ('" + jobId + "', '" + node + "', '" + pfa + "', '" + shape + "', '" + function + "')");
+
+            st.executeUpdate(statement);
 
         } catch (SQLException | IOException e) {
             throw new DBException(e);

@@ -1,4 +1,4 @@
-package ch.lren.hbpmip.rapidminer;
+package eu.hbp.mip.container.rapidminer;
 
 import java.io.IOException;
 import java.util.*;
@@ -14,9 +14,9 @@ import com.rapidminer.example.table.*;
 import com.rapidminer.operator.OperatorException;
 import com.rapidminer.tools.Ontology;
 
-import ch.lren.hbpmip.rapidminer.db.DBConnector;
-import ch.lren.hbpmip.rapidminer.db.DBException;
-import ch.lren.hbpmip.rapidminer.exceptions.RapidMinerException;
+import eu.hbp.mip.container.rapidminer.db.DBConnector;
+import eu.hbp.mip.container.rapidminer.db.DBException;
+import eu.hbp.mip.container.rapidminer.exceptions.RapidMinerException;
 
 
 /**

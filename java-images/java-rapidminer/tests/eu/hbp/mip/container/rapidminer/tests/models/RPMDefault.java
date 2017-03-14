@@ -1,16 +1,15 @@
-package ch.lren.hbpmip.rapidminer.tests.models;
+package eu.hbp.mip.container.rapidminer.tests.models;
 
 import java.io.IOException;
 import java.util.Map;
 
+import eu.hbp.mip.container.rapidminer.models.RapidMinerModel;
 import org.apache.commons.collections15.map.LinkedMap;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 
 import com.rapidminer.operator.learner.lazy.DefaultLearner;
 import com.rapidminer.operator.learner.lazy.DefaultModel;
-
-import ch.lren.hbpmip.rapidminer.models.RapidMinerModel;
 
 
 /**
