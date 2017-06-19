@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # The master for this script exists in the Python '2.7' directory. Do
 # not edit the version of this script found in other directories. When
@@ -31,24 +31,8 @@ useradd -r -g compute compute
 mkdir /home/compute
 chown compute:compute /home/compute
 
-# Ensure we have an up to date package index.
-
-rm -rf /var/lib/apt/lists/* 
-
-apt-get update
-
-# Grab gosu for easy step-down from root
-GOSU_VERSION=1.7
-gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4
-wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)"
-wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc"
-gpg --verify /usr/local/bin/gosu.asc
-rm /usr/local/bin/gosu.asc
-chmod +x /usr/local/bin/gosu
-
 # Install nginx to be able to serve content from this container
-
-apt-get install -y nginx-light
+apk --no-cache add nginx=1.12.0-r2
 rm -rf /etc/nginx/*.d
 mkdir -p /etc/nginx/addon.d /etc/nginx/conf.d /etc/nginx/host.d /etc/nginx/nginx.d
 
@@ -58,4 +42,4 @@ mkdir -p /etc/nginx/addon.d /etc/nginx/conf.d /etc/nginx/host.d /etc/nginx/nginx
 #   /var/www/html : root for the HTML documentation which can be served when the container is executed in serve mode
 mkdir -p /data/in /data/out /var/www/html/ /src
 chown -R compute:compute /data/in /data/out /var/www/html/ /src
-ln -s -t /var/www/html/ /src
+ln -s /var/www/html/ /src

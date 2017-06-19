@@ -10,7 +10,7 @@ FROM hbpmip/java-base-build:latest
 MAINTAINER Arnaud Jutzeler <arnaud.jutzeler@chuv.ch>
 
 ENV SCALA_VERSION 2.11.7
-ENV SBT_VERSION 0.13.13
+ENV SBT_VERSION 0.13.15
 
 # Install sbt
 RUN \
@@ -35,8 +35,6 @@ RUN \
 
 COPY build-in-docker.sh /
 
-# Volume
-VOLUME /build
 # Define working directory
 WORKDIR /build
 
