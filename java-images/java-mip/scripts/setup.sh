@@ -31,6 +31,30 @@ useradd -r -g compute compute
 mkdir /home/compute
 chown compute:compute /home/compute
 
+# Grab gosu for easy step-down from root
+GOSU_VERSION=1.7
+GOSU_DOWNLOAD_URL="https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64"
+GOSU_DOWNLOAD_SIG="https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-amd64.asc"
+GOSU_DOWNLOAD_KEY="0x036A9C25BF357DD4"
+
+# Download and install gosu
+# https://github.com/tianon/gosu/releases
+buildDeps='curl gnupg'
+set -x
+apk add --no-cache $buildDeps
+gpg-agent --daemon
+gpg --keyserver pgp.mit.edu --recv-keys $GOSU_DOWNLOAD_KEY
+echo "trusted-key $GOSU_DOWNLOAD_KEY" >> /root/.gnupg/gpg.conf
+curl -sSL "$GOSU_DOWNLOAD_URL" > gosu-amd64
+curl -sSL "$GOSU_DOWNLOAD_SIG" > gosu-amd64.asc
+gpg --verify gosu-amd64.asc
+rm -f gosu-amd64.asc
+mv gosu-amd64 /usr/bin/gosu
+chmod +x /usr/bin/gosu
+apk del --purge $buildDeps
+rm -rf /root/.gnupg
+rm -rf /var/cache/apk/*
+
 # Install nginx to be able to serve content from this container
 apk --no-cache add nginx=1.12.0-r2
 rm -rf /etc/nginx/*.d
