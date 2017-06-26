@@ -55,9 +55,13 @@ public class DBConnector {
 
             //conn = DriverManager.getConnection(IN_URL, IN_USER, IN_PASS);
             conn = direction.getConnection();
-
+            conn.setAutoCommit(false);
+            // TODO The seed must be passed as a query parameters and generated above
+            conn.prepareStatement("SELECT setseed(0.67)").execute();
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
+            conn.commit();
+            conn.setAutoCommit(true);
             return rs;
 
         } catch (SQLException e) {
