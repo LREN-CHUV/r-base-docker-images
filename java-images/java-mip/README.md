@@ -1,12 +1,12 @@
 
-# Adapt the base java image to the MIP environment
+# Adapt the base Java image to the MIP environment
 
-This image provides a java environment compatible with MIP and providing the following features:
+This image provides a Java environment compatible with MIP and providing the following features:
 
-* The *compute* user is used to run the java programs
+* The *compute* user is used to run the Java programs
 * Directories /data/in and /data/out are intended to store the incoming files
   and outgoing files for the computations. They can be mounted on an external filesystem.
-* The environment variables COMPUTE_IN and COMPUTE_OUT can be used to locate those folders from the java programs.
+* The environment variables COMPUTE_IN and COMPUTE_OUT can be used to locate those folders from the Java programs.
 * In the /src directory you should place all scripts and libraries used to perform the computation.
 * If you run the container with the *export* command and mount /data/out to a local directory,
   the source files will be copied to that local directory.
