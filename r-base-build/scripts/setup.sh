@@ -26,6 +26,11 @@ set -x
 set -eo pipefail
 
 
+## Configure default locale, see https://github.com/rocker-org/rocker/issues/19
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+  && locale-gen en_US.utf8 \
+  && /usr/sbin/update-locale LANG=en_US.UTF-8
+
 # Set a default user. Available via runtime flag `--user docker`
 # Add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library
 # User should also have & own a home directory (for rstudio or linked volumes to work properly).
@@ -50,11 +55,17 @@ apt-get install -y --no-install-recommends \
         locales \
         vim-tiny \
         wget \
+        curl \
+        libcurl4-openssl-dev \
+        libssl-dev \
+        openssl \
         ca-certificates \
+        git \
         fonts-texgyre \
         libxml2-dev \
         libcairo2-dev \
-        libpq-dev
+        libpq-dev \
+        libmariadb-client-lgpl-dev
 
 # git will be removed later in this script
 
@@ -93,13 +104,19 @@ echo "Installing R version $R_BASE_VERSION..."
 CC=x86_64-linux-gnu-gcc
 export CC
 
+# Install build environment
+apt-get install -y build-essential cpp cpp-5 dpkg-dev \
+  g++ g++-5 gcc gcc-5 gfortran gfortran-5 perl-modules
+
 ## Now install R and littler, and create a link for littler in /usr/local/bin
 ## Also set a default CRAN repo, and make sure littler knows about it too
 apt-get update
 apt-get install -y --no-install-recommends \
         littler \
+        r-cran-littler \
         "r-base-core=${R_BASE_VERSION}-*" \
         "r-base=${R_BASE_VERSION}-*" \
+        "r-base-dev=${R_BASE_VERSION}-*" \
         "r-recommended=${R_BASE_VERSION}-*"
 
 # Ensure that autoremove is not too greedy
@@ -107,10 +124,14 @@ apt-mark manual r-base-core
 
 echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site
 echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r
+
+ln -s /usr/share/doc/littler/examples/install.r /usr/local/bin/install.r
+ln -s /usr/share/doc/littler/examples/install2.r /usr/local/bin/install2.r
+ln -s /usr/share/doc/littler/examples/installGithub.r /usr/local/bin/installGithub.r
 ln -s /usr/share/doc/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r
 
 # docopt, httr, withr and memoise are used by littler
-# TODO install.r docopt httr withr memoise
+install.r docopt httr withr memoise
 
 # Create empty directory to be used as application directory.
 

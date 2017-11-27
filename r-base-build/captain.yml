@@ -1,0 +1,7 @@
+r-base:
+  build: Dockerfile
+  image: hbpmip/r-base-build
+  pre:
+    - echo "Preparing r-base-build"
+  post:
+    - echo "Finished r-base-build"

@@ -11,7 +11,6 @@ COPY scripts/setup.sh /usr/local/bin/r-base-docker-setup
 
 RUN /usr/local/bin/r-base-docker-setup
 
-# TODO
 RUN R -e "source('https://bioconductor.org/biocLite.R')" \
   && install2.r --error \
     --deps TRUE \
