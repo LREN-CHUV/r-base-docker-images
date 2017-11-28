@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+
+  r_mip_test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: "r-mip-test"
