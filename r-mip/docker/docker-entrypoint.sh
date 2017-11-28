@@ -23,7 +23,7 @@ elif [ "$1" = "export-docs" ]; then
 elif [ "$1" = "serve" ]; then
 	/usr/sbin/nginx
 
-elif [ "$1" = "/bin/sh" ] | [ "$1" = "/bin/bash" ] ; then
+elif [ "$1" = "/bin/sh" ] || [ "$1" = "/bin/bash" ] ; then
 	echo "** Please use 'shell' command instead of $1 **"
 	exec /bin/bash -i
 
@@ -34,7 +34,7 @@ elif [ "$1" = "R" ] ; then
 	cd /src
 	exec gosu compute /usr/bin/R
 
-elif [ "$1" = "help" ] | [ "$1" = "-h" ] | [ "$1" = "--help" ] | [ "$1" = "" ] ; then
+elif [ "$1" = "help" ] || [ "$1" = "-h" ] || [ "$1" = "--help" ] || [ "$1" = "" ] ; then
 	echo "Usage:"
 	echo
 	echo "* As a standalone command:"

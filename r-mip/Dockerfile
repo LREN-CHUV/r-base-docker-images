@@ -1,12 +1,10 @@
-## Start with the official rocker image (lightweight Debian)
-FROM hbpmip/r-base:latest
+FROM hbpmip/r-base:3.4.2-1
 
-MAINTAINER ludovic.claude54@gmail.com
+MAINTAINER Ludovic Claude <ludovic.claude@chuv.ch>
 
-LABEL eu.humanbrainproject.version=0.2 \
-      eu.humanbrainproject.category=R
-
-COPY scripts/setup.sh /usr/local/bin/r-mip-docker-setup
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION
 
 ENV R_REPO=https://cran.rstudio.com/ \
     COMPUTE_IN=/data/in \
@@ -14,20 +12,38 @@ ENV R_REPO=https://cran.rstudio.com/ \
     COMPUTE_TMP=/tmp \
     ERROR_FILE=/data/out/errors.txt \
     OUTPUT_FILE=/data/out/output.txt \
+    RESULT_TABLE=job_result \
     SRC=/src
 
+COPY docker/setup.sh /usr/local/bin/r-mip-docker-setup
 RUN /usr/local/bin/r-mip-docker-setup
 
 # Copy our configuration of Nginx
-COPY etc/nginx/ /etc/nginx/
+COPY docker/etc/nginx/ /etc/nginx/
+RUN /usr/sbin/nginx -t
 
 VOLUME /data/in
 VOLUME /data/out
 
-COPY scripts/docker-entrypoint.sh /
-COPY scripts/wrapper.R /src/
+COPY docker/docker-entrypoint.sh /
+COPY docker/wrapper.R /src/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 80
 CMD ["compute"]
+
+LABEL eu.humanbrainproject.version=0.5 \
+      eu.humanbrainproject.category=R \
+      org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.name="hbpmip/java-mip" \
+      org.label-schema.description="Java environment compatible with MIP" \
+      org.label-schema.url="https://github.com/LREN-CHUV/java-base-docker-images" \
+      org.label-schema.vcs-type="git" \
+      org.label-schema.vcs-url="https://github.com/LREN-CHUV/java-base-docker-images.git" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.version="$VERSION" \
+      org.label-schema.vendor="LREN CHUV" \
+      org.label-schema.license="Apache2.0" \
+      org.label-schema.docker.dockerfile="Dockerfile" \
+      org.label-schema.schema-version="1.0"

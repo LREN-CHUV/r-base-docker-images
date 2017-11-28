@@ -33,9 +33,11 @@ chown compute:compute /home/compute
 
 # Ensure we have an up to date package index.
 
-rm -rf /var/lib/apt/lists/* 
+rm -rf /var/lib/apt/lists/*
 
 apt-get update
+
+apt-get install -y dirmngr
 
 # Grab gosu for easy step-down from root
 GOSU_VERSION=1.10
@@ -51,19 +53,15 @@ chmod +x /usr/local/bin/gosu
 apt-get install -y nginx-light
 rm -rf /etc/nginx/*.d
 mkdir -p /etc/nginx/addon.d /etc/nginx/conf.d /etc/nginx/host.d /etc/nginx/nginx.d
+usermod -a -G www-data compute
 
 # Create our standard directories:
 #   /data/in : input data should go there
 #   /data/out : output data should go there
 #   /var/www/html : root for the HTML documentation which can be served when the container is executed in serve mode
 mkdir -p /data/in /data/out /var/www/html/ /src
-chown -R compute:compute /data/in /data/out /var/www/html/ /src
+chown -R compute:compute /data/in /data/out /src
+chown -R root:www-data /var/www/html/
 ln -s -t /var/www/html/ /src
 
-# Install testthat package
-
-install2.r --error testthat
-
-# Cleanup of apt already performed in our install.r scripts
-
-rm -rf /tmp/*
+/usr/local/bin/apt-cleanup.sh

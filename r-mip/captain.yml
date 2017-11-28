@@ -5,13 +5,3 @@ r-base:
     - echo "Preparing r-mip"
   post:
     - echo "Finished r-mip"
-
-r-base-test:
-  build: Dockerfile.test
-  image: hbpmip/r-mip-test
-  pre:
-    - echo "Preparing r-mip-test"
-  post:
-    - echo "Finished r-mip-test"
-  test:
-    - docker run --rm hbpmip/r-mip-test test

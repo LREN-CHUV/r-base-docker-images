@@ -11,11 +11,9 @@ The list of images and their purpose is:
 
 ### hbpmip/r-base
 
-Contains a standard R installation. This image is built from parent image debian:testing.
+Contains a standard R installation. This image is built from parent image ubuntu:17.10.
 
 This image is similar to rocker/r-base but smaller and don't contain r-base-dev package as it brings many heavy dependencies such as gcc which are needed only when installing new packages.
-
-Instead, the scripts install.r, install2.r, installGithub.r have been modified to install on-demand r-base-dev during the installation of a new package.
 
 ### hbpmip/r-mip
 
@@ -25,7 +23,7 @@ This image provides a R environment compatible with MIP. See [r-mip](mip-base/r-
 
 ### hbpmip/r-libs
 
-Contains some standard / usual R packages used in the MIP: 
+Contains some standard / usual R packages used in the MIP:
 
 * plyr
 * jsonlite
@@ -82,4 +80,3 @@ Run ./after-update.sh after updating the code for this repository to keep the su
 Use ./build.sh --all to build all images including the base images (required the first time you work on this project).
 
 Each folder contains a build.sh script use to create the image defined in the same folder.
-

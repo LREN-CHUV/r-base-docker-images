@@ -23,6 +23,11 @@ COPY --from=r-build-env /usr/local/lib/R/site-library/jsonlite/ /usr/local/lib/R
 COPY --from=r-build-env /usr/local/lib/R/site-library/magrittr/ /usr/local/lib/R/site-library/magrittr/
 COPY --from=r-build-env /usr/local/lib/R/site-library/whisker/ /usr/local/lib/R/site-library/whisker/
 COPY --from=r-build-env /usr/local/lib/R/site-library/yaml/ /usr/local/lib/R/site-library/yaml/
+COPY --from=r-build-env /usr/local/lib/R/site-library/crayon/ /usr/local/lib/R/site-library/crayon/
+COPY --from=r-build-env /usr/local/lib/R/site-library/digest/ /usr/local/lib/R/site-library/digest/
+COPY --from=r-build-env /usr/local/lib/R/site-library/praise/ /usr/local/lib/R/site-library/praise/
+COPY --from=r-build-env /usr/local/lib/R/site-library/R6/ /usr/local/lib/R/site-library/R6/
+COPY --from=r-build-env /usr/local/lib/R/site-library/testthat/ /usr/local/lib/R/site-library/testthat/
 
 CMD ["R"]
 
