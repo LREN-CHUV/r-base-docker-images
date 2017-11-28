@@ -1,4 +1,4 @@
-FROM hbpmip/r-base:3.4.2-1
+FROM hbpmip/r-base:3.4.2-2
 
 MAINTAINER Ludovic Claude <ludovic.claude@chuv.ch>
 
