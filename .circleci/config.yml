@@ -1,0 +1,76 @@
+---
+
+version: 2
+jobs:
+  build:
+    working_directory: ~/src
+    docker:
+      - image: hbpmip/docker-compose-for-ci:17.06-1
+    environment:
+       - CIRCLECI: true
+    steps:
+      - setup_remote_docker:
+          version: 17.06.0-ce
+      - checkout
+      - run:
+          name: "Install requirements"
+          command: |
+            docker --version
+            pre-commit install
+      - run:
+          name: "Validate code quality"
+          command: |
+            pre-commit run --all-files
+      - run:
+          name: "Build r-base-build"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./r-base-build/build.sh
+      #- run:
+      #    name: "Test r-base-build"
+      #    command: |
+      #      PATH=$PATH:/$HOME/.captain/bin/ ./r-base-build/test.sh
+      - run:
+          name: "Build r-base"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./r-base/build.sh
+      - run:
+          name: "Test r-base"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./r-base/tests/test.sh
+      - run:
+          name: "Build java-mip"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./java-mip/build.sh
+      - run:
+          name: "Test java-mip"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./java-mip/tests/test.sh
+      - run:
+          name: "Build java-rapidminer"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./java-rapidminer/build.sh
+      - run:
+          name: "Test java-rapidminer"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./java-rapidminer/tests/test.sh
+      - run:
+          name: "Build java-weka"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./java-weka/build.sh
+      - run:
+          name: "Test java-weka"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./java-weka/tests/test.sh
+      - run:
+          name: "Build scala-base-build"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./scala-base-build/build.sh
+      - run:
+          name: "Test scala-base-build"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./scala-base-build/tests/test.sh
+      - run:
+          name: "Build chaos-algorithm"
+          command: |
+            PATH=$PATH:/$HOME/.captain/bin/ ./chaos-algorithm/build.sh
+      # No tests for chaos-algorithm

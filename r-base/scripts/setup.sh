@@ -52,8 +52,6 @@ apt-get install -y --no-install-recommends \
         wget \
         ca-certificates \
         fonts-texgyre \
-        libxml2-dev \
-        libcairo2-dev \
         libpq-dev
 
 # git will be removed later in this script
@@ -97,10 +95,11 @@ export CC
 ## Also set a default CRAN repo, and make sure littler knows about it too
 apt-get update
 apt-get install -y --no-install-recommends \
-        littler \
+        r-cran-littler \
         "r-base-core=${R_BASE_VERSION}-*" \
         "r-base=${R_BASE_VERSION}-*" \
-        "r-recommended=${R_BASE_VERSION}-*"
+        "r-cran-mass" \
+        "r-cran-matrix"
 
 # Ensure that autoremove is not too greedy
 apt-mark manual r-base-core
@@ -109,8 +108,10 @@ echo 'options(repos = c(CRAN = "https://cran.rstudio.com/"), download.file.metho
 echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r
 ln -s /usr/share/doc/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r
 
-# docopt, httr, withr and memoise are used by littler
-# TODO install.r docopt httr withr memoise
+apt-get purge -y build-essential cpp cpp-5 dpkg-dev \
+        g++ g++-5 gcc gcc-5 gfortran gfortran-5 perl-modules fonts-dejavu-core \
+
+apt-get autoremove -y
 
 # Create empty directory to be used as application directory.
 

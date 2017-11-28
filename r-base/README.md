@@ -1,3 +1,4 @@
+[![DockerHub](https://img.shields.io/badge/docker-hbpmip%r--base-008bb8.svg)](https://hub.docker.com/r/hbpmip/r-base/) [![ImageVersion](https://images.microbadger.com/badges/version/hbpmip/r-base.svg)](https://hub.docker.com/r/hbpmip/r-base/tags "hbpmip/r-base image tags") [![ImageLayers](https://images.microbadger.com/badges/image/hbpmip/r-base.svg)](https://microbadger.com/#/images/hbpmip/r-base "hbpmip/r-base on microbadger")
 
 # Base image for R scripts
 

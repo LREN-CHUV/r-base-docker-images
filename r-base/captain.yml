@@ -1,4 +1,4 @@
-r-base:
+target_image:
   build: Dockerfile
   image: hbpmip/r-base
   pre:
