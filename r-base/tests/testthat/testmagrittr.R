@@ -7,6 +7,3 @@ print("Test magrittr...");
 stopifnot(all.equal(4 %>% sqrt(),2))
 
 print("Success!");
-
-
-

@@ -23,4 +23,3 @@ dropterm(house.glm1, test = "Chisq");
 expect_equal(as.numeric(house.glm1$coefficients["TypeAtrium"]), -0.7928468, tolerance = 1e-06);
 
 print("Success!");
-
