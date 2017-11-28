@@ -34,7 +34,7 @@ fi
 # Build
 echo "Build the project..."
 ./build.sh
-#./tests/test.sh
+./tests/test.sh
 echo "[ok] Done"
 
 count=$(git status --porcelain | wc -l)
@@ -47,16 +47,13 @@ fi
 select_part() {
   local choice=$1
   case "$choice" in
-      "Package release")
-          bumpversion package
-          ;;
-      "R Patch release")
+      "Patch release")
           bumpversion patch
           ;;
-      "R Minor release")
+      "Minor release")
           bumpversion minor
           ;;
-      "R Major release")
+      "Major release")
           bumpversion major
           ;;
       *)
@@ -75,7 +72,7 @@ git pull --tags
   echo
   echo 'What do you want to release?'
   PS3='Select the version increment> '
-  options=("Package release" "R Patch release" "R Minor release" "R Major release" "Release with a custom version")
+  options=("Patch release" "Minor release" "Major release" "Release with a custom version")
   select choice in "${options[@]}";
   do
     select_part "$choice"
@@ -94,7 +91,7 @@ updated_version=$(bumpversion --dry-run --list patch | grep current_version | se
 # Build again to update the version
 echo "Build the project for distribution..."
 ./build.sh
-#./tests/test.sh
+./tests/test.sh
 echo "[ok] Done"
 
 git push
