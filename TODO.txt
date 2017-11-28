@@ -7,4 +7,3 @@
   - add build.sh
   - add assemble.sh and S2I builder support
   - use build time args and get the location of the APT proxy from the environment
-

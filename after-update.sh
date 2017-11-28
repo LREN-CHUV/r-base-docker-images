@@ -1,5 +1,3 @@
 #!/bin/sh
 
-git submodule sync
-git submodule update --init
-git submodule foreach git pull origin master
+[ -x /usr/local/bin/pre-commit ] && pre-commit install

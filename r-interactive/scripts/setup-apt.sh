@@ -27,7 +27,7 @@ set -eo pipefail
 
 # Ensure we have an up to date package index.
 
-rm -rf /var/lib/apt/lists/* 
+rm -rf /var/lib/apt/lists/*
 
 # In our environment, attempt to use the APT proxy (apt-cacher)
 ping -c 3 -i 0 -w 2 lab01560.intranet.chuv \
