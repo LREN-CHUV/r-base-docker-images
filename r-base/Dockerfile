@@ -12,8 +12,8 @@ ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
     R_BASE_VERSION=3.4.2
 
-COPY scripts/apt-cleanup.sh /usr/local/bin/apt-cleanup.sh
-COPY scripts/setup.sh /usr/local/bin/r-base-docker-setup
+COPY docker/apt-cleanup.sh /usr/local/bin/apt-cleanup.sh
+COPY docker/setup.sh /usr/local/bin/r-base-docker-setup
 
 RUN /usr/local/bin/r-base-docker-setup
 

@@ -36,11 +36,11 @@ CMD ["compute"]
 LABEL eu.humanbrainproject.version=0.5 \
       eu.humanbrainproject.category=R \
       org.label-schema.build-date=$BUILD_DATE \
-      org.label-schema.name="hbpmip/java-mip" \
-      org.label-schema.description="Java environment compatible with MIP" \
-      org.label-schema.url="https://github.com/LREN-CHUV/java-base-docker-images" \
+      org.label-schema.name="hbpmip/r-base-build" \
+      org.label-schema.description="R build environment" \
+      org.label-schema.url="https://github.com/LREN-CHUV/r-base-docker-images" \
       org.label-schema.vcs-type="git" \
-      org.label-schema.vcs-url="https://github.com/LREN-CHUV/java-base-docker-images.git" \
+      org.label-schema.vcs-url="https://github.com/LREN-CHUV/r-base-docker-images.git" \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.version="$VERSION" \
       org.label-schema.vendor="LREN CHUV" \

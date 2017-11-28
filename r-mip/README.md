@@ -1,3 +1,4 @@
+[![DockerHub](https://img.shields.io/badge/docker-hbpmip%r--mip-008bb8.svg)](https://hub.docker.com/r/hbpmip/r-mip/) [![ImageVersion](https://images.microbadger.com/badges/version/hbpmip/r-mip.svg)](https://hub.docker.com/r/hbpmip/r-mip/tags "hbpmip/r-mip image tags") [![ImageLayers](https://images.microbadger.com/badges/image/hbpmip/r-mip.svg)](https://microbadger.com/#/images/hbpmip/r-mip "hbpmip/r-mip on microbadger")
 
 # Adapt the base R image to the MIP environment
 
