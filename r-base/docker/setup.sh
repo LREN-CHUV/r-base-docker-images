@@ -98,6 +98,7 @@ apt-get install -y --no-install-recommends \
         r-cran-littler \
         "r-base-core=${R_BASE_VERSION}-*" \
         "r-base=${R_BASE_VERSION}-*" \
+        "r-cran-cluster" \
         "r-cran-mass" \
         "r-cran-matrix"
 

@@ -1,5 +1,0 @@
-FROM hbpmip/r-java:latest
-
-MAINTAINER ludovic.claude54@gmail.com
-
-COPY tests/ /src/tests/

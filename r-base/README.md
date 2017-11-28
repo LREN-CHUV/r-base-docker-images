@@ -23,3 +23,19 @@ Dockerfile
   COPY --from=r-build-env /usr/local/lib/R/site-libraries/my_lib/ /usr/local/lib/R/site-libraries/my_lib/
 
 ```
+
+In this Docker image, we install some common R libraries:
+
+* RPostgreSQL
+* jsonlite
+* magrittr
+* whisker
+* yaml
+* crayon
+* digest
+* praise
+* R6
+* testthat
+* MASS
+* Matrix
+* cluster
