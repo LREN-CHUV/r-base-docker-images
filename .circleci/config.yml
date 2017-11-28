@@ -38,39 +38,10 @@ jobs:
           command: |
             PATH=$PATH:/$HOME/.captain/bin/ ./r-base/tests/test.sh
       - run:
-          name: "Build java-mip"
+          name: "Build r-mip"
           command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./java-mip/build.sh
+            PATH=$PATH:/$HOME/.captain/bin/ ./r-mip/build.sh
       - run:
-          name: "Test java-mip"
+          name: "Test r-mip"
           command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./java-mip/tests/test.sh
-      - run:
-          name: "Build java-rapidminer"
-          command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./java-rapidminer/build.sh
-      - run:
-          name: "Test java-rapidminer"
-          command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./java-rapidminer/tests/test.sh
-      - run:
-          name: "Build java-weka"
-          command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./java-weka/build.sh
-      - run:
-          name: "Test java-weka"
-          command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./java-weka/tests/test.sh
-      - run:
-          name: "Build scala-base-build"
-          command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./scala-base-build/build.sh
-      - run:
-          name: "Test scala-base-build"
-          command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./scala-base-build/tests/test.sh
-      - run:
-          name: "Build chaos-algorithm"
-          command: |
-            PATH=$PATH:/$HOME/.captain/bin/ ./chaos-algorithm/build.sh
-      # No tests for chaos-algorithm
+            PATH=$PATH:/$HOME/.captain/bin/ ./r-mip/tests/test.sh
