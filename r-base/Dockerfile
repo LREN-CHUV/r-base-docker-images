@@ -33,7 +33,7 @@ CMD ["R"]
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="hbpmip/r-base-build" \
-      org.label-schema.description="R build environment" \
+      org.label-schema.description="Base R runtime environment" \
       org.label-schema.url="https://github.com/LREN-CHUV/r-base-docker-images" \
       org.label-schema.vcs-type="git" \
       org.label-schema.vcs-url="https://github.com/LREN-CHUV/r-base-docker-images.git" \

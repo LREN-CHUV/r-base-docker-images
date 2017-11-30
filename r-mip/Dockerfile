@@ -1,3 +1,5 @@
+FROM hbpmip/r-base-build:3.4.2-1 as r-build-env
+
 FROM hbpmip/r-base:3.4.2-2
 
 MAINTAINER Ludovic Claude <ludovic.claude@chuv.ch>
@@ -37,7 +39,7 @@ LABEL eu.humanbrainproject.version=0.5 \
       eu.humanbrainproject.category=R \
       org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.name="hbpmip/r-base-build" \
-      org.label-schema.description="R build environment" \
+      org.label-schema.description="R runtime adapted to work in MIP environment" \
       org.label-schema.url="https://github.com/LREN-CHUV/r-base-docker-images" \
       org.label-schema.vcs-type="git" \
       org.label-schema.vcs-url="https://github.com/LREN-CHUV/r-base-docker-images.git" \

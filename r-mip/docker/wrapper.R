@@ -11,6 +11,10 @@ tryCatch({
   },
   error = function(e) {
   	print(e);
+    disconnectdb();
     saveError(error=e);
+    quit(save="no", status=1);
   }
 );
+
+disconnectdb();

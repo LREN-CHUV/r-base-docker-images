@@ -22,6 +22,11 @@ RUN R -e "source('https://bioconductor.org/biocLite.R')" \
     dplyr \
     ggplot2
 
+RUN install2.r --error \
+      --deps TRUE \
+      remotes \
+      devtools
+
 CMD ["R"]
 
 LABEL org.label-schema.build-date=$BUILD_DATE \
