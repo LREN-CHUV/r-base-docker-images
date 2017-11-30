@@ -28,7 +28,7 @@ Dockerfile
 
   RUN install.r my_lib
 
-  FROM hbpmip/r-mip:0.2.0
+  FROM hbpmip/r-mip:0.3.0
 
   COPY --from=r-build-env /usr/local/lib/R/site-libraries/my_lib/ /usr/local/lib/R/site-libraries/my_lib/
 
