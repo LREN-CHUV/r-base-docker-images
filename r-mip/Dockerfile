@@ -1,4 +1,9 @@
-FROM hbpmip/r-base-build:3.4.2-2 as r-build-env
+FROM hbpmip/r-base-build:3.4.2-1 as r-build-env
+
+ENV R_MIP_ADAPTOR_VERSION=0.3.0
+
+RUN curl -L -o r-mip-adaptor.tar.gz https://github.com/HBPMedical/r-mip-adaptor/archive/$R_MIP_ADAPTOR_VERSION.tar.gz
+RUN install.r r-mip-adaptor.tar.gz
 
 FROM hbpmip/r-base:3.4.2-2
 
@@ -29,6 +34,8 @@ VOLUME /data/out
 
 COPY docker/docker-entrypoint.sh /
 COPY docker/wrapper.R /src/
+
+COPY --from=r-build-env /usr/local/lib/R/site-library/rmipadaptor/ /usr/local/lib/R/site-library/rmipadaptor/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

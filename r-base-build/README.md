@@ -24,6 +24,6 @@ Dockerfile
 
   FROM hbpmip/r-base:3.4.2-2
 
-  COPY --from=r-build-env /usr/local/lib/R/site-libraries/my_lib/ /usr/local/lib/R/site-libraries/my_lib/
+  COPY --from=r-build-env /usr/local/lib/R/site-library/my_lib/ /usr/local/lib/R/site-library/my_lib/
 
 ```
