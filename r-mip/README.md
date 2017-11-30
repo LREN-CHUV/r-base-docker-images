@@ -20,7 +20,7 @@ This image provides a R environment compatible with MIP and providing the follow
 
 ## Usage
 
-Use this image as the parent image to adapt a Java-based algorithm to the MIP platform:
+Use this image as the parent image to adapt a R algorithm to the MIP platform:
 
 Dockerfile
 ```dockerfile
@@ -35,13 +35,12 @@ Dockerfile
   MAINTAINER <your email>
 
   ENV DOCKER_IMAGE=hbpmip/my-algo:1.0.0 \
-      JAVA_CLASSPATH=/usr/share/jars/my-algo.jar \
-      JAVA_MAINCLASS=org.myorg.myalgo.Main \
-      JAVA_ARGS=--verbose
+      FUNCTION=my-algo
 
-  COPY --from=build-java-env /project/target/my-algo-jar-with-dependencies.jar /usr/share/jars/my-algo.jar
-  COPY --from=build-java-env /project/target/site/ /var/www/html/
-  COPY src/ /src/
+  COPY --from=r-build-env /usr/local/lib/R/site-library/my_algo/ /usr/local/lib/R/site-library/my_algo/
+  COPY main.R /src/
+  COPY tests/testthat.R /src/tests/
+  COPY tests/testthat/ /src/tests/testthat/
 
   RUN chown -R compute:compute /src/ \
       && chown -R root:www-data /var/www/html/
