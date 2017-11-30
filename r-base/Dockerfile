@@ -1,4 +1,4 @@
-FROM hbpmip/r-base-build:3.4.2-1 as r-build-env
+FROM hbpmip/r-base-build:3.4.2-2 as r-build-env
 
 FROM ubuntu:17.10
 

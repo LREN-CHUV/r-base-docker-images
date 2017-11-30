@@ -24,7 +24,7 @@ Use this image as the parent image to adapt a Java-based algorithm to the MIP pl
 
 Dockerfile
 ```dockerfile
-  FROM hbpmip/r-base-build:3.4.2-1 as r-build-env
+  FROM hbpmip/r-base-build:3.4.2-2 as r-build-env
 
   RUN install.r my_lib
 
