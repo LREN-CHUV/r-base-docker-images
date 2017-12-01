@@ -11,7 +11,7 @@ tryCatch({
   },
   error = function(e) {
   	print(e);
-    disconnectdb();
+    disconnectdbs();
     saveError(error=e);
     quit(save="no", status=1);
   }
