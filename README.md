@@ -81,3 +81,9 @@ Run ./after-update.sh after updating the code for this repository to keep the su
 Use ./build.sh --all to build all images including the base images (required the first time you work on this project).
 
 Each folder contains a build.sh script use to create the image defined in the same folder.
+
+# Acknowledgements
+
+This work has been funded by the European Union Seventh Framework Program (FP7/2007­2013) under grant agreement no. 604102 (HBP)
+
+This work is part of SP8 of the Human Brain Project (SGA1).
